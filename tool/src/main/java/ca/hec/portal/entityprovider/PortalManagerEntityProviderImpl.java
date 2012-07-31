@@ -36,6 +36,11 @@ public class PortalManagerEntityProviderImpl extends AbstractEntityProvider
 	public List<?> getDepartments(EntityView view, Map<String, Object> params) {		
 				return portalManagerService.getDepartments();
 	}
+	
+	@EntityCustomAction(action="getCareers", viewKey=EntityView.VIEW_LIST)
+	public List<?> getCareers(EntityView view, Map<String, Object> params) {		
+				return portalManagerService.getCareers();
+	}
 
 	public String getEntityPrefix() {
 		return ENTITY_PREFIX;

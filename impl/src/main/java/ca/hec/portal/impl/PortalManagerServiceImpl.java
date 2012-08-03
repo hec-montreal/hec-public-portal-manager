@@ -1,7 +1,11 @@
 package ca.hec.portal.impl;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.ResourceBundle;
 import java.util.Set;
 
 import org.sakaiproject.util.ResourceLoader;
@@ -12,12 +16,11 @@ import ca.hec.portal.model.Department;
 
 public class PortalManagerServiceImpl implements PortalManagerService {
 
-    private ResourceLoader msgs = null;
+    private ResourceBundle msgs = null;
     private ResourceLoader listDepartmentsToDisplay = null;
     private ResourceLoader listCareersToDisplay = null;
 
-    public void init() {
-	msgs = new ResourceLoader("portal");
+    public void init() {	
 	listDepartmentsToDisplay = new ResourceLoader("departments");
 	listCareersToDisplay = new ResourceLoader("careers");
     }
@@ -64,5 +67,16 @@ public class PortalManagerServiceImpl implements PortalManagerService {
 	else{
 	    return career;
 	}
+    }
+    
+    public Map<String, String> getBundle(String locale) {
+	Map<String, String> msgsBundle = new HashMap<String, String>();
+	msgs = ResourceBundle.getBundle("portal", new Locale(locale));
+	
+	for (String key : msgs.keySet()) {
+	    msgsBundle.put((String) key, (String) msgs.getString(key));
+	}
+
+	return msgsBundle;
     }
 }

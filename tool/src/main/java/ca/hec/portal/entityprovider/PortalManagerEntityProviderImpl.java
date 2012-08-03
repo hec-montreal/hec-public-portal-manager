@@ -19,44 +19,49 @@ import org.sakaiproject.entitybroker.util.AbstractEntityProvider;
 
 import ca.hec.portal.api.PortalManagerService;
 
-public class PortalManagerEntityProviderImpl extends AbstractEntityProvider 
-	implements CoreEntityProvider, AutoRegisterEntityProvider, Resolvable, Sampleable, Outputable, ActionsExecutable {
+public class PortalManagerEntityProviderImpl extends AbstractEntityProvider
+	implements CoreEntityProvider, AutoRegisterEntityProvider, Resolvable,
+	Sampleable, Outputable, ActionsExecutable {
 
-	public final static String ENTITY_PREFIX = "portalManager";
-	
-	
-	@Setter 
-	private PortalManagerService portalManagerService;
+    public final static String ENTITY_PREFIX = "portalManager";
 
-	public String[] getHandledOutputFormats() {
-		return new String[] { Formats.JSON };
-	}
+    @Setter
+    private PortalManagerService portalManagerService;
 
-	@EntityCustomAction(action="getDepartments", viewKey=EntityView.VIEW_LIST)
-	public List<?> getDepartments(EntityView view, Map<String, Object> params) {		
-				return portalManagerService.getDepartments();
-	}
-	
-	@EntityCustomAction(action="getCareers", viewKey=EntityView.VIEW_LIST)
-	public List<?> getCareers(EntityView view, Map<String, Object> params) {		
-				return portalManagerService.getCareers();
-	}
+    public String[] getHandledOutputFormats() {
+	return new String[] { Formats.JSON };
+    }
 
-	public String getEntityPrefix() {
-		return ENTITY_PREFIX;
-	    }
+    @EntityCustomAction(action = "getDepartments", viewKey = EntityView.VIEW_LIST)
+    public List<?> getDepartments(EntityView view, Map<String, Object> params) {
+	return portalManagerService.getDepartments();
+    }
 
-	public Object getSampleEntity() {
-	    return null;
-	}
+    @EntityCustomAction(action = "getCareers", viewKey = EntityView.VIEW_LIST)
+    public List<?> getCareers(EntityView view, Map<String, Object> params) {
+	return portalManagerService.getCareers();
+    }
 
-	public Object getEntity(EntityReference ref) {
-	    return null;
-	}
+    @EntityCustomAction(action = "getBundles", viewKey = EntityView.VIEW_LIST)
+    public Map<?, ?> getBundles(EntityView view, Map<String, Object> params) {
+	String locale = view.getPathSegment(2);
+	return portalManagerService.getBundle(locale);
+    }
 
-	public boolean entityExists(String id) {
-	    return false;
-	}
+    public String getEntityPrefix() {
+	return ENTITY_PREFIX;
+    }
 
-	
+    public Object getSampleEntity() {
+	return null;
+    }
+
+    public Object getEntity(EntityReference ref) {
+	return null;
+    }
+
+    public boolean entityExists(String id) {
+	return false;
+    }
+
 }

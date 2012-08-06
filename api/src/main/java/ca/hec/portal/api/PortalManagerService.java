@@ -16,9 +16,9 @@ public interface PortalManagerService // extends EntityProducer
 
     public List<Career> getCareers();
     
-    public String getDescriptionDepartment(String department);
+    public String getDepartmentDescription(String department);
     
-    public String getDescriptionCareer(String career);
+    public String getCareerDescription(String career);
     
     public Map<String, String> getBundle(String locale);
 }

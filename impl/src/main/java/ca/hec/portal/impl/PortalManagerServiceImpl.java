@@ -49,7 +49,7 @@ public class PortalManagerServiceImpl implements PortalManagerService {
 	return listCareer;
     }
 
-    public String getDescriptionDepartment(String department) {
+    public String getDepartmentDescription(String department) {
 	String description =  listDepartmentsToDisplay.getString(department);
 	if (description != null ){
 	    return description;
@@ -59,7 +59,7 @@ public class PortalManagerServiceImpl implements PortalManagerService {
 	}
     }
 
-    public String getDescriptionCareer(String career) {
+    public String getCareerDescription(String career) {
 	String description =  listCareersToDisplay.getString(career);
 	if (description != null ){
 	    return description;

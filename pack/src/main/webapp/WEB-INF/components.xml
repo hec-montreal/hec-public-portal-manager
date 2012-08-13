@@ -4,4 +4,10 @@
 <beans>
 	<!-- import the hibernate related beans -->
 	<import resource="spring-hibernate.xml" />
+
+	<!--  SakaiProxy -->
+ 	<bean id="ca.hec.portal.logic.SakaiProxy" class="ca.hec.portal.logic.SakaiProxyImpl" init-method="init">
+		<property name="siteService" ref="org.sakaiproject.site.api.SiteService" />
+		<property name="osylSiteService" ref="org.sakaiquebec.opensyllabus.common.api.OsylSiteService" />
+ 	</bean>  	
 </beans>

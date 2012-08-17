@@ -2,10 +2,10 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>ca.hec.portal</groupId>
-	<artifactId>portal-manager</artifactId>
+	<artifactId>hec-public-portal-manager</artifactId>
 	<version>1.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
-	<name>portal-manager</name>
+	<name>hec-public-portal-manager</name>
 	<description>Archetype to generate a project with sakai and spring</description>
 
 	<parent>
@@ -20,14 +20,14 @@
 			<!-- project dependencies -->
 			<dependency>
 				<groupId>ca.hec.portal</groupId>
-				<artifactId>portal-manager-api</artifactId>
+				<artifactId>hec-public-portal-manager-api</artifactId>
 				<version>1.0-SNAPSHOT</version>
 				<scope>provided</scope>
 			</dependency>
 
 			<dependency>
 				<groupId>ca.hec.portal</groupId>
-				<artifactId>portal-manager-impl</artifactId>
+				<artifactId>hec-public-portal-manager-impl</artifactId>
 				<version>1.0-SNAPSHOT</version>
 				<scope>runtime</scope>
 			</dependency>

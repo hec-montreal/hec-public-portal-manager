@@ -3,13 +3,13 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<artifactId>portal-manager</artifactId>
+		<artifactId>hec-public-portal-manager</artifactId>
 		<groupId>ca.hec.portal</groupId>
 		<version>1.0-SNAPSHOT</version>
 	</parent>
 	<groupId>ca.hec.portal</groupId>
-	<artifactId>portal-manager-pack</artifactId>
-  <name>portal-manager-pack</name>
+	<artifactId>hec-public-portal-manager-pack</artifactId>
+  <name>hec-public-portal-manager-pack</name>
 
 	<packaging>sakai-component</packaging>
 
@@ -21,7 +21,7 @@
 		<!-- internal dependencies -->
 		<dependency>
 			<groupId>ca.hec.portal</groupId>
-			<artifactId>portal-manager-impl</artifactId>
+			<artifactId>hec-public-portal-manager-impl</artifactId>
 			<version>1.0-SNAPSHOT</version>
 		</dependency>
 	</dependencies>

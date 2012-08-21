@@ -1,5 +1,6 @@
 package ca.hec.portal.entityprovider;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -55,17 +56,31 @@ public class PortalManagerEntityProviderImpl extends AbstractEntityProvider
 	return portalManagerService.getBundle(locale);
     }
 
-    @EntityCustomAction(action = "specific-course", viewKey = EntityView.VIEW_SHOW)
-    public Object getSpecificCourse(EntityView view) {
+    @EntityCustomAction(action = "public_syllabus_info", viewKey = EntityView.VIEW_SHOW)
+    public Object getPublicSyllabus(EntityView view) {
 	String courseId = view.getPathSegment(1);
 
 	// check that courseid is supplied
 	if (StringUtils.isBlank(courseId)) {
 	    throw new IllegalArgumentException(
-		    "CourseId must be set in order to get specific course via the URL /portalManager/getSpecificCourse/:ID:");
+		    "CourseId must be set in order to get specific course via the URL /portalManager/:ID:/public_syllabus_info");
 	}
 
-	return sakaiProxy.getSpecificCourse(courseId);
+	Map<String, String> courseInfo = new HashMap<String, String>();
+	String site_id = sakaiProxy.getAssociatedCourseSiteTitle(courseId);
+	String pdf_url = "";
+	// if there is only one '.' it is a shareable course site
+	Boolean	shareable = (site_id.indexOf('.') == site_id.lastIndexOf('.'));
+
+	if (site_id != "") {
+	    pdf_url = "/sdata/c/attachment/" + site_id + "/OpenSyllabus/" + 
+		    site_id + (shareable ? ".00" : "") + "_public.pdf";
+	}
+	
+	courseInfo.put("site_id", site_id);	
+	courseInfo.put("pdf_url", pdf_url);
+	
+	return courseInfo;
     }
 
     public String getEntityPrefix() {

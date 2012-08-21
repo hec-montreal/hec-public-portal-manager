@@ -9,11 +9,11 @@ package ca.hec.portal.logic;
 public interface SakaiProxy {
 	
 	/**
-	 * Gets the specific course site title associated to the given catalog description. (Same course id, from a 
+	 * Gets the title of the course site associated to the given catalog description. (Same course id, from a 
 	 * session that has been completed, and with a published OpenSyllabus course outline)
 	 *
-	 * @param courseId	the course id of the catalog description
+	 * @param catalogDescriptionId	the id of the catalog description
 	 * @return the title of the most recently created course offering (that has been published)
 	 */
-	public String getSpecificCourse(String courseId);
+	public String getAssociatedCourseSiteTitle(String courseId);
 }

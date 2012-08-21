@@ -42,7 +42,7 @@ public class SakaiProxyImpl implements SakaiProxy {
     /**
      * {@inheritDoc}
      */
-    public String getSpecificCourse(String courseId) {
+    public String getAssociatedCourseSiteTitle(String courseId) {
 	Date today = new Date();
 	
 	List<AcademicSession> sessions = cmService.getAcademicSessions();
@@ -52,7 +52,7 @@ public class SakaiProxyImpl implements SakaiProxy {
 
 	// get all academic sessions, and add their formatted names to the list
 	for (AcademicSession session : sessions) {
-	    String sessionName = getSessionName(session);
+	    String sessionName = osylSiteService.getSessionName(session);
 	    
 	    // if the session is completed and not yet in the list, add it
 	    if (session.getEndDate().before(today) && !sessions.contains(sessionName)) {
@@ -76,23 +76,6 @@ public class SakaiProxyImpl implements SakaiProxy {
 	return "";
     }
 
-    private String getSessionName(AcademicSession session) {
-	String sessionName = null;
-	String sessionId = session.getEid();
-	Date startDate = session.getStartDate();
-	String year = startDate.toString().substring(0, 4);
-
-	if ((sessionId.charAt(3)) == '1')
-	    sessionName = OsylSiteService.WINTER + year;
-	if ((sessionId.charAt(3)) == '2')
-	    sessionName = OsylSiteService.SUMMER + year;
-	if ((sessionId.charAt(3)) == '3')
-	    sessionName = OsylSiteService.FALL + year;
-
-	return sessionName;
-    }
-
-    
     /**
      * init - perform any actions required here for when this bean starts up
      */

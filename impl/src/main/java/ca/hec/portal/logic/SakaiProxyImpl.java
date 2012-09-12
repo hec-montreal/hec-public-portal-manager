@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import lombok.Setter;
@@ -16,6 +17,16 @@ import org.sakaiproject.site.api.Site;
 import org.sakaiproject.site.api.SiteService;
 
 import org.sakaiquebec.opensyllabus.common.api.OsylSiteService;
+import org.sakaiquebec.opensyllabus.common.model.COModeledServer;
+import org.sakaiquebec.opensyllabus.shared.model.COContent;
+import org.sakaiquebec.opensyllabus.shared.model.COElementAbstract;
+import org.sakaiquebec.opensyllabus.shared.model.COModelInterface;
+import org.sakaiquebec.opensyllabus.shared.model.COSerialized;
+import org.sakaiquebec.opensyllabus.shared.model.COStructureElement;
+import org.sakaiquebec.opensyllabus.shared.model.COUnit;
+import org.sakaiquebec.opensyllabus.shared.model.COUnitStructure;
+
+import ca.hec.portal.model.SimpleCourseOutline;
 
 /**
  * Implementation of {@link SakaiProxy}
@@ -74,6 +85,91 @@ public class SakaiProxyImpl implements SakaiProxy {
 	}
 		
 	return "";
+    }
+    
+    public SimpleCourseOutline getCourseOutlineContent(String siteId) {
+	SimpleCourseOutline courseOutline = new SimpleCourseOutline();
+	
+	COSerialized coSerialized;
+	COContent coContent = null;
+	
+	try {
+	    // TODO this has to change (get the right CO
+	    coSerialized = osylSiteService.getAllCO().get(0);//osylSiteService.getSerializedCourseOutline(siteId, "http://localhost:8080/osyl-editor-sakai-tool/");
+	    COModeledServer coModeledServer =
+		    new COModeledServer(coSerialized);
+	    coModeledServer.XML2Model();
+	    coContent = coModeledServer.getModeledContent();
+	    
+	} catch (Exception e) {
+	    e.printStackTrace();
+	}
+	
+	// displaying all branches
+	List<COElementAbstract> children = null;
+//	if (coContent.isCourseOutlineContent()
+//		|| coContent.isCOStructureElement()
+//		|| coContent.isCOUnitStructure() 
+//		|| coContent.isCOUnit()) {
+	    children = coContent.getChildrens();
+//	} else {
+//	    return;
+//	}
+
+	Iterator<COElementAbstract> iter = children.iterator();
+	while (iter.hasNext()) {
+	    // this can be a Lecture leaf
+	    COElementAbstract itemModel = (COElementAbstract) iter.next();
+	    // Compute the maximum tree width
+
+	    if (itemModel.isCOStructureElement()) {
+//		List<COModelInterface> subModels =
+//			getController().getOsylConfig().getOsylConfigRuler()
+//				.getAllowedSubModels(itemModel);
+//		if (itemModel.getChildrens().size() == 1 && subModels.isEmpty()) {
+//		    COElementAbstract childOfAsmStruct =
+//			    (COElementAbstract) itemModel.getChildrens().get(0);
+//		    if (childOfAsmStruct.isCOUnit()) {
+//			addUnitTreeItem(currentTreeItem,
+//				(COUnit) childOfAsmStruct);
+//			((COUnit) childOfAsmStruct).addEventHandler(this);
+//		    } else if (childOfAsmStruct.isCOStructureElement()) {
+//			addStructTreeItem(currentTreeItem,
+//				(COStructureElement) childOfAsmStruct);
+//			((COStructureElement) childOfAsmStruct)
+//				.addEventHandler(this);
+//		    }
+//		    refreshSubModelsViews(childOfAsmStruct);
+
+//		} else {
+//		    addStructTreeItem(currentTreeItem,
+//			    (COStructureElement) itemModel);
+//		    ((COStructureElement) itemModel).addEventHandler(this);
+//		    if (!itemModel.getChildrens().isEmpty())
+//			refreshSubModelsViews(itemModel);
+//		}
+	    } else if (itemModel.isCOUnitStructure()) {
+//		if (currentModel.getChildrens().size() > 1) {
+//		    addUnitStructureTreeItem(currentTreeItem,
+//			    (COUnitStructure) itemModel);
+//		    refreshSubModelsViews(itemModel);
+//		}
+	    } else if (itemModel.isCOUnit()) {
+//		addUnitTreeItem(currentTreeItem, (COUnit) itemModel);
+//		((COUnit) itemModel).addEventHandler(this);
+//		refreshSubModelsViews(itemModel);
+	    } else {
+//		break;
+	    }
+
+	    courseOutline.getTitles().add(((COUnit)itemModel.getChildrens().get(0)).getLabel());
+	}
+
+//	courseOutline.getTitles().add("Presentation du course");
+//	courseOutline.getTitles().add("coordonnees");
+//	courseOutline.getTitles().add("materiel pedagogique");
+	
+	return courseOutline;
     }
 
     /**

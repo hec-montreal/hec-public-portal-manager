@@ -1,5 +1,7 @@
 package ca.hec.portal.logic;
 
+import ca.hec.portal.model.SimpleCourseOutline;
+
 /**
  * An interface to abstract all Sakai related API calls in a central method that can be injected into our app.
  * 
@@ -16,4 +18,6 @@ public interface SakaiProxy {
 	 * @return the title of the most recently created course offering (that has been published)
 	 */
 	public String getAssociatedCourseSiteTitle(String courseId);
+
+	public SimpleCourseOutline getCourseOutlineContent(String siteId);
 }

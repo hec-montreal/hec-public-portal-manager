@@ -20,5 +20,40 @@
  ******************************************************************************/
 package ca.hec.portal.model;
 
-public class Department extends Item{
+import java.util.ArrayList;
+import java.util.List;
+
+import lombok.Data;
+
+/**
+ *
+ * @author <a href="mailto:mathieu.cantin@hec.ca">Mathieu Cantin</a>
+ * @version $Id: $
+ */
+@Data
+public class ItemFactory {
+    
+    private List<Item> listItem;
+    
+    public ItemFactory(){
+	listItem = new ArrayList<Item>();
+    }
+    
+    /**
+     * Get the first Item that have the folowing description
+     */
+    public Item getItemByDescription(String description){
+	for (Item it : listItem){
+	    if (description.equals(it.getDescription())){
+		return it;
+	    }
+	}
+	return null;
+    }
+
+    public void add(Item it) {
+	listItem.add(it);
+    }
+
 }
+

@@ -20,5 +20,28 @@
  ******************************************************************************/
 package ca.hec.portal.model;
 
-public class Department extends Item{
+import java.util.HashSet;
+import java.util.Set;
+
+import lombok.Data;
+
+/**
+ *
+ * class that factorize properties/function shared by Career or Department
+ */
+@Data
+public class Item {
+    private Set<String> listId;
+    private String description;
+    
+    public Item(){
+	listId = new HashSet<String>();
+       }
+       
+    
+    public void addId(String id) {
+	listId.add(id);
+    }
+    
 }
+

@@ -13,6 +13,8 @@ import org.sakaiproject.util.ResourceLoader;
 import ca.hec.portal.api.PortalManagerService;
 import ca.hec.portal.model.Career;
 import ca.hec.portal.model.Department;
+import ca.hec.portal.model.Item;
+import ca.hec.portal.model.ItemFactory;
 
 public class PortalManagerServiceImpl implements PortalManagerService {
 
@@ -25,28 +27,50 @@ public class PortalManagerServiceImpl implements PortalManagerService {
 	listCareersToDisplay = new ResourceLoader("careers");
     }
 
-    public List<Department> getDepartments() {
-	List<Department> listDpt = new ArrayList<Department>();
-	for (String departmentKey : (Set<String>) listDepartmentsToDisplay
-		.keySet()) {
-	    Department dp = new Department();
-	    dp.setId(departmentKey);
-	    dp.setDescription(listDepartmentsToDisplay.getString(departmentKey));
-	    listDpt.add(dp);
+    
+    /**
+     * * Return the departments/careers that need to be displayed in HEC public portal
+     * @param  itemsType: department/career
+     */
+    public List<Item> getItems(String itemsType) {
+	ItemFactory listDpt = new ItemFactory();
+	Item dpTemp = null;
+	ResourceLoader listItemsToDisplay = null;
+	
+	if ("career".equals(itemsType)){
+	    listItemsToDisplay = listCareersToDisplay;
 	}
-	return listDpt;
+	else{
+	    listItemsToDisplay = listDepartmentsToDisplay;
+	}
+	
+	for (String itemKey : (Set<String>) listItemsToDisplay
+		.keySet()) {
+	    String description = listItemsToDisplay.getString(itemKey);
+	    dpTemp = listDpt.getItemByDescription(description);
+	    
+	    //if dp != null it means that we already have a department associated with this description, so we will update this department instead of creating a new one
+	    if (dpTemp != null){
+		dpTemp.addId(itemKey);
+	    }
+	    else{
+		Item dp = new Item();
+		dp.addId(itemKey);
+		dp.setDescription(listItemsToDisplay.getString(itemKey));
+		listDpt.add(dp);
+	    }
+	    
+	    
+	}
+	return listDpt.getListItem();
     }
     
-    public List<Career> getCareers() {
-	List<Career> listCareer = new ArrayList<Career>();
-	for (String careerKey : (Set<String>) listCareersToDisplay
-		.keySet()) {
-	    Career career = new Career();
-	    career.setId(careerKey);
-	    career.setDescription(listCareersToDisplay.getString(careerKey));
-	    listCareer.add(career);
-	}
-	return listCareer;
+    public List<Item> getDepartments() {
+	return getItems("department");
+    }
+    
+    public List<Item> getCareers() {
+	return getItems("career");
     }
 
     public String getDepartmentDescription(String department) {

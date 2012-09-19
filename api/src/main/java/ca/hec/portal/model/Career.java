@@ -20,16 +20,6 @@
  ******************************************************************************/
 package ca.hec.portal.model;
 
-import lombok.Data;
-
-/**
- *
- * @author <a href="mailto:mathieu.cantin@hec.ca">Mathieu Cantin</a>
- * @version $Id: $
- */
-@Data
-public class Career {
-    private String id;
-    private String description;
+public class Career extends Item{
 }
 

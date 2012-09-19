@@ -3,8 +3,7 @@ package ca.hec.portal.api;
 import java.util.List;
 import java.util.Map;
 
-import ca.hec.portal.model.Career;
-import ca.hec.portal.model.Department;
+import ca.hec.portal.model.Item;
 
 //import org.sakaiproject.entity.api.EntityProducer;
 
@@ -12,9 +11,9 @@ public interface PortalManagerService // extends EntityProducer
 {
     public void init();
 
-    public List<Department> getDepartments();
+    public List<Item> getDepartments();
 
-    public List<Career> getCareers();
+    public List<Item> getCareers();
     
     public String getDepartmentDescription(String department);
     

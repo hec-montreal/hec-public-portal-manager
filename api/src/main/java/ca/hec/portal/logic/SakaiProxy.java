@@ -19,5 +19,5 @@ public interface SakaiProxy {
 	 */
 	public String getAssociatedCourseSiteTitle(String courseId);
 
-	public SimpleCourseOutline getCourseOutlineContent(String siteId);
+	public String getCourseOutlineContent(String siteId);
 }

@@ -1,22 +1,42 @@
 package ca.hec.portal.logic;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.transform.Source;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.URIResolver;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamSource;
 
 import lombok.Setter;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.sakaiproject.component.cover.ServerConfigurationService;
 import org.sakaiproject.coursemanagement.api.AcademicSession;
 import org.sakaiproject.coursemanagement.api.CourseManagementService;
 import org.sakaiproject.site.api.Site;
 import org.sakaiproject.site.api.SiteService;
 
 import org.sakaiquebec.opensyllabus.common.api.OsylSiteService;
+import org.sakaiquebec.opensyllabus.common.api.portal.publish3.ZCPublisherService;
+import org.sakaiquebec.opensyllabus.common.impl.portal.javazonecours.Publication;
 import org.sakaiquebec.opensyllabus.common.model.COModeledServer;
 import org.sakaiquebec.opensyllabus.shared.model.COContent;
 import org.sakaiquebec.opensyllabus.shared.model.COElementAbstract;
@@ -25,6 +45,7 @@ import org.sakaiquebec.opensyllabus.shared.model.COSerialized;
 import org.sakaiquebec.opensyllabus.shared.model.COStructureElement;
 import org.sakaiquebec.opensyllabus.shared.model.COUnit;
 import org.sakaiquebec.opensyllabus.shared.model.COUnitStructure;
+import org.w3c.dom.Document;
 
 import ca.hec.portal.model.SimpleCourseOutline;
 
@@ -39,6 +60,9 @@ public class SakaiProxyImpl implements SakaiProxy {
 
     @Setter
     private OsylSiteService osylSiteService;
+    
+    @Setter
+    private ZCPublisherService zcPublisherService;
     
     @Setter 
     private CourseManagementService cmService;
@@ -87,89 +111,66 @@ public class SakaiProxyImpl implements SakaiProxy {
 	return "";
     }
     
-    public SimpleCourseOutline getCourseOutlineContent(String siteId) {
-	SimpleCourseOutline courseOutline = new SimpleCourseOutline();
+	class MyResolver implements URIResolver {
+		String fullPath;
+
+		public MyResolver(String path) {
+			this.fullPath = path;
+		}
+
+		public Source resolve(String href, String base) {
+			StringBuffer path = new StringBuffer(this.fullPath);
+			path.append(File.separator);
+			path.append(href);
+			File file = new File(path.toString());
+			if (file.exists())
+				return new StreamSource(file);
+			return null;
+		}
+	}
 	
+    public String getCourseOutlineContent(String siteId) {
+	
+	String xsltDirName = ServerConfigurationService
+		.getString("osyl.to.zc.file.directory")
+		+ "/xml2html/";
+	
+
 	COSerialized coSerialized;
-	COContent coContent = null;
+	java.io.StringWriter writer = null;
+	javax.xml.transform.Result resultXml = null;
+	java.io.StringReader reader = null;
+	javax.xml.transform.Source source = null;
 	
 	try {
-	    // TODO this has to change (get the right CO
+	    // Get the Course Outline in the correct format 
+	    // TODO this has to change (get the right CO)
 	    coSerialized = osylSiteService.getAllCO().get(0);//osylSiteService.getSerializedCourseOutline(siteId, "http://localhost:8080/osyl-editor-sakai-tool/");
-	    COModeledServer coModeledServer =
-		    new COModeledServer(coSerialized);
-	    coModeledServer.XML2Model();
-	    coContent = coModeledServer.getModeledContent();
 	    
+	    // Create the XSLT Transformer
+	    TransformerFactory factory = TransformerFactory.newInstance();
+	    factory.setURIResolver(new MyResolver(xsltDirName));
+	    Transformer transformer = factory.newTransformer(
+		    new javax.xml.transform.stream.StreamSource(xsltDirName + "10.xsl"));
+	 
+
+	    writer = new java.io.StringWriter();
+	    resultXml = new javax.xml.transform.stream.StreamResult(writer);
+	    
+	    reader = new java.io.StringReader(coSerialized.getContent());
+	    source = new javax.xml.transform.stream.StreamSource(reader);
+
+	    transformer.transform(source, resultXml);
+	    
+	} catch (TransformerConfigurationException tce) {
+	    tce.printStackTrace();
+	} catch (TransformerException te) {
+	    te.printStackTrace();		    
 	} catch (Exception e) {
 	    e.printStackTrace();
 	}
-	
-	// displaying all branches
-	List<COElementAbstract> children = null;
-//	if (coContent.isCourseOutlineContent()
-//		|| coContent.isCOStructureElement()
-//		|| coContent.isCOUnitStructure() 
-//		|| coContent.isCOUnit()) {
-	    children = coContent.getChildrens();
-//	} else {
-//	    return;
-//	}
 
-	Iterator<COElementAbstract> iter = children.iterator();
-	while (iter.hasNext()) {
-	    // this can be a Lecture leaf
-	    COElementAbstract itemModel = (COElementAbstract) iter.next();
-	    // Compute the maximum tree width
-
-	    if (itemModel.isCOStructureElement()) {
-//		List<COModelInterface> subModels =
-//			getController().getOsylConfig().getOsylConfigRuler()
-//				.getAllowedSubModels(itemModel);
-//		if (itemModel.getChildrens().size() == 1 && subModels.isEmpty()) {
-//		    COElementAbstract childOfAsmStruct =
-//			    (COElementAbstract) itemModel.getChildrens().get(0);
-//		    if (childOfAsmStruct.isCOUnit()) {
-//			addUnitTreeItem(currentTreeItem,
-//				(COUnit) childOfAsmStruct);
-//			((COUnit) childOfAsmStruct).addEventHandler(this);
-//		    } else if (childOfAsmStruct.isCOStructureElement()) {
-//			addStructTreeItem(currentTreeItem,
-//				(COStructureElement) childOfAsmStruct);
-//			((COStructureElement) childOfAsmStruct)
-//				.addEventHandler(this);
-//		    }
-//		    refreshSubModelsViews(childOfAsmStruct);
-
-//		} else {
-//		    addStructTreeItem(currentTreeItem,
-//			    (COStructureElement) itemModel);
-//		    ((COStructureElement) itemModel).addEventHandler(this);
-//		    if (!itemModel.getChildrens().isEmpty())
-//			refreshSubModelsViews(itemModel);
-//		}
-	    } else if (itemModel.isCOUnitStructure()) {
-//		if (currentModel.getChildrens().size() > 1) {
-//		    addUnitStructureTreeItem(currentTreeItem,
-//			    (COUnitStructure) itemModel);
-//		    refreshSubModelsViews(itemModel);
-//		}
-	    } else if (itemModel.isCOUnit()) {
-//		addUnitTreeItem(currentTreeItem, (COUnit) itemModel);
-//		((COUnit) itemModel).addEventHandler(this);
-//		refreshSubModelsViews(itemModel);
-	    } else {
-//		break;
-	    }
-
-	    courseOutline.getTitles().add(((COUnit)itemModel.getChildrens().get(0)).getLabel());
-	}
-
-//	courseOutline.getTitles().add("Presentation du course");
-//	courseOutline.getTitles().add("coordonnees");
-//	courseOutline.getTitles().add("materiel pedagogique");
-	
-	return courseOutline;
+	return writer.toString();
     }
 
     /**

@@ -37,7 +37,7 @@ public class PortalManagerEntityProviderImpl extends AbstractEntityProvider
     private SakaiProxy sakaiProxy;
 
     public String[] getHandledOutputFormats() {
-	return new String[] { Formats.JSON, "pdf" };
+	return new String[] { Formats.JSON, Formats.HTML };
     }
 
     @EntityCustomAction(action = "getDepartments", viewKey = EntityView.VIEW_LIST)
@@ -67,25 +67,28 @@ public class PortalManagerEntityProviderImpl extends AbstractEntityProvider
 		    "CourseId must be set in order to get specific course via the URL /portalManager/:ID:/public_syllabus_info");
 	}
 
-	Map<String, String> courseInfo = new HashMap<String, String>();
 	String site_id = sakaiProxy.getAssociatedCourseSiteTitle(courseId);
-	String pdf_url = "";
 
-	// if there is only one '.' it is a shareable course site
-	Boolean	shareable = (site_id.indexOf('.') == site_id.lastIndexOf('.'));
-	if (site_id != "") {
-	    pdf_url = "/sdata/c/attachment/" + site_id + "/OpenSyllabus/" + 
-		    site_id + (shareable ? ".00" : "") + "_public.pdf";
-	}
-	
-	courseInfo.put("site_id", site_id);	
-	courseInfo.put("pdf_url", pdf_url);
-
-//	if (view.getExtension().equals(Formats.JSON)) {
+	if (view.getFormat().equals(Formats.HTML)) {
 	    return sakaiProxy.getCourseOutlineContent(site_id);
-//	}
-//	else
-//	    return courseInfo;
+	}
+	else if (view.getFormat().equals(Formats.JSON)){
+	    Map<String, String> courseInfo = new HashMap<String, String>();
+	    String pdf_url = "";
+
+	    // if there is only one '.' it is a shareable course site
+	    Boolean shareable = (site_id.indexOf('.') == site_id.lastIndexOf('.'));
+	    if (site_id != "") {
+		pdf_url = "/sdata/c/attachment/" + site_id + "/OpenSyllabus/" + 
+			site_id + (shareable ? ".00" : "") + "_public.pdf";
+	    }
+		
+	    courseInfo.put("site_id", site_id);	
+	    courseInfo.put("pdf_url", pdf_url);
+
+	    return courseInfo;
+	}
+	else return null;
     }
 
     public String getEntityPrefix() {

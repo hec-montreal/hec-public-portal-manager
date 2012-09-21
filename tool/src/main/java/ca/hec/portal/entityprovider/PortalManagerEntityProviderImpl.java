@@ -37,7 +37,7 @@ public class PortalManagerEntityProviderImpl extends AbstractEntityProvider
     private SakaiProxy sakaiProxy;
 
     public String[] getHandledOutputFormats() {
-	return new String[] { Formats.JSON, Formats.HTML };
+	return new String[] { Formats.JSON, Formats.HTML, Formats.XML };
     }
 
     @EntityCustomAction(action = "getDepartments", viewKey = EntityView.VIEW_LIST)
@@ -70,6 +70,10 @@ public class PortalManagerEntityProviderImpl extends AbstractEntityProvider
 	String site_id = sakaiProxy.getAssociatedCourseSiteTitle(courseId);
 
 	if (view.getFormat().equals(Formats.HTML)) {
+	    return "html";
+//	    return sakaiProxy.getCourseOutlineContent(site_id);
+	}
+	else if (view.getFormat().equals(Formats.XML)) {
 	    return sakaiProxy.getCourseOutlineContent(site_id);
 	}
 	else if (view.getFormat().equals(Formats.JSON)){

@@ -1,27 +1,21 @@
 package ca.hec.portal.logic;
 
 import java.io.File;
-import java.io.FileWriter;
+import java.io.StringReader;
 import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Hashtable;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.transform.Result;
 import javax.xml.transform.Source;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.URIResolver;
-import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
 import lombok.Setter;
@@ -35,19 +29,7 @@ import org.sakaiproject.site.api.Site;
 import org.sakaiproject.site.api.SiteService;
 
 import org.sakaiquebec.opensyllabus.common.api.OsylSiteService;
-import org.sakaiquebec.opensyllabus.common.api.portal.publish3.ZCPublisherService;
-import org.sakaiquebec.opensyllabus.common.impl.portal.javazonecours.Publication;
-import org.sakaiquebec.opensyllabus.common.model.COModeledServer;
-import org.sakaiquebec.opensyllabus.shared.model.COContent;
-import org.sakaiquebec.opensyllabus.shared.model.COElementAbstract;
-import org.sakaiquebec.opensyllabus.shared.model.COModelInterface;
 import org.sakaiquebec.opensyllabus.shared.model.COSerialized;
-import org.sakaiquebec.opensyllabus.shared.model.COStructureElement;
-import org.sakaiquebec.opensyllabus.shared.model.COUnit;
-import org.sakaiquebec.opensyllabus.shared.model.COUnitStructure;
-import org.w3c.dom.Document;
-
-import ca.hec.portal.model.SimpleCourseOutline;
 
 /**
  * Implementation of {@link SakaiProxy}
@@ -55,18 +37,12 @@ import ca.hec.portal.model.SimpleCourseOutline;
 public class SakaiProxyImpl implements SakaiProxy {
     private static Log log = LogFactory.getLog(SakaiProxyImpl.class);
 
-    @Setter
-    private SiteService siteService;
-
-    @Setter
-    private OsylSiteService osylSiteService;
+    @Setter private SiteService siteService;
+    @Setter private OsylSiteService osylSiteService;
+    @Setter private CourseManagementService cmService;
     
-    @Setter
-    private ZCPublisherService zcPublisherService;
+    private static Transformer transformer = null;
     
-    @Setter 
-    private CourseManagementService cmService;
-
     // Class for comparing the academic sessions by Id Descending.
     public class ComparableAcademicSession implements Comparator<AcademicSession> {	 
 	    public int compare(AcademicSession o1, AcademicSession o2) {
@@ -111,59 +87,29 @@ public class SakaiProxyImpl implements SakaiProxy {
 	return "";
     }
     
-	class MyResolver implements URIResolver {
-		String fullPath;
-
-		public MyResolver(String path) {
-			this.fullPath = path;
-		}
-
-		public Source resolve(String href, String base) {
-			StringBuffer path = new StringBuffer(this.fullPath);
-			path.append(File.separator);
-			path.append(href);
-			File file = new File(path.toString());
-			if (file.exists())
-				return new StreamSource(file);
-			return null;
-		}
-	}
-	
     public String getCourseOutlineContent(String siteId) {
-	
-	String xsltDirName = ServerConfigurationService
-		.getString("osyl.to.zc.file.directory")
-		+ "/xml2html/";
-	
-
 	COSerialized coSerialized;
-	java.io.StringWriter writer = null;
-	javax.xml.transform.Result resultXml = null;
-	java.io.StringReader reader = null;
-	javax.xml.transform.Source source = null;
+
+	StringWriter writer = null;
+	StringReader reader = null;
+
+	Result resultXml = null;
+	Source source = null;
 	
 	try {
-	    // Get the Course Outline in the correct format 
-	    // TODO this has to change (get the right CO)
-	    coSerialized = osylSiteService.getAllCO().get(0);//osylSiteService.getSerializedCourseOutline(siteId, "http://localhost:8080/osyl-editor-sakai-tool/");
-	    
-	    // Create the XSLT Transformer
-	    TransformerFactory factory = TransformerFactory.newInstance();
-	    factory.setURIResolver(new MyResolver(xsltDirName));
-	    Transformer transformer = factory.newTransformer(
-		    new javax.xml.transform.stream.StreamSource(xsltDirName + "10.xsl"));
-	 
+	    // Get the Course Outline
+	    // I think it's ok to pass null as webappDir, because it is only used if the Dao doesn't find a course outline (?)
+	    // Otherwise it might be easiest to use the dao directly (or overload getSerializedCourseOutline)
+	    coSerialized = osylSiteService.getSerializedCourseOutline(siteId, null);
 
-	    writer = new java.io.StringWriter();
-	    resultXml = new javax.xml.transform.stream.StreamResult(writer);
+	    writer = new StringWriter();
+	    resultXml = new StreamResult(writer);
 	    
-	    reader = new java.io.StringReader(coSerialized.getContent());
-	    source = new javax.xml.transform.stream.StreamSource(reader);
+	    reader = new StringReader(coSerialized.getContent());
+	    source = new StreamSource(reader);
 
 	    transformer.transform(source, resultXml);
 	    
-	} catch (TransformerConfigurationException tce) {
-	    tce.printStackTrace();
 	} catch (TransformerException te) {
 	    te.printStackTrace();		    
 	} catch (Exception e) {
@@ -178,5 +124,18 @@ public class SakaiProxyImpl implements SakaiProxy {
      */
     public void init() {
     	log.info("init");
+
+    	String xsltDirName = ServerConfigurationService
+		.getString("osyl.to.zc.file.directory") + File.separator;
+
+    	// Create the XSLT Transformer (must not be initialized for every transformation)
+    	TransformerFactory factory = TransformerFactory.newInstance();
+    	
+    	try {
+    	    transformer = factory.newTransformer(
+    		    new javax.xml.transform.stream.StreamSource(xsltDirName + "osylToZc.xsl"));
+    	} catch (TransformerConfigurationException tce) {
+    	    tce.printStackTrace();
+    	}    	
     }
 }

@@ -33,6 +33,7 @@ import lombok.Data;
 public class Item {
     private Set<String> listId;
     private String description;
+    private String itemGroup;
     
     public Item(){
 	listId = new HashSet<String>();

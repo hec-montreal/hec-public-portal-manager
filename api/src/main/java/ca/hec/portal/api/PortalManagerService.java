@@ -20,4 +20,8 @@ public interface PortalManagerService // extends EntityProducer
     public String getCareerDescription(String career);
     
     public Map<String, String> getBundle(String locale);
+
+    public String getDepartmentGroup(String department);
+
+    public String getCareerGroup(String career);
 }

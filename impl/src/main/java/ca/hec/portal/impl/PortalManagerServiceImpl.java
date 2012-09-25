@@ -112,26 +112,35 @@ public class PortalManagerServiceImpl implements PortalManagerService {
     }
     
 
-
-    public String getDepartmentDescription(String department) {
-	String description =  listDepartmentsToDisplay.getString(department);
-	if (description != null ){
-	    return description;
+    public String getItemDescription(String itemType, String itemValue) {
+	ResourceBundle listItemsToDisplay = null;
+	String description = null;
+	
+	if ("career".equals(itemType)){
+	    listItemsToDisplay = listCareersToDisplay;
 	}
 	else{
-	    return department;
+	    listItemsToDisplay = listDepartmentsToDisplay;
 	}
+	
+	try{
+	    description =  listItemsToDisplay.getString(itemValue);
+	}
+	catch(Exception e){
+	    description = msgs.getString("label_unknown_category");
+	}
+   	    return description;
+       }
+    
+    public String getDepartmentDescription(String department) {
+	return getItemDescription("department", department);
     }
 
     public String getCareerDescription(String career) {
-	String description =  listCareersToDisplay.getString(career);
-	if (description != null ){
-	    return description;
-	}
-	else{
-	    return career;
-	}
+	return getItemDescription("career", career);
     }
+    
+    
     
     public Map<String, String> getBundle(String locale) {
 	Map<String, String> msgsBundle = new HashMap<String, String>();

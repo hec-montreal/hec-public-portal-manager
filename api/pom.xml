@@ -34,6 +34,12 @@
 		<sourceDirectory>src/main/java</sourceDirectory>
 		<resources>
 			<resource>
+				<directory>${basedir}/src/main/java</directory>
+				<includes>
+					<include>**/*.xsl</include>
+				</includes>
+			</resource>
+			<resource>
 				<directory>${basedir}/src/main/bundle</directory>
 				<includes>
 					<include>**/*.properties</include>

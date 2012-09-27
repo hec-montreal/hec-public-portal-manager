@@ -1,7 +1,5 @@
 package ca.hec.portal.logic;
 
-import ca.hec.portal.model.SimpleCourseOutline;
-
 /**
  * An interface to abstract all Sakai related API calls in a central method that can be injected into our app.
  * 
@@ -19,5 +17,20 @@ public interface SakaiProxy {
 	 */
 	public String getAssociatedCourseSiteTitle(String courseId);
 
-	public String getCourseOutlineContent(String siteId);
+	/**
+	 * Apply the xslt transformation to convert the OpenSyllabus XML into an XML of readable format
+	 *
+	 * @param siteId	The site id for the course outline to retrieve
+	 * @return 		The course outline for the given site id as a readable xml
+	 */
+	public String getCourseOutlineXML(String siteId);
+	
+	/**
+	 * Apply the xslt transformation to convert the readable course outline XML into an HTML document
+	 * for displaying to the user
+	 *
+	 * @param siteId	The site id for the course outline to retrieve
+	 * @return 		The course outline for the given site id as an HTML document
+	 */
+	public String getCourseOutlineHTML(String siteId);
 }

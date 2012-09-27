@@ -1,6 +1,7 @@
 package ca.hec.portal.logic;
 
 import java.io.File;
+import java.io.InputStream;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.util.ArrayList;
@@ -15,6 +16,7 @@ import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.URIResolver;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
@@ -41,8 +43,14 @@ public class SakaiProxyImpl implements SakaiProxy {
     @Setter private OsylSiteService osylSiteService;
     @Setter private CourseManagementService cmService;
     
-    private static Transformer transformer = null;
-    
+    private static Transformer transformerOsylToXml = null;
+    private static Transformer transformerXmlToHtml = null;
+
+    StringWriter writer = null;
+    StringReader reader = null;
+    Result result = null;
+    Source source = null;	
+
     // Class for comparing the academic sessions by Id Descending.
     public class ComparableAcademicSession implements Comparator<AcademicSession> {	 
 	    public int compare(AcademicSession o1, AcademicSession o2) {
@@ -87,15 +95,12 @@ public class SakaiProxyImpl implements SakaiProxy {
 	return "";
     }
     
-    public String getCourseOutlineContent(String siteId) {
+    /**
+     * {@inheritDoc}
+     */
+    public String getCourseOutlineXML(String siteId) {
 	COSerialized coSerialized;
 
-	StringWriter writer = null;
-	StringReader reader = null;
-
-	Result resultXml = null;
-	Source source = null;
-	
 	try {
 	    // Get the Course Outline
 	    // I think it's ok to pass null as webappDir, because it is only used if the Dao doesn't find a course outline (?)
@@ -103,12 +108,12 @@ public class SakaiProxyImpl implements SakaiProxy {
 	    coSerialized = osylSiteService.getSerializedCourseOutline(siteId, null);
 
 	    writer = new StringWriter();
-	    resultXml = new StreamResult(writer);
-	    
+	    result = new StreamResult(writer);
+		    
 	    reader = new StringReader(coSerialized.getContent());
 	    source = new StreamSource(reader);
 
-	    transformer.transform(source, resultXml);
+	    transformerOsylToXml.transform(source, result);
 	    
 	} catch (TransformerException te) {
 	    te.printStackTrace();		    
@@ -120,6 +125,27 @@ public class SakaiProxyImpl implements SakaiProxy {
     }
 
     /**
+     * {@inheritDoc}
+     */
+    public String getCourseOutlineHTML(String siteId) {
+	String courseOutlineXml = getCourseOutlineXML(siteId);
+	
+	writer = new StringWriter();
+	result = new StreamResult(writer);
+	    
+	reader = new StringReader(courseOutlineXml);
+	source = new StreamSource(reader);
+
+	try {
+	    transformerXmlToHtml.transform(source, result);
+	} catch (TransformerException te) {
+	    te.printStackTrace();		    
+	}
+	
+	return writer.toString();
+    }
+    
+    /**
      * init - perform any actions required here for when this bean starts up
      */
     public void init() {
@@ -128,14 +154,38 @@ public class SakaiProxyImpl implements SakaiProxy {
     	String xsltDirName = ServerConfigurationService
 		.getString("osyl.to.zc.file.directory") + File.separator;
 
-    	// Create the XSLT Transformer (must not be initialized for every transformation)
+    	// Create the XSLT Transformers (must not be initialized for every transformation)
     	TransformerFactory factory = TransformerFactory.newInstance();
     	
     	try {
-    	    transformer = factory.newTransformer(
-    		    new javax.xml.transform.stream.StreamSource(xsltDirName + "osylToZc.xsl"));
+    	    transformerOsylToXml = factory.newTransformer(
+    		    new StreamSource(xsltDirName + "osylToZc.xsl"));
+
+    	    // change the factory's URIResolver before loading the resource xsl
+    	    factory.setURIResolver(new XsltURIResolver());
+    	    transformerXmlToHtml= factory.newTransformer(
+    		    new StreamSource(getClass().getClassLoader().
+    			    getResourceAsStream("ca/hec/portal/xslt/co-xml-to-html.xsl")));
+    	    
     	} catch (TransformerConfigurationException tce) {
     	    tce.printStackTrace();
     	}    	
     }
+    
+    // use this to correctly locate includes in the xsl
+    class XsltURIResolver implements URIResolver {
+	public Source resolve(String href, String base)
+		throws TransformerException {
+	    try{
+		InputStream inputStream = 
+			this.getClass().getClassLoader().getResourceAsStream("ca/hec/portal/xslt/" + href);
+		return new StreamSource(inputStream);
+	    }
+	    catch(Exception ex){
+		ex.printStackTrace();
+		return null;
+	    }
+	}
+    }
+
 }

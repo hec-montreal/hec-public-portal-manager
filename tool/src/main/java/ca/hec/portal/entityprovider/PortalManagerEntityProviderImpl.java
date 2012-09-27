@@ -59,7 +59,6 @@ public class PortalManagerEntityProviderImpl extends AbstractEntityProvider
     @EntityCustomAction(action = "public_syllabus_info", viewKey = EntityView.VIEW_SHOW)
     public Object getPublicSyllabus(EntityView view) {
 	String courseId = view.getPathSegment(1);
-	String extension = view.getExtension();
 
 	// check that courseid is supplied
 	if (StringUtils.isBlank(courseId)) {
@@ -70,11 +69,10 @@ public class PortalManagerEntityProviderImpl extends AbstractEntityProvider
 	String site_id = sakaiProxy.getAssociatedCourseSiteTitle(courseId);
 
 	if (view.getFormat().equals(Formats.HTML)) {
-	    return "html";
-//	    return sakaiProxy.getCourseOutlineContent(site_id);
+	    return sakaiProxy.getCourseOutlineHTML(site_id);
 	}
 	else if (view.getFormat().equals(Formats.XML)) {
-	    return sakaiProxy.getCourseOutlineContent(site_id);
+	    return sakaiProxy.getCourseOutlineXML(site_id);
 	}
 	else if (view.getFormat().equals(Formats.JSON)){
 	    Map<String, String> courseInfo = new HashMap<String, String>();

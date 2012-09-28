@@ -1,71 +1,52 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
-<!-- coordonnee -->
-<xsl:template match="coordonnee">
-	<div class='rubrique'>
-		<div class="logoRubrique"></div>
-		<div class='titreRubrique'>
+<!-- ========================================= -->
+<!-- ========== Coordonnées ================== -->
+<!-- ========================================= -->
+
+<xsl:template match="coordonnees">
+	<h4>Coordonnées</h4>
+	<xsl:for-each select="coordonnee">
+		<p>
 			<xsl:value-of select="role"/><xsl:text> : </xsl:text><xsl:value-of select="prenom"/><xsl:text> </xsl:text><xsl:value-of select="nom"/>
-		</div>
-		<div class='contenuRubrique'>
-			<div class='bureau'><xsl:apply-templates select="bureau"/></div>
-			<div class='courriel'><xsl:apply-templates select="courriel"/></div>
-			<div class='telephone'><xsl:apply-templates select="telephone"/></div>
-			<div class='disponibilite'><xsl:apply-templates select="disponibilite"/></div>
-			<div class='commentaires'><xsl:apply-templates select="commentaire"/></div>
-		</div>
-	</div>
+			<xsl:value-of select="$bureauLbl"/><xsl:value-of disable-output-escaping="yes" select="bureau"/>
+			<xsl:value-of select="$courrielLbl"/><xsl:value-of disable-output-escaping="yes" select="courriel"/>
+			<xsl:value-of select="$telLbl"/><xsl:value-of disable-output-escaping="yes" select="telephone"/>
+			<xsl:value-of select="$dispoLbl"/><xsl:value-of disable-output-escaping="yes" select="disponibilite"/>
+			<xsl:value-of disable-output-escaping="yes" select="commentaire"/>
+		</p>
+	</xsl:for-each>
 </xsl:template>
 
-<xsl:template match="bureau">
-		<div class='libelleBureau'>
-<!--
-			<xsl:value-of select="$bureauLbl"/>
--->
-		</div>
-		<div class='contenuBureau'>
-			<xsl:value-of disable-output-escaping="yes" select="."/>
-		</div>
-</xsl:template>
-
-<xsl:template match="courriel">
-		<div class='libelleCourriel'>
-		<!--
-			<xsl:value-of select="$courrielLbl"/>
-			-->
-		</div><!-- libelleCourriel -->
-		<div class='contenuCourriel'>
-			<xsl:value-of disable-output-escaping="yes" select="."/>
-		</div><!-- contenuCourriel -->
-</xsl:template>
-
-<xsl:template match="telephone">
-		<div class='libelleTelephone'>
-		<!--
-			<xsl:value-of select="$telLbl"/>
-			-->
-		</div>
-		<div class='contenuTelephone'>
-			<xsl:value-of disable-output-escaping="yes" select="."/>
-		</div>
-</xsl:template>
-
-<xsl:template match="disponibilite">
-		<div class='libelleDispo'>
-		<!--
-			<xsl:value-of select="$dispoLbl"/>
-			-->
-		</div><!-- libelleDispo -->
-		<div class='contenuDispo'>
-			<xsl:value-of disable-output-escaping="yes" select="."/>
-		</div><!-- contenuDispo -->
-</xsl:template>
-
-<xsl:template match="commentaire">
-		<div class='contenuCommentaire'>
-			<xsl:value-of disable-output-escaping="yes" select="."/>
-		</div><!-- contenuCommentaire -->
+<!-- ========================================= -->
+<!-- =========== Presentation================= -->
+<!-- ========================================= -->
+<xsl:template match="presentation">
+	<xsl:for-each select="ressources/rubriqueDescription[*]">
+		<xsl:if test="position()=1">
+			<h4><xsl:value-of select="$descriptionLbl"/></h4>
+		</xsl:if>
+		<p>
+			<xsl:apply-templates select='ressource'/>
+		</p>
+	</xsl:for-each>
+	<xsl:for-each select="ressources/rubriqueObjectifs[*]">
+		<xsl:if test="position()=1">
+			<h4><xsl:value-of select="$objectifsLbl"/></h4>
+		</xsl:if>
+		<p>
+			<xsl:apply-templates select='ressource'/>
+		</p>
+	</xsl:for-each>
+	<xsl:for-each select="ressources/rubriqueApprochePedagogique[*]">
+		<xsl:if test="position()=1">
+			<h4><xsl:value-of select="$approcheLbl"/></h4>
+		</xsl:if>
+		<p>
+			<xsl:apply-templates select='ressource'/>
+		</p>
+	</xsl:for-each>
 </xsl:template>
 
 <!-- ========================================= -->
@@ -86,27 +67,30 @@
 </xsl:template>
 
 <xsl:template match="evaluation">
-	<div class='ressource'>
-		<div class="logoRessource"></div>
-		<div class='titreRessource'>
+	<div id="courseEvaluation{position()}" class="courseOutline" style="display:none">
+		<h4>
 			<xsl:value-of select="global/libelle"/><xsl:text> (</xsl:text><xsl:value-of select="global/valeur"/><xsl:text>%)</xsl:text>
-		</div>
-		<div class='contenuRessource'>
-			<xsl:apply-templates select="local/*" />
-			<xsl:apply-templates select="global/*" />
-		</div>
+		</h4>
+		<p>
+			<xsl:value-of disable-output-escaping="yes" select="global/description"/>
+		</p>
 	</div>
 </xsl:template>
 
+	<!--
 <xsl:template match="evaluation/global/date">
 	<div class='date'>
-	<!--
 		<xsl:value-of select="$evalDateLbl"/><xsl:value-of select="."/>
-		-->
 	</div>
 </xsl:template>
+		-->
 
 
+<!-- ========================================= -->
+<!-- ============== Seance =================== -->
+<!-- ========================================= -->
+
+<!-- template for the seances menu list -->
 <xsl:template match="seances">
 	<ul>
 	<xsl:for-each select="seance">
@@ -118,6 +102,7 @@
 	</xsl:for-each>
 	</ul>
 </xsl:template>
+
 
 <xsl:template name="sigle">
 	<xsl:choose>

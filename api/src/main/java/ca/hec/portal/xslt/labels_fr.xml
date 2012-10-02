@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<labels xml:lang="fr">
+	<!-- Menu labels -->
+	<label id="menuLblPresentation">Présentation du cours</label>
+	<label id="menuLblContact">Coordonnées</label>
+	<label id="menuLblMaterials">Matériel pédagogique</label>
+	<label id="menuLblEvaluations">Évaluations</label>
+	<label id="menuLblLectures">Organisation du cours</label>
+
+	<!-- data labels -->
+	<label id="bureauLbl">Bureau : </label>
+	<label id="courrielLbl">Courriel : </label>
+	<label id="telLbl">Téléphone : </label>
+	<label id="dispoLbl">Disponibilité : </label>
+	<label id="evalDateLbl">Date : </label>
+	<label id="isbnLbl">ISBN : </label>
+
+	<!-- Presentation labels -->
+	<label id="descriptionLbl">Description</label>
+	<label id="objectifsLbl">Objectifs</label>
+	<label id="approcheLbl">Approche pédagogique</label>
+
+	<!-- Materiels labels -->
+	<label id="ressourcesGeneralesLbl">Ressources générales</label>
+	<label id="casLbl">Cas</label>
+	<label id="biblioLbl">Ressources bibliographiques</label>
+	<label id="ressourcesComplementairesLbl">Ressources bibliographiques complémentaires</label>
+	<label id="outilsLbl">Outils</label>
+	<label id="anciensExamensLbl">Anciens examens</label>
+	
+	<!-- Lectures labels -->
+	<label id="descriptionLbl">Description</label>
+	<label id="activitesRessourcesAvantSeanceLbl">Activités/Ressources avant la séance</label>
+	<label id="activitesRessourcesApresSeanceLbl">Activités/Ressources après la séance</label>
+</labels>

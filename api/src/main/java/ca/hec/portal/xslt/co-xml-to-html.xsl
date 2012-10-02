@@ -3,8 +3,10 @@
 <xsl:output method="html" encoding="ISO-8859-1" omit-xml-declaration="yes"/>
 
 <xsl:include href="templates.xsl"/> 
-<xsl:include href="labels_fr.xsl"/>
 <xsl:include href="ressources.xsl"/>
+
+<xsl:variable name="labelsFilename">labels_<xsl:value-of select="planCours/@lang"/>.xml</xsl:variable>
+<xsl:variable name="labels" select="document($labelsFilename)" />
 
 <xsl:template match="/">
 <html>
@@ -20,7 +22,6 @@
 
 	<body>
 		<div id='wrap'>
-	
 			<div id="HEC-header" class="navbar navbar-fixed-top">
 				<div class="navbar-inner">
 					<div class="container">
@@ -44,25 +45,25 @@
 							<ul class="nav nav-list ">
 								<li>
 									<a id="linkPresentation" data-target="#coursePresentation" href="#" class="menu-link">
-										<xsl:value-of select="$menuLblPresentation"/>
+										<xsl:value-of select="$labels//label[@id='menuLblPresentation']"/>
 									</a>
 								</li>
 								<li>
 									<a id="linkContact" data-target="#courseCoordinates" href="#" class="menu-link">
-										<xsl:value-of select="$menuLblContact"/>
+										<xsl:value-of select="$labels//label[@id='menuLblContact']"/>
 									</a>
 								</li>
 								<li>
 									<a id="linkMaterials" data-target="#courseMaterials" href="#" class="menu-link">
-										<xsl:value-of select="$menuLblMaterials"/>
+										<xsl:value-of select="$labels//label[@id='menuLblMaterials']"/>
 									</a>
 								</li>
 								<li>
-									<a><xsl:value-of select="$menuLblEvaluations"/></a>
+									<a><xsl:value-of select="$labels//label[@id='menuLblEvaluations']"/></a>
 									<xsl:apply-templates select="planCours/evaluations"/>
 								</li>
 								<li>
-									<a><xsl:value-of select="$menuLblLectures"/></a>
+									<a><xsl:value-of select="$labels//label[@id='menuLblLectures']"/></a>
 									<xsl:apply-templates select="planCours/seances"/>
 								</li>
 							</ul>
@@ -78,18 +79,10 @@
 							<xsl:apply-templates select="planCours/coordonnees" />
 						</div>
 						<div id="courseMaterials" class="courseOutline" style="display:none">
-<!--
-							<xsl:call-template name="rubriques">
-								<xsl:with-param name="chemin" select="/planCours/materiel/ressources"/>
-							</xsl:call-template>
-							-->
+							<xsl:apply-templates select="planCours/materiel"/>
 						</div>
-						
 						<xsl:apply-templates select="planCours/evaluations/evaluation"/>
-						
-						<div id="courseLecture1" class="courseOutline" style="display:none">
-							adfkladlsdfhjklah ajldf jahfd asd fasdfad asf sdfsasdf  
-						</div>
+						<xsl:apply-templates select="planCours/seances/seance"/>
 					</div>
 					
 				</div>

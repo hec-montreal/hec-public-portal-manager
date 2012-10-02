@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Dictionary xml:lang="en-US">
+	<Label ID="TITLE">
+		Title
+	</Label>
+	<Label ID="YEAR">
+		Year
+	</Label>
+	<Label ID="AUTHOR">
+		Author
+	</Label>
+	<Label ID="HEADER">
+		Library example
+	</Label>
+</Dictionary>

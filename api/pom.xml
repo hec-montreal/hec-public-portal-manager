@@ -36,6 +36,7 @@
 			<resource>
 				<directory>${basedir}/src/main/java</directory>
 				<includes>
+					<include>**/*.xml</include>
 					<include>**/*.xsl</include>
 				</includes>
 			</resource>

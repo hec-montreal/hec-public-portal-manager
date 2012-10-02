@@ -1,6 +1,5 @@
 package ca.hec.portal.impl;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -9,8 +8,6 @@ import java.util.ResourceBundle;
 import java.util.Set;
 
 import ca.hec.portal.api.PortalManagerService;
-import ca.hec.portal.model.Career;
-import ca.hec.portal.model.Department;
 import ca.hec.portal.model.Item;
 import ca.hec.portal.model.ItemFactory;
 
@@ -28,7 +25,8 @@ public class PortalManagerServiceImpl implements PortalManagerService {
 
     
     /**
-     * * Return the departments/careers that need to be displayed in HEC public portal
+     * Return the departments/careers that need to be displayed in HEC public portal
+     * Each department/career have a description and is associated to a group (can include several careers/departments)
      * @param  itemsType: department/career
      */
     public List<Item> getItems(String itemsType) {
@@ -68,14 +66,12 @@ public class PortalManagerServiceImpl implements PortalManagerService {
 	return listDpt.getListItem();
     }
     
-    public List<Item> getDepartments() {
-	return getItems("department");
-    }
     
-    public List<Item> getCareers() {
-	return getItems("career");
-    }
-    
+    /**
+     *  Init  the list of career or department groups specified in the properties files
+     * 	A career/department group can include several careers/departments
+     *  @param  itemsType: department/career
+     */
     public void initGroup(String itemsType) {
 	ResourceBundle listItemsToDisplay = null;
 	Map<String, String> listitemGroups = null;
@@ -112,6 +108,11 @@ public class PortalManagerServiceImpl implements PortalManagerService {
     }
     
 
+    /**
+     *  Return the group description associated with the passed item (career/department) 
+     * 	A career/department group can include several careers/departments
+     *  @param  itemsType: department/career, itemValue: id of the department/career
+     */
     public String getItemDescription(String itemType, String itemValue) {
 	ResourceBundle listItemsToDisplay = null;
 	String description = null;
@@ -167,5 +168,14 @@ public class PortalManagerServiceImpl implements PortalManagerService {
 
     public String getCareerGroup(String career) {
 	return careerGroups.get(career);
+    }    
+
+    
+    public List<Item> getDepartments() {
+	return getItems("department");
+    }
+    
+    public List<Item> getCareers() {
+	return getItems("career");
     }
 }

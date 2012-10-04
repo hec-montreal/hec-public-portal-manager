@@ -82,7 +82,9 @@
 							<xsl:apply-templates select="planCours/materiel"/>
 						</div>
 						<xsl:apply-templates select="planCours/evaluations/evaluation"/>
-						<xsl:apply-templates select="planCours/seances/seance"/>
+						<xsl:call-template name="seances-divs">
+							<xsl:with-param name="seances" select="planCours/seances"/>
+						</xsl:call-template>
 					</div>
 					
 				</div>

@@ -14,11 +14,21 @@
 	<label id="dispoLbl">Disponibilité : </label>
 	<label id="evalDateLbl">Date : </label>
 	<label id="isbnLbl">ISBN : </label>
+	<label id="remiseModeLbl">Mode de remise : </label>	
+	<label id="availableLibraryLbl">Disponible à la bibliothèque</label>
+	<label id="availableBookstoreLbl">Disponible à la coop HEC</label>
 
 	<!-- Presentation labels -->
 	<label id="descriptionLbl">Description</label>
 	<label id="objectifsLbl">Objectifs</label>
 	<label id="approcheLbl">Approche pédagogique</label>
+
+	<!-- Contacts labels -->
+	<label id="coordonnateursLbl">Coordonnateur</label>
+	<label id="enseignantsLbl">Enseignant(s)</label>
+	<label id="stagiairesEnseignementLbl">Stagiaire(s) d'enseignement</label>
+	<label id="conferenciersLbl">Conférencier(s)</label>
+	<label id="secretairesLbl">Secrétaire(s)</label>
 
 	<!-- Materiels labels -->
 	<label id="ressourcesGeneralesLbl">Ressources générales</label>
@@ -26,10 +36,31 @@
 	<label id="biblioLbl">Ressources bibliographiques</label>
 	<label id="ressourcesComplementairesLbl">Ressources bibliographiques complémentaires</label>
 	<label id="outilsLbl">Outils</label>
-	<label id="anciensExamensLbl">Anciens examens</label>
+	<label id="anciensExamensLbl">Anciens examens</label>	
+
+	<!-- Evaluation labels -->
+	<label id="critereEvaluationLbl">Critères d'évaluation</label>
+	<label id="preparationEvaluationLbl">Préparation à l'évaluation</label>
+	<label id="remisesLbl">Modalités de remise et pénalités</label>
+
+	<label id="remiseElectPapierLbl">Électronique et Papier</label>
+	<label id="remiseElectLbl">Électronique</label>
+	<label id="remisePapierLbl">Papier</label>
+	
+	<label id="modaliteOralWrittenLbl">Oral et Écrit</label>
+	<label id="modaliteOralLbl">Oral</label>
+	<label id="modaliteWrittenLbl">Écrit</label>
+	
+	<label id="lieuHomeClasseLbl">À la maison - Hors classe et En classe</label>
+	<label id="lieuHomeLbl">À la maison - Hors classe</label>
+	<label id="lieuClasseLbl">En classe</label>
+	
+	<label id="modeIndividuelLbl">Individuel</label>
+	<label id="modeEnEquipLbl">En équip</label>
 	
 	<!-- Lectures labels -->
 	<label id="descriptionLbl">Description</label>
-	<label id="activitesRessourcesAvantSeanceLbl">Activités/Ressources avant la séance</label>
-	<label id="activitesRessourcesApresSeanceLbl">Activités/Ressources après la séance</label>
+	<label id="resourcesBeforeLectureLbl">Activités/Ressources avant la séance</label>
+	<label id="resourceDuringLectureLbl">Activités/Ressources pendant la séance</label>
+	<label id="resourceAfterLectureLbl">Activités/Ressources après la séance</label>
 </labels>

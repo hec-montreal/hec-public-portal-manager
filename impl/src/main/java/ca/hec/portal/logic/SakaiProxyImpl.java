@@ -151,18 +151,18 @@ public class SakaiProxyImpl implements SakaiProxy {
     public void init() {
     	log.info("init");
 
-    	String xsltDirName = ServerConfigurationService
-		.getString("osyl.to.zc.file.directory") + File.separator;
-
     	// Create the XSLT Transformers (must not be initialized for every transformation)
     	TransformerFactory factory = TransformerFactory.newInstance();
     	
     	try {
+    	    // change the factory's URIResolver before loading the resource xsl
+    	    factory.setURIResolver(new osylToZcURIResolver());
     	    transformerOsylToXml = factory.newTransformer(
-    		    new StreamSource(xsltDirName + "osylToZc.xsl"));
+    		    new StreamSource(getClass().getClassLoader().
+    			    getResourceAsStream("ca/hec/portal/xslt/osylToZc/osylToZc.xsl")));
 
     	    // change the factory's URIResolver before loading the resource xsl
-    	    factory.setURIResolver(new XsltURIResolver());
+    	    factory.setURIResolver(new xmlToHtmlURIResolver());
     	    transformerXmlToHtml= factory.newTransformer(
     		    new StreamSource(getClass().getClassLoader().
     			    getResourceAsStream("ca/hec/portal/xslt/co-xml-to-html.xsl")));
@@ -173,12 +173,27 @@ public class SakaiProxyImpl implements SakaiProxy {
     }
     
     // use this to correctly locate includes in the xsl
-    class XsltURIResolver implements URIResolver {
+    class xmlToHtmlURIResolver implements URIResolver {
 	public Source resolve(String href, String base)
 		throws TransformerException {
 	    try{
 		InputStream inputStream = 
 			this.getClass().getClassLoader().getResourceAsStream("ca/hec/portal/xslt/" + href);
+		return new StreamSource(inputStream);
+	    }
+	    catch(Exception ex){
+		ex.printStackTrace();
+		return null;
+	    }
+	}
+    }
+
+    class osylToZcURIResolver implements URIResolver {
+	public Source resolve(String href, String base)
+		throws TransformerException {
+	    try{
+		InputStream inputStream = 
+			this.getClass().getClassLoader().getResourceAsStream("ca/hec/portal/xslt/osylToZc/" + href);
 		return new StreamSource(inputStream);
 	    }
 	    catch(Exception ex){

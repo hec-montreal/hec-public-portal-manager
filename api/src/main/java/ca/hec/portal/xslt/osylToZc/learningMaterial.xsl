@@ -3,7 +3,7 @@
 	
 	<xsl:template match="asmStructure[@xsi:type='LearningMaterialStruct']">
 		<materiel>
-				<xsl:attribute name="securite"><xsl:call-template name="securite" /></xsl:attribute>		
+			<xsl:attribute name="securite"><xsl:call-template name="securite" /></xsl:attribute>		
 			<xsl:call-template name="createRubric"/>
 		</materiel >
 	</xsl:template>

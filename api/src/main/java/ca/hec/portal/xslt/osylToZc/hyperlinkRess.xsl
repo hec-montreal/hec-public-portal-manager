@@ -3,36 +3,12 @@
 	<xsl:output cdata-section-elements="libelle description"/>
 
 	<xsl:template match="asmContext[@xsi:type='ReferenceContext' and ./asmResource[@xsi:type='URL']]">
-		<ressource type="TX_URL" koId="">
-			<xsl:attribute name="securite"><xsl:call-template name="securite" /></xsl:attribute>							
-			<xsl:call-template name="createLocalHyperlink"/>
-			<xsl:call-template name="createGlobalHyperlink"/>
+		<ressource type="url">
+			<xsl:attribute name="securite"><xsl:call-template name="securite" /></xsl:attribute>
+			<libelle><xsl:value-of select="label"/></libelle>
+			<description><xsl:value-of select="comment"/></description>
+			<url><xsl:value-of select="asmResource/identifier[@type='uri']"/></url>
+			<niveau><xsl:value-of select="level"/></niveau>
 		</ressource>
 	</xsl:template>
-
-	<xsl:template name="createLocalHyperlink">
-		<local>
-			<xsl:attribute name="securite"><xsl:call-template name="securite" /></xsl:attribute>							
-			<libelle>
-				<xsl:attribute name="securite"><xsl:call-template name="securite" /></xsl:attribute>								
-				<xsl:value-of select="label"/>
-			</libelle>
-			<description>
-				<xsl:attribute name="securite"><xsl:call-template name="securite" /></xsl:attribute>								
-				<xsl:value-of select="comment"/>
-			</description>
-			<xsl:call-template name="createLevel"/>
-		</local>
-	</xsl:template>
-
-	<xsl:template name="createGlobalHyperlink">
-		<global>
-				<xsl:attribute name="securite"><xsl:call-template name="securite" /></xsl:attribute>							
-			<url>
-				<xsl:attribute name="securite"><xsl:call-template name="securite" /></xsl:attribute>								
-				<xsl:value-of select="asmResource/identifier[@type='uri']"/>
-			</url>
-		</global>
-	</xsl:template>
-
 </xsl:stylesheet>

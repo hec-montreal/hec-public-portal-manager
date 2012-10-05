@@ -2,7 +2,6 @@
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" exclude-result-prefixes="xsl xsi">
 	<xsl:output method="xml" encoding="ISO-8859-1" omit-xml-declaration="no" indent="yes"/>
 
-	<xsl:include href="commonRess.xsl"/>
 	<xsl:include href="rubric.xsl"/>
 	<xsl:include href="overview.xsl"/>
 	<xsl:include href="staff.xsl"/>
@@ -26,7 +25,7 @@
 					<xsl:otherwise>en</xsl:otherwise>
 				</xsl:choose>
 			</xsl:attribute>
-			<professeur koId="14429">
+			<professeur>
 				<xsl:attribute name="securite"><xsl:call-template name="securite" /></xsl:attribute>			
 				<nom>
 					<xsl:attribute name="securite"><xsl:call-template name="securite" /></xsl:attribute>				
@@ -36,7 +35,7 @@
 					<xsl:attribute name="securite"><xsl:call-template name="securite" /></xsl:attribute>
 				</prenom>
 			</professeur>
-			<cours koId="">
+			<cours>
 				<xsl:attribute name="securite"><xsl:call-template name="securite" /></xsl:attribute>
 				<no>
 					<xsl:attribute name="securite"><xsl:call-template name="securite" /></xsl:attribute>

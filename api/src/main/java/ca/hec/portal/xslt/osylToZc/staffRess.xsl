@@ -3,31 +3,19 @@
 	<xsl:output cdata-section-elements="disponibilite commentaire courriel"/>
 	
 	<xsl:template match="asmContext[@xsi:type='PeopleContext']">
-		<ressource type="RessStaff">
-			<xsl:attribute name="securite"><xsl:call-template name="securite" /></xsl:attribute>		
-			<nom>
-				<xsl:attribute name="securite"><xsl:call-template name="securite" /></xsl:attribute>			
-				<xsl:value-of select="Person/surname"/>
-			</nom>
-			<prenom>
-				<xsl:attribute name="securite"><xsl:call-template name="securite" /></xsl:attribute>			
-				<xsl:value-of select="Person/firstname"/>
-			</prenom>
+		<ressource type="staff">
+			<xsl:attribute name="securite"><xsl:call-template name="securite" /></xsl:attribute>
+			
+			<nom><xsl:value-of select="Person/surname"/></nom>
+			<prenom><xsl:value-of select="Person/firstname"/></prenom>
 			<xsl:if test="Person/title!=''">
-				<role>
-					<xsl:attribute name="securite"><xsl:call-template name="securite" /></xsl:attribute>			
-					<xsl:value-of select="Person/title"/>
-				</role>
+				<role><xsl:value-of select="Person/title"/></role>
 			</xsl:if>
 			<xsl:if test="Person/officeroom!=''">
-				<bureau>
-					<xsl:attribute name="securite"><xsl:call-template name="securite" /></xsl:attribute>				
-					<xsl:value-of select="Person/officeroom"/>
-				</bureau>
+				<bureau><xsl:value-of select="Person/officeroom"/></bureau>
 			</xsl:if>
 			<xsl:if test="Person/email!=''">
 				<courriel>
-					<xsl:attribute name="securite"><xsl:call-template name="securite" /></xsl:attribute>			
 					<!-- hack for display <a> in CData section -->
 					<xsl:text disable-output-escaping="no">
 						&lt;a href="mailto:
@@ -43,20 +31,13 @@
 				</courriel>
 			</xsl:if>
 			<xsl:if test="Person/tel!=''">
-				<telephone>
-					<xsl:attribute name="securite"><xsl:call-template name="securite" /></xsl:attribute>				
-					<xsl:value-of select="Person/tel"/></telephone>
+				<telephone><xsl:value-of select="Person/tel"/></telephone>
 			</xsl:if>
 			<xsl:if test="availability!='' and availability!='&lt;br&gt;'">
-				<disponibilite>
-					<xsl:attribute name="securite"><xsl:call-template name="securite" /></xsl:attribute>				
-					<xsl:value-of select="availability"/></disponibilite>
+				<disponibilite><xsl:value-of select="availability"/></disponibilite>
 			</xsl:if>
 			<xsl:if test="comment!='' and comment!='&lt;br&gt;'">
-				<commentaire>
-					<xsl:attribute name="securite"><xsl:call-template name="securite" /></xsl:attribute>				
-					<xsl:value-of select="comment"/>
-				</commentaire>
+				<commentaire><xsl:value-of select="comment"/></commentaire>
 			</xsl:if>
 		</ressource>
 	</xsl:template>

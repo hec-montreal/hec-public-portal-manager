@@ -98,12 +98,13 @@
 	<xsl:template match="evaluation">
 		<div id="courseEvaluation{position()}" class="courseOutline" style="display:none">
 			<h3>
-				<xsl:value-of select="libelle"/><xsl:text> (</xsl:text><xsl:value-of select="valeur"/><xsl:text>%)</xsl:text>
+				<xsl:value-of select="libelle"/>
+				<xsl:if test="valeur!=''"><xsl:text> (</xsl:text><xsl:value-of select="valeur"/><xsl:text>%)</xsl:text></xsl:if>
 			</h3>
 
-			<p>
+			<div class="ressource evaluation-details">
 				<xsl:call-template name="eval-details"/>
-			</p>
+			</div>
 			<xsl:if test="ressources/rubriqueDescription">
 				<h4><xsl:value-of select="$labels//label[@id='descriptionLbl']"/></h4>
 				<xsl:apply-templates select='ressources/rubriqueDescription/ressource'/>

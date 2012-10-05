@@ -2,7 +2,7 @@
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 <xsl:output method="html" encoding="ISO-8859-1" omit-xml-declaration="yes"/>
 
-<xsl:include href="templates.xsl"/> 
+<xsl:include href="templates.xsl"/>
 <xsl:include href="ressources.xsl"/>
 
 <xsl:variable name="labelsFilename">labels_<xsl:value-of select="planCours/@lang"/>.xml</xsl:variable>
@@ -18,6 +18,11 @@
 		<link href="../../../portail/plugins/bootstrap-2.1/css/bootstrap-custom_style.css" rel="stylesheet"/>
 		<link href="../../../portail/css/hec-public-portal.css" rel="stylesheet"/>    
 		
+		<style>
+			div.ressource {
+				margin-bottom : 1em;
+			}
+		</style>
 	</head>
 
 	<body>
@@ -72,7 +77,7 @@
 					
 					<!-- course outline column -->
 					<div id="" class="span8">
-						<div id="coursePresentation" class="courseOutline" style="display:none">
+						<div id="coursePresentation" class="courseOutline">
 							<xsl:apply-templates select="planCours/presentation"/>
 						</div>							
 						<div id="courseCoordinates" class="courseOutline" style="display:none">							

@@ -56,7 +56,7 @@
 	<label id="lieuClasseLbl">En classe</label>
 	
 	<label id="modeIndividuelLbl">Individuel</label>
-	<label id="modeEnEquipLbl">En équip</label>
+	<label id="modeEnEquipLbl">En équipe</label>
 	
 	<!-- Lectures labels -->
 	<label id="descriptionLbl">Description</label>

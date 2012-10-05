@@ -5,9 +5,12 @@
 	<!-- =============== Texte =================== -->
 	<!-- ========================================= -->
 
-	<xsl:template match="ressource[@type='RessTexte']">
+	<xsl:template match="ressource[@type='text']">
 		<xsl:if test="@securite='0'">
-			<p><xsl:value-of disable-output-escaping="yes" select="texte"/></p>
+			<div class="ressource text">
+			<xsl:call-template name="niveau"/>
+			<div><xsl:value-of disable-output-escaping="yes" select="text"/></div>
+			</div>
 		</xsl:if>
 	</xsl:template>
 
@@ -15,9 +18,9 @@
 	<!-- =============== Coordonnées ============= -->
 	<!-- ========================================= -->
 
-	<xsl:template match="ressource[@type='RessStaff']">
+	<xsl:template match="ressource[@type='staff']">
 		<xsl:if test="@securite='0'">
-			<p>
+			<div class="ressource staff">
 				<xsl:value-of select="prenom"/><xsl:text> </xsl:text><font style="text-transform: uppercase;"><xsl:value-of select="nom"/></font><br/>
 				<xsl:if test="role">
 					<xsl:value-of select="role"/><br/>
@@ -35,7 +38,7 @@
 					<xsl:value-of select="$labels//label[@id='dispoLbl']"/><xsl:value-of disable-output-escaping="yes" select="disponibilite"/>
 				</xsl:if>
 				<xsl:value-of disable-output-escaping="yes" select="commentaire"/>
-			</p>
+			</div>
 		</xsl:if>
 	</xsl:template>
 
@@ -43,9 +46,9 @@
 	<!-- =========== TXDocument =================== -->
 	<!-- ========================================= -->
 
-	<xsl:template match="ressource[@type='TX_Document']">
+	<xsl:template match="ressource[@type='document']">
 		<xsl:if test="@securite='0'">
-			<p>
+			<div class="ressource doc">
 				<xsl:call-template name="niveau"/>
 				<a href="/sdata/c{uri}" target="_blank"><xsl:value-of select="libelle"/></a>
 				<xsl:if test="type!=''">
@@ -57,98 +60,53 @@
 				<div class="comment">
 					<xsl:value-of disable-output-escaping="yes" select="description"/>
 				</div>
-			</p>
+			</div>
 		</xsl:if>	
 	</xsl:template>
 
 	<!-- ========================================= -->
-	<!-- =========== TXURL =================== -->
+	<!-- ================= Url =================== -->
 	<!-- ========================================= -->
 
-	<xsl:template match="ressource[@type='TX_URL']">
+	<xsl:template match="ressource[@type='url']">
 		<xsl:if test="@securite='0'">
-			<p>
-				<a href="{global/url}"><xsl:value-of select="local/libelle"/></a> <br/>
+			<div class="ressource url">
+				<xsl:call-template name="niveau"/>
+				<a href="{url}"><xsl:value-of select="libelle"/></a> <br/>
+				<xsl:text>(</xsl:text><xsl:value-of select="url"/><xsl:text>)</xsl:text>
 				<div class="comment">
-					<xsl:value-of disable-output-escaping="yes" select="local/description"/>
+					<xsl:value-of disable-output-escaping="yes" select="description"/>
 				</div>
-			</p>
+			</div>
 		</xsl:if>
 	</xsl:template>
 
 	<!-- ========================================= -->
-	<!-- =========== Entrée ====================== -->
+	<!-- =========== References ================== -->
 	<!-- ========================================= -->
 
-	<xsl:template match="ressource[@type='Entree']">
-		<div class='ressource2007'>
-			<table border ='0' > 
-				<tr>
-					<td width = "40px"> </td> 
-					<td width="49px">
-						<xsl:if test="contains(local/coop,'vrai')">
-							<img src='../../../portail/img/iconeCoop.gif' alt='Disponible à la COOP HEC'/>
-						</xsl:if>
-						<xsl:if test="not(contains(local/coop,'vrai'))">
-							<p></p> 
-						</xsl:if>
-					</td> 
-					<td width="49px">
-						<xsl:if test="contains(local/biblio,'vrai')">
-							<img src='../../../portail/images/iconeBiblio.gif' alt='Disponible à la	bibliothèque' />
-						</xsl:if>
-						<xsl:if test="not(contains(local/biblio,'vrai'))">
-							<p></p> 
-						</xsl:if>
-					</td> 
-					<td width="20px">
-						<xsl:if test="contains(local/complementaire,'vrai')">
-							<img src='../../../portail/images/iconeComp.gif' alt='Complémentaire' />
-						</xsl:if>
-						<xsl:if test="contains(local/obligatoire,'vrai')  ">
-							<img src='../../../portail/images/iconeObl.gif' alt='Obligatoire' />
-						</xsl:if>
-						<xsl:if	test="not(contains(local/obligatoire,'vrai')) and not(contains(local/complementaire,'vrai'))  ">
-							<p></p> 
-						</xsl:if>
-					</td>
-
-					<td width = "20px" align = 'center'> 
-						<img src='../../../portail/images/point.gif' />
-					</td> 
-					<td width = "700px" align = "left"> 
-
-						<span class='titreRessource'>
-							<xsl:value-of disable-output-escaping="yes" select="global/reference"/>
-							<!--
-						<xsl:call-template name="boutonsVote">
-							<xsl:with-param name="koid" select="global/code"/>
-							<xsl:with-param name="docid" select="@koid"/>
-						</xsl:call-template>
-						-->
-						</span>
-					</td> 
-				</tr>
-
-				<tr> 
-					<td></td> 
-					<td></td> 
-					<td></td> 
-					<td> </td> 
-					<td> </td> 
-					<td>
-						<div class='contenuRessource'>
-
-							<xsl:apply-templates select="global/isbn" />
-							<xsl:apply-templates select="global/description" />
-							<xsl:apply-templates select="local/description" />
-							<xsl:apply-templates select="global/documents" />
-
-						</div>
-					</td>
-				</tr>
-			</table>
-		</div>
+	<xsl:template match="ressource[@type='citation']">
+		<xsl:if test="@securite='0'">
+			<div class="ressource reference">
+				<xsl:call-template name="niveau"/>
+				<xsl:value-of disable-output-escaping="yes" select="libelle"/><br/>
+				<xsl:if test="isbn"><xsl:value-of select="$labels//label[@id='isbnLbl']"/><xsl:value-of select="isbn"/></xsl:if>
+				<div class="comment"><xsl:value-of disable-output-escaping="yes" select="description"/></div>
+				<xsl:if test="biblio_url!=''">
+					<img src="../../../portail/images/iconeBiblio.gif"/>
+					<a href="{biblio_url}" target="_blank"><xsl:value-of select="$labels//label[@id='availableLibraryLbl']"/></a><br/>
+				</xsl:if>
+				<xsl:if test="coop_url!=''">
+					<img src="../../../portail/images/iconeCoop.gif"/>
+					<a href="{coop_url}" target="_blank"><xsl:value-of select="$labels//label[@id='availableBookstoreLbl']"/></a><br/>
+				</xsl:if>
+				<xsl:if test="other_url!=''">
+					<img src="../../../portail/images/iconeAutre.gif"/>
+					<a href="{other_url}" target="_blank"><xsl:value-of select="other_url[@libelle]"/></a><br/>
+				</xsl:if>
+				
+			</div>
+		</xsl:if>
 	</xsl:template>
 
 	<!-- ========================================= -->
@@ -156,6 +114,7 @@
 	<!-- ========================================= -->
 
 	<xsl:template name="niveau">
+		<div class="level-icon">
 		<xsl:choose>
 			<xsl:when test="niveau='mandatory'">
 				<img src="../../../portail/images/mandatory.png"/>
@@ -167,6 +126,7 @@
 				<img src="../../../portail/images/complementary.png"/>
 			</xsl:when>
 		</xsl:choose>
+		</div>
 	</xsl:template>
 
 	<!-- template for formatting course id -->

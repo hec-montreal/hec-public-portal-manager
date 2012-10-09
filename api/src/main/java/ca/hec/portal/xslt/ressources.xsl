@@ -7,10 +7,16 @@
 
 	<xsl:template match="ressource[@type='text']">
 		<xsl:if test="@securite='0'">
-			<div class="ressource text">
-			<xsl:call-template name="niveau"/>
-			<div><xsl:value-of disable-output-escaping="yes" select="text"/></div>
-			</div>
+			<table class="courseOutline-ressource">
+				<tr>
+					<td style="vertical-align:top;">
+						<xsl:call-template name="niveau"/>
+					</td>
+					<td>
+						<div><xsl:value-of disable-output-escaping="yes" select="text"/></div>
+					</td>
+				</tr>
+			</table>
 		</xsl:if>
 	</xsl:template>
 
@@ -20,7 +26,7 @@
 
 	<xsl:template match="ressource[@type='staff']">
 		<xsl:if test="@securite='0'">
-			<div class="ressource staff">
+			<div class="courseOutline-ressource">
 				<xsl:value-of select="prenom"/><xsl:text> </xsl:text><font style="text-transform: uppercase;"><xsl:value-of select="nom"/></font><br/>
 				<xsl:if test="role">
 					<xsl:value-of select="role"/><br/>
@@ -43,24 +49,30 @@
 	</xsl:template>
 
 	<!-- ========================================= -->
-	<!-- =========== TXDocument =================== -->
+	<!-- =========== Document =================== -->
 	<!-- ========================================= -->
 
 	<xsl:template match="ressource[@type='document']">
 		<xsl:if test="@securite='0'">
-			<div class="ressource doc">
-				<xsl:call-template name="niveau"/>
-				<a href="/sdata/c{uri}" target="_blank"><xsl:value-of select="libelle"/></a>
-				<xsl:if test="type!=''">
-					<xsl:text> [</xsl:text>
-					<font style="text-transform: capitalize;"><xsl:value-of select="type"/></font>
-					<xsl:text>]</xsl:text>
-				</xsl:if> <br/>
-				<xsl:text>(</xsl:text><xsl:call-template name="getFilename"><xsl:with-param name="string"><xsl:value-of select="uri"/></xsl:with-param></xsl:call-template><xsl:text>)</xsl:text>
-				<div class="comment">
-					<xsl:value-of disable-output-escaping="yes" select="description"/>
-				</div>
-			</div>
+			<table class="courseOutline-ressource">
+				<tr>
+					<td style="vertical-align:top;">
+						<xsl:call-template name="niveau"/>
+					</td>
+					<td>
+						<a href="/sdata/c{uri}" target="_blank"><xsl:value-of select="libelle"/></a>
+						<xsl:if test="type!=''">
+							<xsl:text> [</xsl:text>
+							<font style="text-transform: capitalize;"><xsl:value-of select="type"/></font>
+							<xsl:text>]</xsl:text>
+						</xsl:if> <br/>
+						<xsl:text>(</xsl:text><xsl:call-template name="getFilename"><xsl:with-param name="string"><xsl:value-of select="uri"/></xsl:with-param></xsl:call-template><xsl:text>)</xsl:text>
+						<div class="comment">
+							<xsl:value-of disable-output-escaping="yes" select="description"/>
+						</div>
+					</td>
+				</tr>
+			</table>
 		</xsl:if>	
 	</xsl:template>
 
@@ -70,14 +82,20 @@
 
 	<xsl:template match="ressource[@type='url']">
 		<xsl:if test="@securite='0'">
-			<div class="ressource url">
-				<xsl:call-template name="niveau"/>
-				<a href="{url}"><xsl:value-of select="libelle"/></a> <br/>
-				<xsl:text>(</xsl:text><xsl:value-of select="url"/><xsl:text>)</xsl:text>
-				<div class="comment">
-					<xsl:value-of disable-output-escaping="yes" select="description"/>
-				</div>
-			</div>
+			<table class="courseOutline-ressource">
+				<tr>
+					<td style="vertical-align:top;">
+						<xsl:call-template name="niveau"/>
+					</td>
+					<td>
+						<a href="{url}"><xsl:value-of select="libelle"/></a> <br/>
+						<xsl:text>(</xsl:text><xsl:value-of select="url"/><xsl:text>)</xsl:text>
+						<div class="comment">
+							<xsl:value-of disable-output-escaping="yes" select="description"/>
+						</div>
+					</td>
+				</tr>
+			</table>
 		</xsl:if>
 	</xsl:template>
 
@@ -87,25 +105,53 @@
 
 	<xsl:template match="ressource[@type='citation']">
 		<xsl:if test="@securite='0'">
-			<div class="ressource reference">
-				<xsl:call-template name="niveau"/>
-				<xsl:value-of disable-output-escaping="yes" select="libelle"/><br/>
-				<xsl:if test="isbn"><xsl:value-of select="$labels//label[@id='isbnLbl']"/><xsl:value-of select="isbn"/></xsl:if>
-				<div class="comment"><xsl:value-of disable-output-escaping="yes" select="description"/></div>
+			<table class="courseOutline-ressource">
+				<tr>
+					<td style="vertical-align:top;">
+						<xsl:call-template name="niveau"/>
+					</td>
+					<td colspan="2">
+						<xsl:value-of disable-output-escaping="yes" select="libelle"/><br/>
+						<xsl:if test="isbn"><xsl:value-of select="$labels//label[@id='isbnLbl']"/><xsl:value-of select="isbn"/></xsl:if>
+						<div class="comment"><xsl:value-of disable-output-escaping="yes" select="description"/></div>
+					</td>
+
+				</tr>
 				<xsl:if test="biblio_url!=''">
-					<img src="../../../portail/images/iconeBiblio.gif"/>
-					<a href="{biblio_url}" target="_blank"><xsl:value-of select="$labels//label[@id='availableLibraryLbl']"/></a><br/>
+					<tr>
+						<td></td>
+						<td width="1px">
+							<img src="../../../portail/images/iconeBiblio.gif"/>
+						</td>
+						<td>
+							<a href="{biblio_url}" target="_blank"><xsl:value-of select="$labels//label[@id='availableLibraryLbl']"/></a><br/>
+						</td>
+					</tr>
 				</xsl:if>
 				<xsl:if test="coop_url!=''">
-					<img src="../../../portail/images/iconeCoop.gif"/>
-					<a href="{coop_url}" target="_blank"><xsl:value-of select="$labels//label[@id='availableBookstoreLbl']"/></a><br/>
+					<tr>
+						<td></td>
+						<td>
+							<img src="../../../portail/images/iconeCoop.gif"/>
+						</td>
+						<td>
+							<a href="{coop_url}" target="_blank"><xsl:value-of select="$labels//label[@id='availableBookstoreLbl']"/></a><br/>
+						</td>
+					</tr>
 				</xsl:if>
 				<xsl:if test="other_url!=''">
-					<img src="../../../portail/images/iconeAutre.gif"/>
-					<a href="{other_url}" target="_blank"><xsl:value-of select="other_url[@libelle]"/></a><br/>
+					<tr>
+						<td></td>
+						<td>
+							<img src="../../../portail/images/iconeAutre.gif"/>
+						</td>
+						<td>
+							<a href="{other_url}" target="_blank"><xsl:value-of select="other_url/@libelle"/></a><br/>
+						</td>
+					</tr>
 				</xsl:if>
-				
-			</div>
+
+			</table>
 		</xsl:if>
 	</xsl:template>
 
@@ -114,19 +160,17 @@
 	<!-- ========================================= -->
 
 	<xsl:template name="niveau">
-		<div class="level-icon">
 		<xsl:choose>
 			<xsl:when test="niveau='mandatory'">
-				<img src="../../../portail/images/mandatory.png"/>
+				<div class="icone-niveau"><img class="icone-niveau" src="../../../portail/images/mandatory.png"/></div>
 			</xsl:when>
 			<xsl:when test="niveau='recommended'">
-				<img src="../../../portail/images/recommended.png"/>
+				<div class="icone-niveau"><img class="icone-niveau" src="../../../portail/images/recommended.png"/></div>
 			</xsl:when>
 			<xsl:when test="niveau='complementary'">
-				<img src="../../../portail/images/complementary.png"/>
+				<div class="icone-niveau"><img src="../../../portail/images/complementary.png"/></div>
 			</xsl:when>
 		</xsl:choose>
-		</div>
 	</xsl:template>
 
 	<!-- template for formatting course id -->
@@ -165,16 +209,16 @@
 	<!-- recursive function to get the filename from a uri -->
 	<xsl:template name="getFilename">
 		<xsl:param name="string"/>	
-			<xsl:choose>
-				<xsl:when test="contains($string, '/')">
-					<xsl:call-template name="getFilename">
-						<xsl:with-param name="string" select="substring-after($string, '/')" />
-					</xsl:call-template>
-				</xsl:when>
-				<xsl:otherwise>
-					<xsl:value-of select="$string" />
-				</xsl:otherwise>
-			</xsl:choose>
+		<xsl:choose>
+			<xsl:when test="contains($string, '/')">
+				<xsl:call-template name="getFilename">
+					<xsl:with-param name="string" select="substring-after($string, '/')" />
+				</xsl:call-template>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:value-of select="$string" />
+			</xsl:otherwise>
+		</xsl:choose>
 	</xsl:template>
 
 </xsl:stylesheet>

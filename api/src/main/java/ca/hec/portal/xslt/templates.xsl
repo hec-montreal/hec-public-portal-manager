@@ -248,15 +248,15 @@
 				<xsl:apply-templates select='ressources/rubriqueObjectifs/ressource'/>
 			</xsl:if>
 			<xsl:if test="ressources/rubriqueActivitesRessourcesAvantSeance">
-				<h4><xsl:value-of select="$labels//label[@id='resourceBeforeLectureLbl']"/></h4>
+				<h4><xsl:value-of select="$labels//label[@id='resourcesBeforeLectureLbl']"/></h4>
 				<xsl:apply-templates select='ressources/rubriqueActivitesRessourcesAvantSeance/ressource'/>
 			</xsl:if>
 			<xsl:if test="ressources/rubriqueActivitesRessourcesPendantSeance">
-				<h4><xsl:value-of select="$labels//label[@id='resourceDuringLectureLbl']"/></h4>
+				<h4><xsl:value-of select="$labels//label[@id='resourcesDuringLectureLbl']"/></h4>
 				<xsl:apply-templates select='ressources/rubriqueActivitesRessourcesPendantSeance/ressource'/>
 			</xsl:if>
 			<xsl:if test="ressources/rubriqueActivitesRessourcesApresSeance">
-				<h4><xsl:value-of select="$labels//label[@id='resourceAfterLectureLbl']"/></h4>
+				<h4><xsl:value-of select="$labels//label[@id='resourcesAfterLectureLbl']"/></h4>
 				<xsl:apply-templates select='ressources/rubriqueActivitesRessourcesApresSeance/ressource'/>
 			</xsl:if>
 			<xsl:if test="ressources/rubriqueRessourcesGenerales">

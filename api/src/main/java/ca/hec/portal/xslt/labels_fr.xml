@@ -61,6 +61,6 @@
 	<!-- Lectures labels -->
 	<label id="descriptionLbl">Description</label>
 	<label id="resourcesBeforeLectureLbl">Activités/Ressources avant la séance</label>
-	<label id="resourceDuringLectureLbl">Activités/Ressources pendant la séance</label>
-	<label id="resourceAfterLectureLbl">Activités/Ressources après la séance</label>
+	<label id="resourcesDuringLectureLbl">Activités/Ressources pendant la séance</label>
+	<label id="resourcesAfterLectureLbl">Activités/Ressources après la séance</label>
 </labels>

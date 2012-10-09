@@ -17,12 +17,6 @@
 		<link href="../../../portail/plugins/bootstrap-2.1/css/bootstrap.css" rel="stylesheet"/>
 		<link href="../../../portail/plugins/bootstrap-2.1/css/bootstrap-custom_style.css" rel="stylesheet"/>
 		<link href="../../../portail/css/hec-public-portal.css" rel="stylesheet"/>    
-		
-		<style>
-			div.ressource {
-				margin-bottom : 1em;
-			}
-		</style>
 	</head>
 
 	<body>

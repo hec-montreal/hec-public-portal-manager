@@ -11,9 +11,9 @@ public interface PortalManagerService // extends EntityProducer
 {
     public void init();
 
-    public List<Item> getDepartments();
+    public List<Item> getDepartments(String locale);
 
-    public List<Item> getCareers();
+    public List<Item> getCareers(String locale);
     
     public String getDepartmentDescription(String department);
     

@@ -30,10 +30,11 @@ import lombok.Data;
  * class that factorize properties/function shared by Career or Department
  */
 @Data
-public class Item {
+public class Item implements Comparable<Item>{
     private Set<String> listId;
     private String description;
     private String itemGroup;
+    private Integer order;
     
     public Item(){
 	listId = new HashSet<String>();
@@ -42,6 +43,11 @@ public class Item {
     
     public void addId(String id) {
 	listId.add(id);
+    }
+
+
+    public int compareTo(Item it) {
+	return order.compareTo(it.getOrder());
     }
     
 }

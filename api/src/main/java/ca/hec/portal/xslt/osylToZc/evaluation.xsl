@@ -4,40 +4,31 @@
 	<!-- we are interessted only on the 1st asmStructure of type 'AssessmentStruct 'ignore all nested asmStructure-->
 	<xsl:template match="asmStructure[@xsi:type='AssessmentStruct' and not(../../asmStructure)]">
 		<evaluations>
-				<xsl:attribute name="securite"><xsl:call-template name="securite" /></xsl:attribute>		
 			<xsl:apply-templates select="*"/>
 		</evaluations>
 	</xsl:template>
 		
 	<xsl:template match="asmUnit[@xsi:type='AssessmentUnit']">
 		<evaluation>
-				<xsl:attribute name="securite"><xsl:call-template name="securite" /></xsl:attribute>
 				<libelle>
-					<xsl:attribute name="securite"><xsl:call-template name="securite" /></xsl:attribute>		
 					<xsl:value-of select="label"/>
 				</libelle>
 				<valeur>
-					<xsl:attribute name="securite"><xsl:call-template name="securite" /></xsl:attribute>					
 					<xsl:value-of select="weight"/>
 				</valeur>
 				<lieu>
-					<xsl:attribute name="securite"><xsl:call-template name="securite" /></xsl:attribute>					
 					<xsl:value-of select="location"/>
 				</lieu>
 				<modalite>
-					<xsl:attribute name="securite"><xsl:call-template name="securite" /></xsl:attribute>					
 					<xsl:value-of select="modality"/>
 				</modalite>
 				<mode>
-					<xsl:attribute name="securite"><xsl:call-template name="securite" /></xsl:attribute>					
 					<xsl:value-of select="mode"/>
 				</mode>
 				<type>
-					<xsl:attribute name="securite"><xsl:call-template name="securite" /></xsl:attribute>					
 					<xsl:value-of select="assessmentType"/>
 				</type>
 				<remise>
-					<xsl:attribute name="securite"><xsl:call-template name="securite" /></xsl:attribute>					
 					<xsl:value-of select="submition_type"/>
 				</remise>
 				<xsl:call-template name="createDateEvaluation"/>
@@ -50,7 +41,6 @@
 		<xsl:variable name="d"><xsl:value-of select="date-end"/></xsl:variable>
 		<xsl:if test="$d!=''">
 			<date>
-				<xsl:attribute name="securite"><xsl:call-template name="securite" /></xsl:attribute>					
 				<xsl:value-of select="substring($d,0,11)"/>
 			</date>
 		</xsl:if>

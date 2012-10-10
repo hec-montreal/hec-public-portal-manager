@@ -102,7 +102,7 @@
 				<xsl:if test="valeur!=''"><xsl:text> (</xsl:text><xsl:value-of select="valeur"/><xsl:text>%)</xsl:text></xsl:if>
 			</h3>
 
-			<div class="ressource evaluation-details">
+			<div class="evaluation-details">
 				<xsl:call-template name="eval-details"/>
 			</div>
 			<xsl:if test="ressources/rubriqueDescription">

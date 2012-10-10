@@ -3,7 +3,8 @@
 	
 	<xsl:template match="asmContext[@xsi:type='ReferenceContext' and ./asmResource[@xsi:type='Document']]">
 		<ressource type="document">
-			<xsl:attribute name="securite"><xsl:call-template name="securite" /></xsl:attribute>		
+			<xsl:attribute name="visible"><xsl:call-template name="visible"/></xsl:attribute>
+			<xsl:call-template name="important"/>
 			<libelle><xsl:value-of select="label"/></libelle>			
 			<description><xsl:value-of select="comment"/></description>
 			<niveau><xsl:value-of select="level"/></niveau>

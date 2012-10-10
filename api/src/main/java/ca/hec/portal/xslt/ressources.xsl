@@ -6,17 +6,25 @@
 	<!-- ========================================= -->
 
 	<xsl:template match="ressource[@type='text']">
-		<xsl:if test="@securite='0'">
-			<table class="courseOutline-ressource">
+		<xsl:if test="@visible='true'">
+			<xsl:if test="important">
+				<div class="important_header">
+					<xsl:value-of select="$labels//label[@id='importantLbl']"/>
+				</div>
+			</xsl:if>
+			<div>
+			<xsl:attribute name="class">ressource <xsl:if test="important">important_body</xsl:if></xsl:attribute>
+			<table class="ressource">
 				<tr>
 					<td style="vertical-align:top;">
 						<xsl:call-template name="niveau"/>
 					</td>
 					<td>
-						<div><xsl:value-of disable-output-escaping="yes" select="text"/></div>
+						<xsl:value-of disable-output-escaping="yes" select="text"/>
 					</td>
 				</tr>
 			</table>
+			</div>
 		</xsl:if>
 	</xsl:template>
 
@@ -25,8 +33,8 @@
 	<!-- ========================================= -->
 
 	<xsl:template match="ressource[@type='staff']">
-		<xsl:if test="@securite='0'">
-			<div class="courseOutline-ressource">
+		<xsl:if test="@visible='true'">
+			<div class="ressource">
 				<xsl:value-of select="prenom"/><xsl:text> </xsl:text><font style="text-transform: uppercase;"><xsl:value-of select="nom"/></font><br/>
 				<xsl:if test="role">
 					<xsl:value-of select="role"/><br/>
@@ -53,8 +61,15 @@
 	<!-- ========================================= -->
 
 	<xsl:template match="ressource[@type='document']">
-		<xsl:if test="@securite='0'">
-			<table class="courseOutline-ressource">
+		<xsl:if test="@visible='true'">
+			<xsl:if test="important">
+				<div class="important_header">
+					<xsl:value-of select="$labels//label[@id='importantLbl']"/>
+				</div>
+			</xsl:if>
+			<div>
+			<xsl:attribute name="class">ressource <xsl:if test="important">important_body</xsl:if></xsl:attribute>
+			<table class="ressource">
 				<tr>
 					<td style="vertical-align:top;">
 						<xsl:call-template name="niveau"/>
@@ -73,6 +88,7 @@
 					</td>
 				</tr>
 			</table>
+			</div>
 		</xsl:if>	
 	</xsl:template>
 
@@ -81,8 +97,16 @@
 	<!-- ========================================= -->
 
 	<xsl:template match="ressource[@type='url']">
-		<xsl:if test="@securite='0'">
-			<table class="courseOutline-ressource">
+		<xsl:if test="@visible='true'">
+			<xsl:if test="important">
+				<div class="important_header">
+					<xsl:value-of select="$labels//label[@id='importantLbl']"/>
+				</div>
+			</xsl:if>
+			<div>
+			<xsl:attribute name="class">ressource <xsl:if test="important">important_body</xsl:if></xsl:attribute>
+
+			<table class="ressource">
 				<tr>
 					<td style="vertical-align:top;">
 						<xsl:call-template name="niveau"/>
@@ -96,6 +120,7 @@
 					</td>
 				</tr>
 			</table>
+			</div>
 		</xsl:if>
 	</xsl:template>
 
@@ -104,8 +129,16 @@
 	<!-- ========================================= -->
 
 	<xsl:template match="ressource[@type='citation']">
-		<xsl:if test="@securite='0'">
-			<table class="courseOutline-ressource">
+		<xsl:if test="@visible='true'">
+			<xsl:if test="important">
+				<div class="important_header">
+					<xsl:value-of select="$labels//label[@id='importantLbl']"/>
+				</div>
+			</xsl:if>
+			<div>
+			<xsl:attribute name="class">ressource <xsl:if test="important">important_body</xsl:if></xsl:attribute>
+
+			<table class="ressource">
 				<tr>
 					<td style="vertical-align:top;">
 						<xsl:call-template name="niveau"/>
@@ -152,6 +185,7 @@
 				</xsl:if>
 
 			</table>
+			</div>
 		</xsl:if>
 	</xsl:template>
 

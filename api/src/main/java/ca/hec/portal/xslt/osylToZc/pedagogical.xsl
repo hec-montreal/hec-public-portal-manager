@@ -4,7 +4,6 @@
 	<!-- we are interessted only on the 1st asmStructure of type 'Pedagogical 'ignore all nested asmStructure-->
 	<xsl:template match="asmStructure[@xsi:type='PedagogicalStruct' and not(../../asmStructure)]">
 		<seances>
-				<xsl:attribute name="securite"><xsl:call-template name="securite" /></xsl:attribute>		
 			<xsl:apply-templates select="*"/>
 		</seances>
 	</xsl:template>
@@ -12,7 +11,6 @@
 	<!-- the nested PedagogicalStructs are groups of seances -->
 	<xsl:template match="asmStructure[@xsi:type='PedagogicalStruct' and ../../asmStructure]">
 		<group>
-			<xsl:attribute name="securite"><xsl:call-template name="securite" /></xsl:attribute>
 			<libelle><xsl:value-of select="label"/></libelle>
 			<description><xsl:value-of select="description"/></description>
 			<xsl:apply-templates select="*"/>
@@ -20,15 +18,13 @@
 	</xsl:template>
 		
 	<xsl:template match="asmUnit[@xsi:type='Lecture']">
-		<seance type="Seance" coursType="specifique">
-				<xsl:attribute name="securite"><xsl:call-template name="securite" /></xsl:attribute>		
+		<seance type="Seance">
 			<xsl:call-template name="createSeanceContent"/>
 		</seance>
 	</xsl:template>	
 	
 	<xsl:template match="asmUnit[@xsi:type='WorkSession']">
-		<seance type="TP" coursType="specifique">
-				<xsl:attribute name="securite"><xsl:call-template name="securite" /></xsl:attribute>		
+		<seance type="TP">
 			<xsl:call-template name="createSeanceContent"/>
 		</seance>
 	</xsl:template>	
@@ -40,16 +36,8 @@
 				<xsl:otherwise><xsl:call-template name="numbering"/></xsl:otherwise>
 			</xsl:choose>
 		</xsl:variable>
-		<xsl:attribute name="no"><xsl:value-of select="$no"/></xsl:attribute>
-		<xsl:attribute name="koId"><xsl:call-template name="getCoursekoIdentifier"/>.<xsl:call-template name="prefixNumber"/><xsl:value-of select="$no"/></xsl:attribute>
-		<no>
-				<xsl:attribute name="securite"><xsl:call-template name="securite" /></xsl:attribute>		
-			<xsl:value-of select="$no"/>
-		</no>
-		<libelle>
-				<xsl:attribute name="securite"><xsl:call-template name="securite" /></xsl:attribute>		
-			<xsl:value-of select="label"/>
-		</libelle>
+		<no><xsl:value-of select="$no"/></no>
+		<libelle><xsl:value-of select="label"/></libelle>
 		<xsl:call-template name="createRubric"/>
 	</xsl:template>	
 			

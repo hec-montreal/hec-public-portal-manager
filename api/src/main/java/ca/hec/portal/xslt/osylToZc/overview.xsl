@@ -3,7 +3,6 @@
 	
 	<xsl:template match="asmStructure[@xsi:type='OverviewStruct']">
 		<presentation>
-				<xsl:attribute name="securite"><xsl:call-template name="securite" /></xsl:attribute>		
 			<xsl:call-template name="createRubric"/>
 		</presentation>
 	</xsl:template>

@@ -12,8 +12,7 @@
 	<xsl:variable name="cid_global" select="/OSYL/CO/courseId[@type='HEC']"/>
 	
 	<xsl:template match="/OSYL/CO">
-		<planCours type="specifique">
-			<xsl:attribute name="securite"><xsl:call-template name="securite" /></xsl:attribute>
+		<planCours>
 			<xsl:attribute name="koId">
 				<xsl:call-template name="getCoursekoIdentifier"/>
 			</xsl:attribute>
@@ -26,44 +25,32 @@
 				</xsl:choose>
 			</xsl:attribute>
 			<professeur>
-				<xsl:attribute name="securite"><xsl:call-template name="securite" /></xsl:attribute>			
 				<nom>
-					<xsl:attribute name="securite"><xsl:call-template name="securite" /></xsl:attribute>				
 					<xsl:value-of select="creator"/>
 				</nom>
 				<prenom>
-					<xsl:attribute name="securite"><xsl:call-template name="securite" /></xsl:attribute>
 				</prenom>
 			</professeur>
 			<cours>
-				<xsl:attribute name="securite"><xsl:call-template name="securite" /></xsl:attribute>
 				<no>
-					<xsl:attribute name="securite"><xsl:call-template name="securite" /></xsl:attribute>
 					<xsl:call-template name="getCourseIdentifier"/>
 				</no>
 				<libelle>
-					<xsl:attribute name="securite"><xsl:call-template name="securite" /></xsl:attribute>				
 					<xsl:value-of select="title[@type='HEC']"/>
 				</libelle>
 				<service>
-					<xsl:attribute name="securite"><xsl:call-template name="securite" /></xsl:attribute>
 					<xsl:value-of select="department[@type='HEC']"/>
 				</service>
 				<session>
-					<xsl:attribute name="securite"><xsl:call-template name="securite" /></xsl:attribute>				
 					<no>
-						<xsl:attribute name="securite"><xsl:call-template name="securite" /></xsl:attribute>					
 						<xsl:call-template name="getCodeSession"/>.<xsl:call-template name="getPeriode"/>
 					</no>
 					<libelle>
-						<xsl:attribute name="securite"><xsl:call-template name="securite" /></xsl:attribute>
 						<xsl:call-template name="getSession"/>
 					</libelle>
 				</session>
 				<section>
-					<xsl:attribute name="securite"><xsl:call-template name="securite" /></xsl:attribute>				
 					<no>
-						<xsl:attribute name="securite"><xsl:call-template name="securite" /></xsl:attribute>					
 						<xsl:call-template name="getSection"/>
 					</no>
 				</section>
@@ -135,11 +122,17 @@
 	</xsl:template>
 
 	<xsl:template match="text()"/>	
-	<!--                                                     -->
-	<xsl:template name="securite" match="property/@securite">
+
+	<xsl:template name="important" match="importance">
+		<xsl:if test="importance='true'">
+			<important/>
+		</xsl:if>
+	</xsl:template>
+	
+	<xsl:template name="visible">
 		<xsl:choose>
-			<xsl:when test="@access='public'">0</xsl:when>
-			<xsl:otherwise>1</xsl:otherwise>
+			<xsl:when test="@access='public' and visible='true'">true</xsl:when>
+			<xsl:otherwise>false</xsl:otherwise>
 		</xsl:choose>	
 	</xsl:template>
 	

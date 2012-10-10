@@ -4,7 +4,8 @@
 
 	<xsl:template match="asmContext[@xsi:type='BiblioContext']">
 		<ressource type="citation">
-			<xsl:attribute name="securite"><xsl:call-template name="securite" /></xsl:attribute>	
+			<xsl:attribute name="visible"><xsl:call-template name="visible"/></xsl:attribute>
+			<xsl:call-template name="important"/>
 
 			<libelle><xsl:call-template name="formatCitation"/></libelle>
 			<isbn><xsl:value-of select="asmResource/identifier[@type='isn']"/></isbn>

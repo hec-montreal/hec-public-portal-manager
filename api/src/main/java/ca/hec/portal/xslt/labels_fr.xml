@@ -8,6 +8,7 @@
 	<label id="menuLblLectures">Organisation du cours</label>
 
 	<!-- data labels -->
+	<label id="importantLbl">Important</label>
 	<label id="bureauLbl">Bureau : </label>
 	<label id="courrielLbl">Courriel : </label>
 	<label id="telLbl">Téléphone : </label>

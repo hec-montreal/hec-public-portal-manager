@@ -4,7 +4,8 @@
 
 	<xsl:template match="asmContext[@xsi:type='InformationContext' and ./asmResource[@xsi:type='Text']]">
 		<ressource type="text">
-			<xsl:attribute name="securite"><xsl:call-template name="securite" /></xsl:attribute>
+			<xsl:attribute name="visible"><xsl:call-template name="visible" /></xsl:attribute>
+			<xsl:call-template name="important"/>
 			<niveau><xsl:value-of select="level"/></niveau>
 			<text><xsl:value-of select="asmResource/text"/></text>
 		</ressource>

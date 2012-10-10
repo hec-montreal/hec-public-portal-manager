@@ -4,7 +4,8 @@
 
 	<xsl:template match="asmContext[@xsi:type='ReferenceContext' and ./asmResource[@xsi:type='URL']]">
 		<ressource type="url">
-			<xsl:attribute name="securite"><xsl:call-template name="securite" /></xsl:attribute>
+			<xsl:attribute name="visible"><xsl:call-template name="visible"/></xsl:attribute>
+			<xsl:call-template name="important"/>
 			<libelle><xsl:value-of select="label"/></libelle>
 			<description><xsl:value-of select="comment"/></description>
 			<url><xsl:value-of select="asmResource/identifier[@type='uri']"/></url>

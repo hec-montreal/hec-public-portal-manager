@@ -5,7 +5,6 @@
 	
 	<xsl:template match="asmStructure[@xsi:type='StaffStruct']">
 		<coordonnees>
-			<xsl:attribute name="securite"><xsl:call-template name="securite" /></xsl:attribute>		
 			<xsl:call-template name="createRubric"/>
 		</coordonnees >
 	</xsl:template>

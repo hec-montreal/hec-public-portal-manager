@@ -4,7 +4,7 @@
 	
 	<xsl:template match="asmContext[@xsi:type='PeopleContext']">
 		<ressource type="staff">
-			<xsl:attribute name="securite"><xsl:call-template name="securite" /></xsl:attribute>
+			<xsl:attribute name="visible"><xsl:call-template name="visible"/></xsl:attribute>
 			
 			<nom><xsl:value-of select="Person/surname"/></nom>
 			<prenom><xsl:value-of select="Person/firstname"/></prenom>

@@ -14,8 +14,10 @@
 	<head>
 		<title><xsl:call-template name="sigle"/> - <xsl:value-of select="planCours/cours/libelle"/></title>
 	
+	<!--
 		<link href="../../../portail/plugins/bootstrap-2.1/css/bootstrap.css" rel="stylesheet"/>
 		<link href="../../../portail/plugins/bootstrap-2.1/css/bootstrap-custom_style.css" rel="stylesheet"/>
+		-->
 		<link href="../../../portail/css/hec-public-portal.css" rel="stylesheet"/>    
 	</head>
 
@@ -40,7 +42,7 @@
 
 					<!-- menu -->
 					<div id="" class=" span4" >
-						<div class="well" style="padding: 8px 0 ">
+						<div class="menu" style="padding: 8px 0 ">
 							<ul class="nav nav-list ">
 								<li>
 									<a id="linkPresentation" data-target="#coursePresentation" href="#" class="menu-link">

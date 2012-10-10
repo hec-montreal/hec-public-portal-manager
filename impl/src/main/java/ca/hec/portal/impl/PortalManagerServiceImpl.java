@@ -1,5 +1,6 @@
 package ca.hec.portal.impl;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -14,6 +15,8 @@ import ca.hec.portal.model.ItemFactory;
 public class PortalManagerServiceImpl implements PortalManagerService {
 
     private ResourceBundle msgs = null;
+    List<Item> bundleDepartments = null;
+    List<Item> bundleCareers = null;
     private ResourceBundle listDepartmentsToDisplay = null;
     private ResourceBundle listCareersToDisplay = null;
     private Map<String, String> careerGroups = null;
@@ -29,19 +32,26 @@ public class PortalManagerServiceImpl implements PortalManagerService {
      * Each department/career have a description and is associated to a group (can include several careers/departments)
      * @param  itemsType: department/career
      */
-    public List<Item> getItems(String itemsType) {
+    public List<Item> getItems(String itemsType, String locale) {
 	ItemFactory listDpt = new ItemFactory();
 	Item dpTemp = null;
 	ResourceBundle listItemsToDisplay = null;
+	ResourceBundle orderBundle = null;
 	 Map<String, String> itemGroups;
 	
-	if ("career".equals(itemsType)){
+	if ("career".equals(itemsType)){	    
+	    listCareersToDisplay = ResourceBundle.getBundle("careers",new Locale(locale));
+	    initGroup("career");
 	    listItemsToDisplay = listCareersToDisplay;
 	    itemGroups =  careerGroups;
+	    orderBundle = ResourceBundle.getBundle("order_careers");
 	}
 	else{
+	    listDepartmentsToDisplay = ResourceBundle.getBundle("departments",new Locale(locale));
+	    initGroup("department");
 	    listItemsToDisplay = listDepartmentsToDisplay;
 	    itemGroups =  departmentGroups;
+	    orderBundle = ResourceBundle.getBundle("order_departments");
 	}
 	
 	for (String itemKey : (Set<String>) listItemsToDisplay
@@ -58,12 +68,14 @@ public class PortalManagerServiceImpl implements PortalManagerService {
 		dp.addId(itemKey);
 		dp.setDescription(listItemsToDisplay.getString(itemKey));
 		dp.setItemGroup(itemGroups.get(itemKey));
+		dp.setOrder(Integer.parseInt(orderBundle.getString(itemKey)));
 		listDpt.add(dp);
 	    }
-	    
-	    
 	}
-	return listDpt.getListItem();
+	
+	List<Item> returnItemList = listDpt.getListItem();
+	Collections.sort(returnItemList);
+	return returnItemList;
     }
     
     
@@ -146,15 +158,25 @@ public class PortalManagerServiceImpl implements PortalManagerService {
     public Map<String, String> getBundle(String locale) {
 	Map<String, String> msgsBundle = new HashMap<String, String>();
 	msgs = ResourceBundle.getBundle("portal", new Locale(locale));	
-	listDepartmentsToDisplay = ResourceBundle.getBundle("departments",new Locale(locale));
-	listCareersToDisplay = ResourceBundle.getBundle("careers",new Locale(locale));
+	bundleDepartments = getItems("department",locale);
+	bundleCareers = getItems("career",locale);
+	
 	
 	for (String key : msgs.keySet()) {
 	    msgsBundle.put((String) key, (String) msgs.getString(key));
 	}
 	
-	initGroup("career");
-	initGroup("department");
+	for (Item item : bundleDepartments) {
+	    String key = "department_" + item.getItemGroup();
+	    String description = item.getDescription();
+	    msgsBundle.put(key, description);
+	}
+	
+	for (Item item : bundleCareers) {
+	    String key = "career_" + item.getItemGroup();
+	    String description = item.getDescription();
+	    msgsBundle.put(key, description);
+	}
 	
 	
 	return msgsBundle;
@@ -171,11 +193,11 @@ public class PortalManagerServiceImpl implements PortalManagerService {
     }    
 
     
-    public List<Item> getDepartments() {
-	return getItems("department");
+    public List<Item> getDepartments(String locale) {
+	return getItems("department",locale);
     }
     
-    public List<Item> getCareers() {
-	return getItems("career");
+    public List<Item> getCareers(String locale) {
+	return getItems("career",locale);
     }
 }

@@ -42,12 +42,14 @@ public class PortalManagerEntityProviderImpl extends AbstractEntityProvider
 
     @EntityCustomAction(action = "getDepartments", viewKey = EntityView.VIEW_LIST)
     public List<?> getDepartments(EntityView view, Map<String, Object> params) {
-	return portalManagerService.getDepartments();
+	String locale = view.getPathSegment(2);
+	return portalManagerService.getDepartments(locale);
     }
 
     @EntityCustomAction(action = "getCareers", viewKey = EntityView.VIEW_LIST)
     public List<?> getCareers(EntityView view, Map<String, Object> params) {
-	return portalManagerService.getCareers();
+	String locale = view.getPathSegment(2);
+	return portalManagerService.getCareers(locale);
     }
 
     @EntityCustomAction(action = "getBundles", viewKey = EntityView.VIEW_LIST)

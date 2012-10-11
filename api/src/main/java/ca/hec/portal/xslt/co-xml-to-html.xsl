@@ -38,7 +38,7 @@
 
 					<!-- menu -->
 					<div id="" class=" span4" >
-						<div class="menu" style="padding: 8px 0 ">
+						<div class="menu courseOutline-menu">
 							<ul class="nav nav-list ">
 								<li>
 									<a id="linkPresentation" data-target="#coursePresentation" href="#" class="menu-link">

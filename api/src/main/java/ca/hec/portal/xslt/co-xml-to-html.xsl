@@ -14,10 +14,6 @@
 	<head>
 		<title><xsl:call-template name="sigle"/> - <xsl:value-of select="planCours/cours/libelle"/></title>
 	
-	<!--
-		<link href="../../../portail/plugins/bootstrap-2.1/css/bootstrap.css" rel="stylesheet"/>
-		<link href="../../../portail/plugins/bootstrap-2.1/css/bootstrap-custom_style.css" rel="stylesheet"/>
-		-->
 		<link href="../../../portail/css/hec-public-portal.css" rel="stylesheet"/>    
 	</head>
 
@@ -33,7 +29,7 @@
 				</div>
 			</div>
 		
-			<div id="main" class="container clear-top">
+			<div id="main" class="container clear-top courseOutline-main">
 				<div class="row">
 
 					<div class="row span12">
@@ -94,7 +90,6 @@
 		
 <!-- Scripts. -->		
     <script src="../../../portail/plugins/jquery/jquery-1.8.1.min.js"></script>
-    <script src="../../../portail/plugins/bootstrap-2.1/js/bootstrap.min.js"></script> 
 	<script src="../../../portail/js/html-view.js"></script>
 <!-- end scripts -->
 		

@@ -10,27 +10,13 @@
 		
 	<xsl:template match="asmUnit[@xsi:type='AssessmentUnit']">
 		<evaluation>
-				<libelle>
-					<xsl:value-of select="label"/>
-				</libelle>
-				<valeur>
-					<xsl:value-of select="weight"/>
-				</valeur>
-				<lieu>
-					<xsl:value-of select="location"/>
-				</lieu>
-				<modalite>
-					<xsl:value-of select="modality"/>
-				</modalite>
-				<mode>
-					<xsl:value-of select="mode"/>
-				</mode>
-				<type>
-					<xsl:value-of select="assessmentType"/>
-				</type>
-				<remise>
-					<xsl:value-of select="submition_type"/>
-				</remise>
+				<libelle><xsl:value-of select="label"/></libelle>
+				<valeur><xsl:value-of select="weight"/></valeur>
+				<lieu><xsl:value-of select="location"/></lieu>
+				<modalite><xsl:value-of select="modality"/></modalite>
+				<mode><xsl:value-of select="mode"/></mode>
+				<type><xsl:value-of select="assessmentType"/></type>
+				<remise><xsl:value-of select="submition_type"/></remise>
 				<xsl:call-template name="createDateEvaluation"/>
 				<xsl:call-template name="createRubric"/>
 		</evaluation>

@@ -207,35 +207,16 @@
 		</xsl:choose>
 	</xsl:template>
 
-	<!-- template for formatting course id -->
+	<!-- remove ".00" in the course id -->
 	<xsl:template name="sigle">
 		<xsl:choose>
-			<xsl:when test="contains(/planCours/cours/no,'A')">
-				<xsl:value-of select="/planCours/cours/no"/>
-			</xsl:when>
-			<xsl:when test="contains(/planCours/cours/no,'E')">
-				<xsl:value-of select="/planCours/cours/no"/>
-			</xsl:when>
-			<xsl:when test="contains(/planCours/cours/no,'I')">
-				<xsl:value-of select="/planCours/cours/no"/>
-			</xsl:when>
-			<xsl:when test="contains(/planCours/cours/no,'O')">
-				<xsl:value-of select="/planCours/cours/no"/>
-			</xsl:when>
-			<xsl:when test="contains(/planCours/cours/no,'U')">
-				<xsl:value-of select="/planCours/cours/no"/>
+			<xsl:when test="substring-after(substring-after(planCours/cours/id, '.'), '.')='00'">
+				<xsl:value-of select="substring-before(planCours/cours/id, '.')"/>
+				<xsl:text>.</xsl:text>
+				<xsl:value-of select="substring-before(substring-after(planCours/cours/id, '.'), '.')"/>
 			</xsl:when>
 			<xsl:otherwise>
-				<xsl:value-of select="substring(/planCours/cours/no,0,string-length(/planCours/cours/no)-4)"/>
-				<xsl:text>-</xsl:text>
-				<xsl:value-of select="substring(/planCours/cours/no,string-length(/planCours/cours/no)-4,3)"/>
-				<xsl:text>-</xsl:text>
-				<xsl:value-of select="substring(/planCours/cours/no,string-length(/planCours/cours/no)-1,2)"/>
-				<xsl:text>.</xsl:text>
-				<xsl:value-of select="planCours/cours/session/libelle"/>
-				<xsl:if test="not(planCours/cours/section/no = '00')">
-					<xsl:text>.</xsl:text><xsl:value-of select="planCours/cours/session/libelle"/>
-				</xsl:if>	
+				<xsl:value-of select="planCours/cours/id"/>
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:template>

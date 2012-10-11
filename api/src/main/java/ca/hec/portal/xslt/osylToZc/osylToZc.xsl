@@ -13,10 +13,6 @@
 	
 	<xsl:template match="/OSYL/CO">
 		<planCours>
-			<xsl:attribute name="koId">
-				<xsl:call-template name="getCoursekoIdentifier"/>
-			</xsl:attribute>
-			<xsl:attribute name="courseId"><xsl:call-template name="getCourseIdentifier"/>.<xsl:value-of select="substring-after($cid_global,'.')"/>.pce</xsl:attribute>			
 			<xsl:attribute name="lang">
 				<xsl:choose>
 					<xsl:when test="language='FR-CA'">fr</xsl:when>
@@ -24,14 +20,10 @@
 					<xsl:otherwise>en</xsl:otherwise>
 				</xsl:choose>
 			</xsl:attribute>
-			<professeur>
-				<nom>
-					<xsl:value-of select="creator"/>
-				</nom>
-				<prenom>
-				</prenom>
-			</professeur>
 			<cours>
+				<id>
+					<xsl:value-of select="courseId[@type='HEC']"/>
+				</id>
 				<no>
 					<xsl:call-template name="getCourseIdentifier"/>
 				</no>
@@ -114,15 +106,6 @@
 		</xsl:choose>
 	</xsl:template>
 	
-	<xsl:template name="getCoursekoIdentifier">
-	<!-- This line works weel for courses with no period. Doesn't work for MBA courses
-		<xsl:call-template name="getSession"/>-<xsl:call-template name="getPeriode"/>-<xsl:call-template name="getCourseIdentifier"/>-<xsl:value-of select="substring-after(substring-after($cid_global,'.'),'.')"/> 
-      -->
-		<xsl:call-template name="getSession"/>-<xsl:call-template name="getPeriode"/>-<xsl:call-template name="getCourseIdentifier"/>-<xsl:call-template name="getSection"/>
-	</xsl:template>
-
-	<xsl:template match="text()"/>	
-
 	<xsl:template name="important" match="importance">
 		<xsl:if test="importance='true'">
 			<important/>

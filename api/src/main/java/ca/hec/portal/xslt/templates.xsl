@@ -99,7 +99,8 @@
 		<div id="courseEvaluation{position()}" class="courseOutline" style="display:none">
 			<h3>
 				<xsl:value-of select="libelle"/>
-				<xsl:if test="valeur!=''"><xsl:text> (</xsl:text><xsl:value-of select="valeur"/><xsl:text>%)</xsl:text></xsl:if>
+				<xsl:if test="valeur!=''"><xsl:text> (</xsl:text><xsl:value-of select="valeur"/><xsl:text>%) </xsl:text></xsl:if>
+				<xsl:if test="date!=''"><xsl:value-of select="date"/></xsl:if>
 			</h3>
 
 			<div class="evaluation-details">

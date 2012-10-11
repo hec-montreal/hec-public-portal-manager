@@ -1,15 +1,66 @@
-<?xml version="1.0" encoding="utf-8"?>
-<Dictionary xml:lang="en-US">
-	<Label ID="TITLE">
-		Title
-	</Label>
-	<Label ID="YEAR">
-		Year
-	</Label>
-	<Label ID="AUTHOR">
-		Author
-	</Label>
-	<Label ID="HEADER">
-		Library example
-	</Label>
-</Dictionary>
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<labels xml:lang="en">
+	<!-- Menu labels -->
+	<label id="menuLblPresentation">Presentation</label>
+	<label id="menuLblContact">Contact Information</label>
+	<label id="menuLblMaterials">Learning Material</label>
+	<label id="menuLblEvaluations">Evaluations</label>
+	<label id="menuLblLectures">Course Organisation</label>
+
+	<!-- data labels -->
+	<label id="importantLbl">Important</label>
+	<label id="bureauLbl">Office : </label>
+	<label id="courrielLbl">Email : </label>
+	<label id="telLbl">Telephone : </label>
+	<label id="dispoLbl">Availability : </label>
+	<label id="evalDateLbl">Date : </label>
+	<label id="isbnLbl">ISBN : </label>
+	<label id="availableLibraryLbl">Available at the library</label>
+	<label id="availableBookstoreLbl">Available at the HEC Coop</label>
+
+	<!-- Presentation labels -->
+	<label id="descriptionLbl">Description</label>
+	<label id="objectifsLbl">Objectives</label>
+	<label id="approcheLbl">Learning Strategy</label>
+
+	<!-- Contacts labels -->
+	<label id="coordonnateursLbl">Coordinator</label>
+	<label id="enseignantsLbl">Lecturer(s)</label>
+	<label id="stagiairesEnseignementLbl">Teaching Assistant(s)</label>
+	<label id="conferenciersLbl">Speaker(s)</label>
+	<label id="secretairesLbl">Secretary(ies)</label>
+
+	<!-- Materiels labels -->
+	<label id="ressourcesGeneralesLbl">Miscellaneous Resources</label>
+	<label id="casLbl">Case</label>
+	<label id="biblioLbl">Bibliographic resources</label>
+	<label id="ressourcesComplementairesLbl">Complementary Bibliographical Resources</label>
+	<label id="outilsLbl">Tools</label>
+	<label id="anciensExamensLbl">Past Exams</label>	
+
+	<!-- Evaluation labels -->
+	<label id="critereEvaluationLbl">Evaluation Criteria</label>
+	<label id="preparationEvaluationLbl">Preparation to Evaluation</label>
+	<label id="remisesLbl">Submission Procedures and Penalties</label>
+
+	<label id="remiseModeLbl">Submission Mode : </label>
+	<label id="remiseElectPapierLbl">Electronic and Paper</label>
+	<label id="remiseElectLbl">Electronic</label>
+	<label id="remisePapierLbl">Paper</label>
+	
+	<label id="modaliteOralWrittenLbl">Oral and Written</label>
+	<label id="modaliteOralLbl">Oral</label>
+	<label id="modaliteWrittenLbl">Written</label>
+	
+	<label id="lieuHomeClasseLbl">At Home - Out of class and In Class</label>
+	<label id="lieuHomeLbl">At Home - Out of class</label>
+	<label id="lieuClasseLbl">In Class</label>
+	
+	<label id="modeIndividuelLbl">Individual</label>
+	<label id="modeEnEquipLbl">Team</label>
+	
+	<!-- Lectures labels -->
+	<label id="resourcesBeforeLectureLbl">Activities/Resources before session</label>
+	<label id="resourcesDuringLectureLbl">Activities/Resources during session</label>
+	<label id="resourcesAfterLectureLbl">Activities/Resources after session</label>
+</labels>

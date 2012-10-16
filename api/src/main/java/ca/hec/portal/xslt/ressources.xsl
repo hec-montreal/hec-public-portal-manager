@@ -145,7 +145,8 @@
 					</td>
 					<td colspan="2">
 						<xsl:value-of disable-output-escaping="yes" select="libelle"/><br/>
-						<xsl:if test="isbn!=''"><xsl:value-of select="$labels//label[@id='isbnLbl']"/><xsl:value-of select="isbn"/></xsl:if>
+						<xsl:if test="isbn!=''"><xsl:value-of select="$labels//label[@id='isbnLbl']"/><xsl:value-of select="isbn"/><br/></xsl:if>
+						<xsl:if test="type!=''"><xsl:text>[</xsl:text><xsl:value-of select="type"/><xsl:text>]</xsl:text></xsl:if>
 						<div class="comment"><xsl:value-of disable-output-escaping="yes" select="description"/></div>
 					</td>
 

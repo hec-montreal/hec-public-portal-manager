@@ -11,6 +11,7 @@
 			<isbn><xsl:value-of select="asmResource/identifier[@type='isn']"/></isbn>
 			<description><xsl:value-of select="comment"/></description>
 			<niveau><xsl:value-of select="level"/></niveau>
+			<type><xsl:value-of select="asmResource/asmResourceType"/></type>
 			<biblio_url><xsl:value-of select="asmResource/identifier[@type='library']"/></biblio_url>
 			<coop_url><xsl:value-of select="asmResource/identifier[@type='bookstore']"/></coop_url>
 			<other_url>

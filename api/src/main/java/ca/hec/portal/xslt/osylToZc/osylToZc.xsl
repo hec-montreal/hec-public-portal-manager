@@ -106,6 +106,8 @@
 		</xsl:choose>
 	</xsl:template>
 	
+	<xsl:template match="text()"/>	
+
 	<xsl:template name="important" match="importance">
 		<xsl:if test="importance='true'">
 			<important/>

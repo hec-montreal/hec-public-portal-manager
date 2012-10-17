@@ -199,13 +199,25 @@
 	<xsl:template name="niveau">
 		<xsl:choose>
 			<xsl:when test="niveau='mandatory'">
-				<div class="icone-niveau"><img class="icone-niveau" src="../../../portail/images/mandatory.png"/></div>
+				<div class="icone-niveau">
+					<img class="icone-niveau" src="../../../portail/images/mandatory.png">
+						<xsl:attribute name="title"><xsl:value-of select="java:getString($labels, 'mandatory')"/></xsl:attribute>
+					</img>
+				</div>
 			</xsl:when>
 			<xsl:when test="niveau='recommended'">
-				<div class="icone-niveau"><img class="icone-niveau" src="../../../portail/images/recommended.png"/></div>
+				<div class="icone-niveau">
+					<img class="icone-niveau" src="../../../portail/images/recommended.png">
+						<xsl:attribute name="title"><xsl:value-of select="java:getString($labels, 'recommended')"/></xsl:attribute>
+					</img>
+				</div>
 			</xsl:when>
 			<xsl:when test="niveau='complementary'">
-				<div class="icone-niveau"><img src="../../../portail/images/complementary.png"/></div>
+				<div class="icone-niveau">
+					<img class="icone-niveau" src="../../../portail/images/complementary.png">
+						<xsl:attribute name="title"><xsl:value-of select="java:getString($labels, 'complementary')"/></xsl:attribute>
+					</img>
+				</div>
 			</xsl:when>
 		</xsl:choose>
 	</xsl:template>

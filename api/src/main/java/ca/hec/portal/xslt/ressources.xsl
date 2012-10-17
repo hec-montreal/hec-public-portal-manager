@@ -61,6 +61,7 @@
 	<!-- ========================================= -->
 
 	<xsl:template match="ressource[@type='document']">
+		<xsl:variable name="uri_prefix">/group/<xsl:call-template name="sigle"/>/</xsl:variable>
 		<xsl:if test="@visible='true'">
 			<xsl:if test="important">
 				<div class="important_header">
@@ -75,7 +76,16 @@
 						<xsl:call-template name="niveau"/>
 					</td>
 					<td>
-						<a href="/sdata/c{uri}" target="_blank"><xsl:value-of select="libelle"/></a>
+						<a target="_blank">
+							<xsl:attribute name="href">
+								<!-- generate the url for the resource -->
+								<xsl:text>/sdata/c/attachment/</xsl:text>
+								<xsl:call-template name="sigle"/>
+								<xsl:text>/OpenSyllabus/</xsl:text>
+								<xsl:value-of select="substring-after(uri, $uri_prefix)"/>
+							</xsl:attribute>
+							<xsl:value-of select="libelle"/>
+						</a>
 						<xsl:call-template name="type"/>
 						<xsl:text>(</xsl:text><xsl:call-template name="getFilename"><xsl:with-param name="string"><xsl:value-of select="uri"/></xsl:with-param></xsl:call-template><xsl:text>)</xsl:text>
 						<div class="comment">
@@ -225,13 +235,13 @@
 	<!-- remove ".00" in the course id -->
 	<xsl:template name="sigle">
 		<xsl:choose>
-			<xsl:when test="substring-after(substring-after(planCours/cours/id, '.'), '.')='00'">
-				<xsl:value-of select="substring-before(planCours/cours/id, '.')"/>
+			<xsl:when test="substring-after(substring-after(/planCours/cours/id, '.'), '.')='00'">
+				<xsl:value-of select="substring-before(/planCours/cours/id, '.')"/>
 				<xsl:text>.</xsl:text>
-				<xsl:value-of select="substring-before(substring-after(planCours/cours/id, '.'), '.')"/>
+				<xsl:value-of select="substring-before(substring-after(/planCours/cours/id, '.'), '.')"/>
 			</xsl:when>
 			<xsl:otherwise>
-				<xsl:value-of select="planCours/cours/id"/>
+				<xsl:value-of select="/planCours/cours/id"/>
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:template>

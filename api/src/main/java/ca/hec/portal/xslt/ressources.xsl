@@ -1,5 +1,5 @@
 <?xml version="1.0"  encoding="ISO-8859-1" ?>
-<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:java="java">
 
 	<!-- ========================================= -->
 	<!-- =============== Texte =================== -->
@@ -9,7 +9,7 @@
 		<xsl:if test="@visible='true'">
 			<xsl:if test="important">
 				<div class="important_header">
-					<xsl:value-of select="$labels//label[@id='importantLbl']"/>
+					<xsl:value-of select="java:getString($labels,'importantLbl')"/>
 				</div>
 			</xsl:if>
 			<div>
@@ -46,10 +46,10 @@
 					<xsl:value-of disable-output-escaping="yes" select="telephone"/><br/>
 				</xsl:if>
 				<xsl:if test="bureau">
-					<xsl:value-of select="$labels//label[@id='bureauLbl']"/><xsl:value-of disable-output-escaping="yes" select="bureau"/><br/>
+					<xsl:value-of select="java:getString($labels,'bureauLbl')"/><xsl:value-of disable-output-escaping="yes" select="bureau"/><br/>
 				</xsl:if>
 				<xsl:if test="disponibilite">
-					<xsl:value-of select="$labels//label[@id='dispoLbl']"/><xsl:value-of disable-output-escaping="yes" select="disponibilite"/>
+					<xsl:value-of select="java:getString($labels,'dispoLbl')"/><xsl:value-of disable-output-escaping="yes" select="disponibilite"/>
 				</xsl:if>
 				<xsl:value-of disable-output-escaping="yes" select="commentaire"/>
 			</div>
@@ -64,7 +64,7 @@
 		<xsl:if test="@visible='true'">
 			<xsl:if test="important">
 				<div class="important_header">
-					<xsl:value-of select="$labels//label[@id='importantLbl']"/>
+					<xsl:value-of select="java:getString($labels,'importantLbl')"/>
 				</div>
 			</xsl:if>
 			<div>
@@ -100,7 +100,7 @@
 		<xsl:if test="@visible='true'">
 			<xsl:if test="important">
 				<div class="important_header">
-					<xsl:value-of select="$labels//label[@id='importantLbl']"/>
+					<xsl:value-of select="java:getString($labels,'importantLbl')"/>
 				</div>
 			</xsl:if>
 			<div>
@@ -132,7 +132,7 @@
 		<xsl:if test="@visible='true'">
 			<xsl:if test="important">
 				<div class="important_header">
-					<xsl:value-of select="$labels//label[@id='importantLbl']"/>
+					<xsl:value-of select="java:getString($labels,'importantLbl')"/>
 				</div>
 			</xsl:if>
 			<div>
@@ -145,7 +145,7 @@
 					</td>
 					<td colspan="2">
 						<xsl:value-of disable-output-escaping="yes" select="libelle"/><br/>
-						<xsl:if test="isbn!=''"><xsl:value-of select="$labels//label[@id='isbnLbl']"/><xsl:value-of select="isbn"/><br/></xsl:if>
+						<xsl:if test="isbn!=''"><xsl:value-of select="java:getString($labels,'isbnLbl')"/><xsl:value-of select="isbn"/><br/></xsl:if>
 						<xsl:if test="type!=''"><xsl:text>[</xsl:text><xsl:value-of select="type"/><xsl:text>]</xsl:text></xsl:if>
 						<div class="comment"><xsl:value-of disable-output-escaping="yes" select="description"/></div>
 					</td>
@@ -158,7 +158,7 @@
 							<img src="../../../portail/images/iconeBiblio.gif"/>
 						</td>
 						<td>
-							<a href="{biblio_url}" target="_blank"><xsl:value-of select="$labels//label[@id='availableLibraryLbl']"/></a><br/>
+							<a href="{biblio_url}" target="_blank"><xsl:value-of select="java:getString($labels,'availableLibraryLbl')"/></a><br/>
 						</td>
 					</tr>
 				</xsl:if>
@@ -169,7 +169,7 @@
 							<img src="../../../portail/images/iconeCoop.gif"/>
 						</td>
 						<td>
-							<a href="{coop_url}" target="_blank"><xsl:value-of select="$labels//label[@id='availableBookstoreLbl']"/></a><br/>
+							<a href="{coop_url}" target="_blank"><xsl:value-of select="java:getString($labels,'availableBookstoreLbl')"/></a><br/>
 						</td>
 					</tr>
 				</xsl:if>

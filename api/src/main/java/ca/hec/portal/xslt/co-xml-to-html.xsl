@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
-<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:java="java">
 <xsl:output method="html" encoding="ISO-8859-1" omit-xml-declaration="yes"/>
 
 <xsl:include href="templates.xsl"/>
 <xsl:include href="ressources.xsl"/>
 
-<xsl:variable name="labelsFilename">labels_<xsl:value-of select="planCours/@lang"/>.xml</xsl:variable>
-<xsl:variable name="labels" select="document($labelsFilename)" />
-
+<xsl:variable name="locale" select="java:util.Locale.new(planCours/@lang)"/>
+<xsl:variable name="labels" select="java:util.ResourceBundle.getBundle('html/course_outline', $locale)"/>
 <xsl:template match="/">
 <html>
 
@@ -42,25 +41,25 @@
 							<ul class="nav nav-list ">
 								<li>
 									<a id="linkPresentation" data-target="#coursePresentation" href="#" class="menu-link">
-										<xsl:value-of select="$labels//label[@id='menuLblPresentation']"/>
+										<xsl:value-of select="java:getString($labels,'menuLblPresentation')"/>
 									</a>
 								</li>
 								<li>
 									<a id="linkContact" data-target="#courseCoordinates" href="#" class="menu-link">
-										<xsl:value-of select="$labels//label[@id='menuLblContact']"/>
+										<xsl:value-of select="java:getString($labels,'menuLblContact')"/>
 									</a>
 								</li>
 								<li>
 									<a id="linkMaterials" data-target="#courseMaterials" href="#" class="menu-link">
-										<xsl:value-of select="$labels//label[@id='menuLblMaterials']"/>
+										<xsl:value-of select="java:getString($labels,'menuLblMaterials')"/>
 									</a>
 								</li>
 								<li>
-									<a><xsl:value-of select="$labels//label[@id='menuLblEvaluations']"/></a>
+									<a><xsl:value-of select="java:getString($labels,'menuLblEvaluations')"/></a>
 									<xsl:apply-templates select="planCours/evaluations"/>
 								</li>
 								<li>
-									<a><xsl:value-of select="$labels//label[@id='menuLblLectures']"/></a>
+									<a><xsl:value-of select="java:getString($labels,'menuLblLectures')"/></a>
 									<xsl:apply-templates select="planCours/seances"/>
 								</li>
 							</ul>

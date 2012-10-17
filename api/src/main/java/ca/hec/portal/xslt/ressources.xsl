@@ -76,11 +76,7 @@
 					</td>
 					<td>
 						<a href="/sdata/c{uri}" target="_blank"><xsl:value-of select="libelle"/></a>
-						<xsl:if test="type!=''">
-							<xsl:text> [</xsl:text>
-							<font style="text-transform: capitalize;"><xsl:value-of select="type"/></font>
-							<xsl:text>]</xsl:text>
-						</xsl:if> <br/>
+						<xsl:call-template name="type"/>
 						<xsl:text>(</xsl:text><xsl:call-template name="getFilename"><xsl:with-param name="string"><xsl:value-of select="uri"/></xsl:with-param></xsl:call-template><xsl:text>)</xsl:text>
 						<div class="comment">
 							<xsl:value-of disable-output-escaping="yes" select="description"/>
@@ -146,7 +142,7 @@
 					<td colspan="2">
 						<xsl:value-of disable-output-escaping="yes" select="libelle"/><br/>
 						<xsl:if test="isbn!=''"><xsl:value-of select="java:getString($labels,'isbnLbl')"/><xsl:value-of select="isbn"/><br/></xsl:if>
-						<xsl:if test="type!=''"><xsl:text>[</xsl:text><xsl:value-of select="type"/><xsl:text>]</xsl:text></xsl:if>
+						<xsl:call-template name="type"/>
 						<div class="comment"><xsl:value-of disable-output-escaping="yes" select="description"/></div>
 					</td>
 
@@ -193,6 +189,12 @@
 	<!-- ========================================= -->
 	<!-- =========== Commun ====================== -->
 	<!-- ========================================= -->
+	<xsl:template name="type">
+		<xsl:if test="type!=''">
+			<xsl:variable name="typeLabel">Resource.Type.<xsl:value-of select="type"/></xsl:variable>
+			<xsl:text> [</xsl:text><xsl:value-of select="java:getString($labels, $typeLabel)"/><xsl:text>]</xsl:text><br/>
+		</xsl:if> 
+	</xsl:template>
 
 	<xsl:template name="niveau">
 		<xsl:choose>

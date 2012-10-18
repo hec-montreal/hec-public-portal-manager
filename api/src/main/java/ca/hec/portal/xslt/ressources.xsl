@@ -160,7 +160,7 @@
 				<xsl:if test="biblio_url!=''">
 					<tr>
 						<td></td>
-						<td width="1px">
+						<td width="45px">
 							<img src="../../../portail/images/iconeBiblio.gif"/>
 						</td>
 						<td>
@@ -171,7 +171,7 @@
 				<xsl:if test="coop_url!=''">
 					<tr>
 						<td></td>
-						<td>
+						<td width="45px">
 							<img src="../../../portail/images/iconeCoop.gif"/>
 						</td>
 						<td>
@@ -182,7 +182,7 @@
 				<xsl:if test="other_url!=''">
 					<tr>
 						<td></td>
-						<td>
+						<td width="45px">
 							<img src="../../../portail/images/iconeAutre.gif"/>
 						</td>
 						<td>

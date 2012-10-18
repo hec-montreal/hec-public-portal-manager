@@ -5,15 +5,15 @@
 	<!-- =========== Presentation================= -->
 	<!-- ========================================= -->
 	<xsl:template match="presentation">
-		<xsl:if test="ressources/rubriqueDescription">
+		<xsl:if test="ressources/rubriqueDescription/ressource/@visible='true'">
 			<h4><xsl:value-of select="java:getString($labels,'descriptionLbl')"/></h4>
 			<xsl:apply-templates select='ressources/rubriqueDescription/ressource'/>
 		</xsl:if>
-		<xsl:if test="ressources/rubriqueObjectifs">
+		<xsl:if test="ressources/rubriqueObjectifs/ressource/@visible='true'">
 			<h4><xsl:value-of select="java:getString($labels,'objectifsLbl')"/></h4>
 			<xsl:apply-templates select='ressources/rubriqueObjectifs/ressource'/>
 		</xsl:if>
-		<xsl:if test="ressources/rubriqueApprochePedagogique">
+		<xsl:if test="ressources/rubriqueApprochePedagogique/ressource/@visible='true'">
 			<h4><xsl:value-of select="java:getString($labels,'approcheLbl')"/></h4>
 			<xsl:apply-templates select='ressources/rubriqueApprochePedagogique/ressource'/>
 		</xsl:if>
@@ -24,23 +24,23 @@
 	<!-- ========================================= -->
 
 	<xsl:template match="coordonnees">
-		<xsl:if test="ressources/rubriqueCoordonnateurs">
+		<xsl:if test="ressources/rubriqueCoordonnateurs/ressource/@visible='true'">
 			<h4><xsl:value-of select="java:getString($labels,'coordonnateursLbl')"/></h4>
 			<xsl:apply-templates select='ressources/rubriqueCoordonnateurs/ressource'/>
 		</xsl:if>
-		<xsl:if test="ressources/rubriqueEnseignants">
+		<xsl:if test="ressources/rubriqueEnseignants/ressource/@visible='true'">
 			<h4><xsl:value-of select="java:getString($labels,'enseignantsLbl')"/></h4>
 			<xsl:apply-templates select='ressources/rubriqueEnseignants/ressource'/>
 		</xsl:if>
-		<xsl:if test="ressources/rubriqueStagiairesEnseignement">
+		<xsl:if test="ressources/rubriqueStagiairesEnseignement/ressource/@visible='true'">
 			<h4><xsl:value-of select="java:getString($labels,'stagiairesEnseignementLbl')"/></h4>
 			<xsl:apply-templates select='ressources/rubriqueStagiairesEnseignement/ressource'/>
 		</xsl:if>
-		<xsl:if test="ressources/rubriqueConferenciers">
+		<xsl:if test="ressources/rubriqueConferenciers/ressource/@visible='true'">
 			<h4><xsl:value-of select="java:getString($labels,'conferenciersLbl')"/></h4>
 			<xsl:apply-templates select='ressources/rubriqueConferenciers/ressource'/>
 		</xsl:if>
-		<xsl:if test="ressources/rubriqueSecretaires">
+		<xsl:if test="ressources/rubriqueSecretaires/ressource/@visible='true'">
 			<h4><xsl:value-of select="java:getString($labels,'secretairesLbl')"/></h4>
 			<xsl:apply-templates select='ressources/rubriqueSecretaires/ressource'/>
 		</xsl:if>
@@ -51,27 +51,27 @@
 	<!-- ========================================= -->
 
 	<xsl:template match="materiel">
-		<xsl:if test="ressources/rubriqueBibliographie">
+		<xsl:if test="ressources/rubriqueBibliographie/ressource/@visible='true'">
 			<h4><xsl:value-of select="java:getString($labels,'biblioLbl')"/></h4>
 			<xsl:apply-templates select='ressources/rubriqueBibliographie/ressource'/>
 		</xsl:if>
-		<xsl:if test="ressources/rubriqueRessourcesComplementaires">
+		<xsl:if test="ressources/rubriqueRessourcesComplementaires/ressource/@visible='true'">
 			<h4><xsl:value-of select="java:getString($labels,'ressourcesComplementairesLbl')"/></h4>
 			<xsl:apply-templates select='ressources/rubriqueRessourcesComplementaires/ressource'/>
 		</xsl:if>
-		<xsl:if test="ressources/rubriqueRessourcesGenerales">
+		<xsl:if test="ressources/rubriqueRessourcesGenerales/ressource/@visible='true'">
 			<h4><xsl:value-of select="java:getString($labels,'ressourcesGeneralesLbl')"/></h4>
 			<xsl:apply-templates select='ressources/rubriqueRessourcesGenerales/ressource'/>
 		</xsl:if>
-		<xsl:if test="ressources/rubriqueCas">
+		<xsl:if test="ressources/rubriqueCas/ressource/@visible='true'">
 			<h4><xsl:value-of select="java:getString($labels,'casLbl')"/></h4>
 			<xsl:apply-templates select='ressources/rubriqueCas/ressource'/>
 		</xsl:if>
-		<xsl:if test="ressources/rubriqueOutils">
+		<xsl:if test="ressources/rubriqueOutils/ressource/@visible='true'">
 			<h4><xsl:value-of select="java:getString($labels,'outilsLbl')"/></h4>
 			<xsl:apply-templates select='ressources/rubriqueOutils/ressource'/>
 		</xsl:if>
-		<xsl:if test="ressources/rubriqueAnciensExamens">
+		<xsl:if test="ressources/rubriqueAnciensExamens/ressource/@visible='true'">
 			<h4><xsl:value-of select="java:getString($labels,'anciensExamensLbl')"/></h4>
 			<xsl:apply-templates select='ressources/rubriqueAnciensExamens/ressource'/>
 		</xsl:if>
@@ -106,27 +106,27 @@
 			<div class="evaluation-details">
 				<xsl:call-template name="eval-details"/>
 			</div>
-			<xsl:if test="ressources/rubriqueDescription">
+			<xsl:if test="ressources/rubriqueDescription/ressource/@visible='true'">
 				<h4><xsl:value-of select="java:getString($labels,'descriptionLbl')"/></h4>
 				<xsl:apply-templates select='ressources/rubriqueDescription/ressource'/>
 			</xsl:if>
-			<xsl:if test="ressources/rubriqueObjectifs">
+			<xsl:if test="ressources/rubriqueObjectifs/ressource/@visible='true'">
 				<h4><xsl:value-of select="java:getString($labels,'objectifsLbl')"/></h4>
 				<xsl:apply-templates select='ressources/rubriqueObjectifs/ressource'/>
 			</xsl:if>
-			<xsl:if test="ressources/rubriqueCritereEvaluation">
+			<xsl:if test="ressources/rubriqueCritereEvaluation/ressource/@visible='true'">
 				<h4><xsl:value-of select="java:getString($labels,'critereEvaluationLbl')"/></h4>
 				<xsl:apply-templates select='ressources/rubriqueCritereEvaluation/ressource'/>
 			</xsl:if>
-			<xsl:if test="ressources/rubriquePreparationEvaluation">
+			<xsl:if test="ressources/rubriquePreparationEvaluation/ressource/@visible='true'">
 				<h4><xsl:value-of select="java:getString($labels,'preparationEvaluationLbl')"/></h4>
 				<xsl:apply-templates select='ressources/rubriquePreparationEvaluation/ressource'/>
 			</xsl:if>
-			<xsl:if test="ressources/rubriqueRemises">
+			<xsl:if test="ressources/rubriqueRemises/ressource/@visible='true'">
 				<h4><xsl:value-of select="java:getString($labels,'remisesLbl')"/></h4>
 				<xsl:apply-templates select='ressources/rubriqueRemises/ressource'/>
 			</xsl:if>
-			<xsl:if test="ressources/rubriqueRessourcesGenerales">
+			<xsl:if test="ressources/rubriqueRessourcesGenerales/ressource/@visible='true'">
 				<h4><xsl:value-of select="java:getString($labels,'ressourcesGeneralesLbl')"/></h4>
 				<xsl:apply-templates select='ressources/rubriqueRessourcesGenerales/ressource'/>
 			</xsl:if>
@@ -240,27 +240,27 @@
 			<h3>
 				<xsl:value-of select="libelle"/>
 			</h3>
-			<xsl:if test="ressources/rubriqueDescription">
+			<xsl:if test="ressources/rubriqueDescription/ressource/@visible='true'">
 				<h4><xsl:value-of select="java:getString($labels,'descriptionLbl')"/></h4>
 				<xsl:apply-templates select='ressources/rubriqueDescription/ressource'/>
 			</xsl:if>
-			<xsl:if test="ressources/rubriqueObjectifs">
+			<xsl:if test="ressources/rubriqueObjectifs/ressource/@visible='true'">
 				<h4><xsl:value-of select="java:getString($labels,'objectifsLbl')"/></h4>
 				<xsl:apply-templates select='ressources/rubriqueObjectifs/ressource'/>
 			</xsl:if>
-			<xsl:if test="ressources/rubriqueActivitesRessourcesAvantSeance">
+			<xsl:if test="ressources/rubriqueActivitesRessourcesAvantSeance/ressource/@visible='true'">
 				<h4><xsl:value-of select="java:getString($labels,'resourcesBeforeLectureLbl')"/></h4>
 				<xsl:apply-templates select='ressources/rubriqueActivitesRessourcesAvantSeance/ressource'/>
 			</xsl:if>
-			<xsl:if test="ressources/rubriqueActivitesRessourcesPendantSeance">
+			<xsl:if test="ressources/rubriqueActivitesRessourcesPendantSeance/ressource/@visible='true'">
 				<h4><xsl:value-of select="java:getString($labels,'resourcesDuringLectureLbl')"/></h4>
 				<xsl:apply-templates select='ressources/rubriqueActivitesRessourcesPendantSeance/ressource'/>
 			</xsl:if>
-			<xsl:if test="ressources/rubriqueActivitesRessourcesApresSeance">
+			<xsl:if test="ressources/rubriqueActivitesRessourcesApresSeance/ressource/@visible='true'">
 				<h4><xsl:value-of select="java:getString($labels,'resourcesAfterLectureLbl')"/></h4>
 				<xsl:apply-templates select='ressources/rubriqueActivitesRessourcesApresSeance/ressource'/>
 			</xsl:if>
-			<xsl:if test="ressources/rubriqueRessourcesGenerales">
+			<xsl:if test="ressources/rubriqueRessourcesGenerales/ressource/@visible='true'">
 				<h4><xsl:value-of select="java:getString($labels,'ressourcesGeneralesLbl')"/></h4>
 				<xsl:apply-templates select='ressources/rubriqueRessourcesGenerales/ressource'/>
 			</xsl:if>

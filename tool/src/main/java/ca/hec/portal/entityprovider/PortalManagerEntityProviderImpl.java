@@ -17,6 +17,8 @@ import org.sakaiproject.entitybroker.entityprovider.capabilities.Outputable;
 import org.sakaiproject.entitybroker.entityprovider.capabilities.Resolvable;
 import org.sakaiproject.entitybroker.entityprovider.capabilities.Sampleable;
 import org.sakaiproject.entitybroker.entityprovider.extension.Formats;
+import org.sakaiproject.entitybroker.exception.EntityNotFoundException;
+import org.sakaiproject.entitybroker.exception.FormatUnsupportedException;
 import org.sakaiproject.entitybroker.util.AbstractEntityProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -58,23 +60,25 @@ public class PortalManagerEntityProviderImpl extends AbstractEntityProvider
 	return portalManagerService.getBundle(locale);
     }
 
-    @EntityCustomAction(action = "public_syllabus_info", viewKey = EntityView.VIEW_SHOW)
+    @EntityCustomAction(action = "public_syllabus", viewKey = EntityView.VIEW_SHOW)
     public Object getPublicSyllabus(EntityView view) {
 	String courseId = view.getPathSegment(1);
 
 	// check that courseid is supplied
 	if (StringUtils.isBlank(courseId)) {
 	    throw new IllegalArgumentException(
-		    "CourseId must be set in order to get specific course via the URL /portalManager/:ID:/public_syllabus_info");
+		    "CourseId must be set in order to get public course outline via the URL /portalManager/:ID:/public_syllabus");
 	}
 
 	String site_id = sakaiProxy.getAssociatedCourseSiteTitle(courseId);
 
 	if (view.getFormat().equals(Formats.HTML)) {
-	    return sakaiProxy.getCourseOutlineHTML(site_id);
-	}
-	else if (view.getFormat().equals(Formats.XML)) {
-	    return sakaiProxy.getCourseOutlineXML(site_id);
+	    String html = sakaiProxy.getCourseOutlineHTML(site_id);
+	    
+	    if (html != null)
+		return html;
+	    else
+		throw new EntityNotFoundException("No public course outline available", courseId);
 	}
 	else if (view.getFormat().equals(Formats.JSON)){
 	    Map<String, String> courseInfo = new HashMap<String, String>();
@@ -92,7 +96,7 @@ public class PortalManagerEntityProviderImpl extends AbstractEntityProvider
 
 	    return courseInfo;
 	}
-	else return null;
+	else throw new FormatUnsupportedException("", site_id, view.getFormat());
     }
 
     public String getEntityPrefix() {

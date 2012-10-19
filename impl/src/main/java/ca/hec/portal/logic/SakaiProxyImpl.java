@@ -27,6 +27,7 @@ import org.apache.commons.logging.LogFactory;
 import org.sakaiproject.component.cover.ServerConfigurationService;
 import org.sakaiproject.coursemanagement.api.AcademicSession;
 import org.sakaiproject.coursemanagement.api.CourseManagementService;
+import org.sakaiproject.exception.IdUnusedException;
 import org.sakaiproject.site.api.Site;
 import org.sakaiproject.site.api.SiteService;
 
@@ -115,10 +116,11 @@ public class SakaiProxyImpl implements SakaiProxy {
 
 	    transformerOsylToXml.transform(source, result);
 	    
-	} catch (TransformerException te) {
-	    te.printStackTrace();		    
+	} catch (IdUnusedException iue) {
+	    return null;
 	} catch (Exception e) {
 	    e.printStackTrace();
+	    return null;
 	}
 
 	return writer.toString();
@@ -130,6 +132,9 @@ public class SakaiProxyImpl implements SakaiProxy {
     public String getCourseOutlineHTML(String siteId) {
 	String courseOutlineXml = getCourseOutlineXML(siteId);
 	
+	if (courseOutlineXml == null)
+	    return null;
+	
 	writer = new StringWriter();
 	result = new StreamResult(writer);
 	    
@@ -139,7 +144,8 @@ public class SakaiProxyImpl implements SakaiProxy {
 	try {
 	    transformerXmlToHtml.transform(source, result);
 	} catch (TransformerException te) {
-	    te.printStackTrace();		    
+	    te.printStackTrace();
+	    return null;
 	}
 	
 	return writer.toString();

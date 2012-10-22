@@ -17,27 +17,30 @@
 	</head>
 
 	<body>
-		<div id='wrap'>
-			<div id="HEC-header" class="navbar navbar-fixed-top">
-				<div class="navbar-inner">
-					<div class="container">
-						<a class="brand" href="#" style="padding: 4px 12px 4px 18px">
-							<img src="../../../portail/images/HECMontreal_blanc-med.png" alt="HEC Montréal" width="189" height="24" />
-						</a>
-					</div>
+		<div id='wrap' class="courseOutline">
+
+		<!-- Header -->
+		<div id="HEC-header" class="navbar">
+			<div class="navbar-inner">
+				<div class="container">
+					<a id="brand" href="#">
+						<img style="border: none" src="../../../portail/images/HECMontreal_bleu-med.png" alt="HEC Montréal" />
+					</a>			
 				</div>
 			</div>
+		</div>
+		<!-- /Header -->
 		
 			<div id="main" class="container clear-top courseOutline-main">
 				<div class="row">
 
-					<div class="course-title">
+					<div id="title">
 						<h2><xsl:call-template name="sigle"/> - <xsl:value-of select="planCours/cours/libelle"/></h2>
 					</div>
 
 					<!-- menu -->
 					<div id="" class="span6" >
-							<ul class="menu courseOutline-menu">
+							<ul class="menu">
 								<li>
 									<a id="linkPresentation" data-target="#coursePresentation" href="#" class="menu-link">
 										<xsl:value-of select="java:getString($labels,'menuLblPresentation')"/>
@@ -66,13 +69,13 @@
 					
 					<!-- course outline column -->
 					<div id="" class="span9">
-						<div id="coursePresentation" class="courseOutline">
+						<div id="coursePresentation" class="content">
 							<xsl:apply-templates select="planCours/presentation"/>
 						</div>							
-						<div id="courseCoordinates" class="courseOutline" style="display:none">							
+						<div id="courseCoordinates" class="content" style="display:none">							
 							<xsl:apply-templates select="planCours/coordonnees" />
 						</div>
-						<div id="courseMaterials" class="courseOutline" style="display:none">
+						<div id="courseMaterials" class="content" style="display:none">
 							<xsl:apply-templates select="planCours/materiel"/>
 						</div>
 						<xsl:apply-templates select="planCours/evaluations/evaluation"/>

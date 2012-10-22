@@ -96,7 +96,7 @@
 
 	<!-- template for the evaluations divs -->
 	<xsl:template match="evaluation">
-		<div id="courseEvaluation{position()}" class="courseOutline" style="display:none">
+		<div id="courseEvaluation{position()}" class="content" style="display:none">
 			<h3>
 				<xsl:value-of select="libelle"/>
 				<xsl:if test="valeur!=''"><xsl:text> (</xsl:text><xsl:value-of select="valeur"/><xsl:text>%) </xsl:text></xsl:if>
@@ -236,7 +236,7 @@
 	<xsl:template name="seance">
 		<xsl:param name="target"/>
 
-		<div id="{$target}" class="courseOutline" style="display:none">
+		<div id="{$target}" class="content" style="display:none">
 			<h3>
 				<xsl:value-of select="libelle"/>
 			</h3>

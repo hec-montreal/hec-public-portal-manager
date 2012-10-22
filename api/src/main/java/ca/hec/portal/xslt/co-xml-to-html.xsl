@@ -31,14 +31,13 @@
 			<div id="main" class="container clear-top courseOutline-main">
 				<div class="row">
 
-					<div class="row span12">
+					<div class="course-title">
 						<h2><xsl:call-template name="sigle"/> - <xsl:value-of select="planCours/cours/libelle"/></h2>
 					</div>
 
 					<!-- menu -->
-					<div id="" class=" span4" >
-						<div class="menu courseOutline-menu">
-							<ul class="nav nav-list ">
+					<div id="" class="span6" >
+							<ul class="menu courseOutline-menu">
 								<li>
 									<a id="linkPresentation" data-target="#coursePresentation" href="#" class="menu-link">
 										<xsl:value-of select="java:getString($labels,'menuLblPresentation')"/>
@@ -63,11 +62,10 @@
 									<xsl:apply-templates select="planCours/seances"/>
 								</li>
 							</ul>
-						</div>
 					</div>
 					
 					<!-- course outline column -->
-					<div id="" class="span8">
+					<div id="" class="span9">
 						<div id="coursePresentation" class="courseOutline">
 							<xsl:apply-templates select="planCours/presentation"/>
 						</div>							

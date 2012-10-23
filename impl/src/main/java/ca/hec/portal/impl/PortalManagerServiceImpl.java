@@ -107,7 +107,7 @@ public class PortalManagerServiceImpl implements PortalManagerService {
 		listItemDescriptions.put(itemDescription, key.replace(".", ""));
 	    }
 	    else{
-		listItemDescriptions.put(itemDescription, itemGroup + key.replace(".", ""));
+		listItemDescriptions.put(itemDescription, itemGroup + "+" + key.replace(".", ""));
 	    }
 	    
 	}

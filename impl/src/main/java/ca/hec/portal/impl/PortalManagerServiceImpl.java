@@ -60,12 +60,8 @@ public class PortalManagerServiceImpl implements PortalManagerService {
 	    dpTemp = listDpt.getItemByDescription(description);
 	    
 	    //if dp != null it means that we already have a department associated with this description, so we will update this department instead of creating a new one
-	    if (dpTemp != null){
-		dpTemp.addId(itemKey);
-	    }
-	    else{
+	    if (dpTemp == null){
 		Item dp = new Item();
-		dp.addId(itemKey);
 		dp.setDescription(listItemsToDisplay.getString(itemKey));
 		dp.setItemGroup(itemGroups.get(itemKey));
 		dp.setOrder(Integer.parseInt(orderBundle.getString(itemKey)));
@@ -104,10 +100,10 @@ public class PortalManagerServiceImpl implements PortalManagerService {
 	    String itemDescription = listItemsToDisplay.getString(key);
 	    String itemGroup =   listItemDescriptions.get(itemDescription);
 	    if (itemGroup == null){
-		listItemDescriptions.put(itemDescription, key.replace(".", ""));
+		listItemDescriptions.put(itemDescription, key);
 	    }
 	    else{
-		listItemDescriptions.put(itemDescription, itemGroup + "+" + key.replace(".", ""));
+		listItemDescriptions.put(itemDescription, itemGroup + "+" + key);
 	    }
 	    
 	}

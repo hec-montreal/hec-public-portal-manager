@@ -31,19 +31,12 @@ import lombok.Data;
  */
 @Data
 public class Item implements Comparable<Item>{
-    private Set<String> listId;
     private String description;
     private String itemGroup;
     private Integer order;
     
     public Item(){
-	listId = new HashSet<String>();
        }
-       
-    
-    public void addId(String id) {
-	listId.add(id);
-    }
 
 
     public int compareTo(Item it) {

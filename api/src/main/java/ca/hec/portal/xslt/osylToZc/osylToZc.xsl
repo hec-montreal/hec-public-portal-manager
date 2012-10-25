@@ -117,6 +117,7 @@
 	<xsl:template name="visible">
 		<xsl:choose>
 			<xsl:when test="@access='public' and visible='true'">true</xsl:when>
+			<xsl:when test="@access='public' and not(visible)">true</xsl:when>
 			<xsl:otherwise>false</xsl:otherwise>
 		</xsl:choose>	
 	</xsl:template>

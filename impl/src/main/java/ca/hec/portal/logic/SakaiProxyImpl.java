@@ -87,13 +87,18 @@ public class SakaiProxyImpl implements SakaiProxy {
 		courseId + "." + sessionName, null, SiteService.SortType.TITLE_ASC, null);
 
 	    for (Site s : sites) {
-		if (osylSiteService.hasBeenPublished(s.getId())) {
-		    return s.getTitle();
+		try {
+		    // parent indicates that the site has been associated in OpenSyllabus
+		    if (osylSiteService.hasBeenPublished(s.getId()) &&
+			    osylSiteService.getParent(s.getId()) != null) {
+			return s.getTitle();
+		    }
 		}
+		catch (Exception e) {}
 	    }
 	}
 		
-	return "";
+	return null;
     }
     
     /**
@@ -104,10 +109,8 @@ public class SakaiProxyImpl implements SakaiProxy {
 
 	try {
 	    // Get the Course Outline
-	    // I think it's ok to pass null as webappDir, because it is only used if the Dao doesn't find a course outline (?)
-	    // Otherwise it might be easiest to use the dao directly (or overload getSerializedCourseOutline)
-	    coSerialized = osylSiteService.getSerializedCourseOutline(siteId, null);
-
+	    coSerialized = osylSiteService.getSerializedPublicCourseOutline(siteId);
+	    
 	    writer = new StringWriter();
 	    result = new StreamResult(writer);
 		    

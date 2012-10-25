@@ -71,6 +71,8 @@ public class PortalManagerEntityProviderImpl extends AbstractEntityProvider
 	}
 
 	String site_id = sakaiProxy.getAssociatedCourseSiteTitle(courseId);
+	if (site_id == null)
+	    throw new EntityNotFoundException("No public course outline available", courseId);
 
 	if (view.getFormat().equals(Formats.HTML)) {
 	    String html = sakaiProxy.getCourseOutlineHTML(site_id);

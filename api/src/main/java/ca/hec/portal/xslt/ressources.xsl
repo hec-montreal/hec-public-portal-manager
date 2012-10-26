@@ -79,10 +79,16 @@
 						<a target="_blank">
 							<xsl:attribute name="href">
 								<!-- generate the url for the resource -->
-								<xsl:text>/sdata/c/attachment/</xsl:text>
-								<xsl:call-template name="sigle"/>
-								<xsl:text>/OpenSyllabus/</xsl:text>
-								<xsl:value-of select="substring-after(uri, $uri_prefix)"/>
+								<xsl:if test="contains(uri, $uri_prefix)">
+									<xsl:text>/sdata/c/attachment/</xsl:text>
+									<xsl:call-template name="sigle"/>
+									<xsl:text>/OpenSyllabus/</xsl:text>
+									<xsl:value-of select="substring-after(uri, $uri_prefix)"/>
+								</xsl:if>
+								<xsl:if test="not(contains(uri, $uri_prefix))">
+									<xsl:text>/sdata/c</xsl:text>
+									<xsl:value-of select="uri"/>
+								</xsl:if>
 							</xsl:attribute>
 							<xsl:value-of select="libelle"/>
 						</a>

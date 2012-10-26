@@ -22,11 +22,72 @@
 	</xsl:template>
 
 	<xsl:template name="formatCitation">
-			<xsl:if test="asmResource/resourceType='book'"><xsl:value-of select="asmResource/author"/> (<xsl:value-of select="asmResource/year"/>). <xsl:text>&lt;i&gt;</xsl:text><xsl:value-of select="asmResource/title"/><xsl:text>&lt;/i&gt;</xsl:text>, <xsl:value-of select="asmResource/publisher"/>, <xsl:value-of select="asmResource/publicationLocation"/>.</xsl:if>
-			<xsl:if test="asmResource/resourceType='article'"><xsl:value-of select="asmResource/author"/> (<xsl:value-of select="asmResource/year"/>). «<xsl:value-of select="asmResource/title"/> », <xsl:text>&lt;i&gt;</xsl:text><xsl:value-of select="asmResource/journal"/> <xsl:text>&lt;/i&gt;</xsl:text>, vol.<xsl:value-of select="asmResource/volume"/> , no.<xsl:value-of select="asmResource/issue"/> , p.<xsl:value-of select="asmResource/pages"/> .</xsl:if>
-			<xsl:if test="asmResource/resourceType='report'"><xsl:value-of select="asmResource/author"/> (<xsl:value-of select="asmResource/year"/>). <xsl:text>&lt;i&gt;</xsl:text><xsl:value-of select="asmResource/title"/><xsl:text>&lt;/i&gt;</xsl:text>, <xsl:value-of select="asmResource/publisher"/>, <xsl:value-of select="asmResource/publicationLocation"/>.</xsl:if>
-			<xsl:if test="asmResource/resourceType='proceed'"><xsl:value-of select="asmResource/author"/> (<xsl:value-of select="asmResource/year"/>). «<xsl:value-of select="asmResource/title"/> », <xsl:text>&lt;i&gt;</xsl:text><xsl:value-of select="asmResource/journal"/> <xsl:text>&lt;/i&gt;</xsl:text>, vol.<xsl:value-of select="asmResource/volume"/> , no.<xsl:value-of select="asmResource/issue"/> , p.<xsl:value-of select="asmResource/pages"/></xsl:if>
-			<xsl:if test="asmResource/resourceType='unknown'"><xsl:value-of select="asmResource/title"/></xsl:if>
+		<xsl:variable name="issue">
+			<xsl:if test="/OSYL/CO/language='EN'">iss.</xsl:if>
+			<xsl:if test="not(/OSYL/CO/language='EN')">no.</xsl:if>
+		</xsl:variable>
+		<xsl:variable name="edition">
+			<xsl:if test="/OSYL/CO/language='FR-CA'">éd</xsl:if>
+			<xsl:if test="not(/OSYL/CO/language='FR-CA')">ed</xsl:if>
+		</xsl:variable>
+
+		<xsl:choose>
+			<xsl:when test="asmResource/resourceType='article' or asmResource/resourceType='proceed'">
+				<xsl:apply-templates select="asmResource/author"/>
+				<xsl:if test="asmResource/year"><xsl:text> (</xsl:text><xsl:value-of select="asmResource/year"/><xsl:text>)</xsl:text></xsl:if>
+				<xsl:text>. «</xsl:text><xsl:value-of select="asmResource/title"/><xsl:text>»</xsl:text>
+				<xsl:if test="asmResource/journal"><xsl:text>, &lt;i></xsl:text><xsl:value-of select="asmResource/journal"/><xsl:text>&lt;/i></xsl:text></xsl:if>
+				<xsl:if test="asmResource/volume"><xsl:text>, vol. </xsl:text><xsl:value-of select="asmResource/volume"/></xsl:if>
+				<xsl:if test="asmResource/issue"><xsl:text>, </xsl:text><xsl:value-of select="$issue"/><xsl:text> </xsl:text><xsl:value-of select="asmResource/issue"/></xsl:if>
+				<xsl:if test="asmResource/pages"><xsl:text>, p. </xsl:text><xsl:value-of select="asmResource/pages"/></xsl:if>
+				<xsl:text>.</xsl:text>
+			</xsl:when>
+			<xsl:when test="asmResource/resourceType='book' or asmResource/resourceType='report'">
+				<xsl:apply-templates select="asmResource/author"/>
+				<xsl:if test="asmResource/year"><xsl:text> (</xsl:text><xsl:value-of select="asmResource/year"/><xsl:text>)</xsl:text></xsl:if>
+				<xsl:text>. &lt;i></xsl:text><xsl:value-of select="asmResource/title"/><xsl:text>&lt;/i></xsl:text>
+				<xsl:if test="asmResource/publicationLocation"><xsl:text>, </xsl:text><xsl:value-of select="asmResource/publicationLocation"/></xsl:if>
+				<xsl:if test="asmResource/publisher"><xsl:text>, </xsl:text><xsl:value-of select="asmResource/publisher"/></xsl:if>
+				<xsl:text>.</xsl:text>
+			</xsl:when>
+			<xsl:when test="asmResource/resourceType='chapter'">
+				<xsl:apply-templates select="asmResource/author"/>
+				<xsl:if test="asmResource/year"><xsl:text> (</xsl:text><xsl:value-of select="asmResource/year"/><xsl:text>)</xsl:text></xsl:if>
+				<xsl:text>. </xsl:text><xsl:value-of select="asmResource/title"/>
+				<xsl:if test="asmResource/journal"><xsl:text>, &lt;i></xsl:text><xsl:value-of select="asmResource/journal"/><xsl:text>&lt;/i></xsl:text></xsl:if>
+				<xsl:if test="asmResource/edition"><xsl:text>, </xsl:text><xsl:value-of select="asmResource/edition"/><xsl:text> </xsl:text><xsl:value-of select="$edition"/></xsl:if>
+				<xsl:if test="asmResource/publicationLocation"><xsl:text>, </xsl:text><xsl:value-of select="asmResource/publicationLocation"/></xsl:if>
+				<xsl:if test="asmResource/publisher"><xsl:text>, </xsl:text><xsl:value-of select="asmResource/publisher"/></xsl:if>
+				<xsl:if test="asmResource/startPage and asmResource/endPage"><xsl:text>, p. </xsl:text><xsl:value-of select="asmResource/startPage"/><xsl:text>-</xsl:text><xsl:value-of select="asmResource/endPage"/></xsl:if>				
+				<xsl:text>.</xsl:text>
+			</xsl:when>
+			<xsl:when test="asmResource/resourceType='thesis'">
+				<xsl:apply-templates select="asmResource/author"/>
+				<xsl:if test="asmResource/year"><xsl:text> (</xsl:text><xsl:value-of select="asmResource/year"/><xsl:text>)</xsl:text></xsl:if>
+				<xsl:text>. &lt;i></xsl:text><xsl:value-of select="asmResource/title"/><xsl:text>&lt;/i></xsl:text>
+				<xsl:if test="asmResource/publicationLocation"><xsl:text>, </xsl:text><xsl:value-of select="asmResource/publicationLocation"/></xsl:if>
+				<xsl:if test="asmResource/pages"><xsl:text>, p. </xsl:text><xsl:value-of select="asmResource/pages"/></xsl:if>
+				<xsl:text>.</xsl:text>
+			</xsl:when>
+			<xsl:when test="asmResource/resourceType='electronic'">
+				<xsl:apply-templates select="asmResource/author"/>
+				<xsl:if test="asmResource/year"><xsl:text> (</xsl:text><xsl:value-of select="asmResource/year"/><xsl:text>)</xsl:text></xsl:if>
+				<xsl:text>. &lt;i></xsl:text><xsl:value-of select="asmResource/title"/><xsl:text>&lt;/i></xsl:text>
+				<xsl:if test="asmResource/journal"><xsl:text>, </xsl:text><xsl:value-of select="asmResource/journal"/></xsl:if>
+				<xsl:text>.</xsl:text>				
+			</xsl:when>
+		</xsl:choose>
 	</xsl:template>
 
+	<xsl:template match="author">
+	    <xsl:variable name="author"><xsl:value-of select="."/></xsl:variable>
+		<xsl:choose>
+			<xsl:when test="contains($author, '&amp;')">
+				<xsl:value-of select="substring-before($author, ' &amp;')"/><xsl:text>&lt;i> et al. &lt;/i></xsl:text>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:value-of select="$author"/>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:template>
 </xsl:stylesheet>

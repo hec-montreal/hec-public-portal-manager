@@ -33,5 +33,4 @@ public interface SakaiProxy {
 	 * @return 		The course outline for the given site id as an HTML document
 	 */
 	public String getCourseOutlineHTML(String siteId);
-	public String getOsylCO(String siteId);
 }

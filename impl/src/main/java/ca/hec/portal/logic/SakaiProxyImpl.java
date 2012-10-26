@@ -1,6 +1,5 @@
 package ca.hec.portal.logic;
 
-import java.io.File;
 import java.io.InputStream;
 import java.io.StringReader;
 import java.io.StringWriter;
@@ -24,7 +23,6 @@ import lombok.Setter;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.sakaiproject.component.cover.ServerConfigurationService;
 import org.sakaiproject.coursemanagement.api.AcademicSession;
 import org.sakaiproject.coursemanagement.api.CourseManagementService;
 import org.sakaiproject.exception.IdUnusedException;
@@ -88,9 +86,10 @@ public class SakaiProxyImpl implements SakaiProxy {
 
 	    for (Site s : sites) {
 		try {
-		    // parent indicates that the site has been associated in OpenSyllabus
-		    if (osylSiteService.hasBeenPublished(s.getId()) &&
-			    osylSiteService.getParent(s.getId()) != null) {
+		    // provider group id indicates that the site has been associated 
+		    // to course management in OpenSyllabus Manager
+		    if (s.getProviderGroupId() != null &&
+			    osylSiteService.hasBeenPublished(s.getId())) {
 			return s.getTitle();
 		    }
 		}

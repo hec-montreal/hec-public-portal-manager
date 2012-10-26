@@ -13,7 +13,7 @@
 			<niveau><xsl:value-of select="level"/></niveau>
 			<type><xsl:value-of select="asmResource/asmResourceType"/></type>
 			<biblio_url><xsl:value-of select="asmResource/identifier[@type='library']"/></biblio_url>
-			<coop_url><xsl:value-of select="asmResource/identifier[@type='bookstore']"/></coop_url>
+			<coop_url><xsl:if test="asmResource/identifier[@type='bookstore']!='inactif'"><xsl:value-of select="asmResource/identifier[@type='bookstore']"/></xsl:if></coop_url>
 			<other_url>
 				<xsl:attribute name="libelle"><xsl:value-of select="asmResource/identifier/@label"/></xsl:attribute>
 				<xsl:value-of select="asmResource/identifier[@type='other_link']"/>
@@ -29,6 +29,10 @@
 		<xsl:variable name="edition">
 			<xsl:if test="/OSYL/CO/language='FR-CA'">éd</xsl:if>
 			<xsl:if test="not(/OSYL/CO/language='FR-CA')">ed</xsl:if>
+		</xsl:variable>
+		<xsl:variable name="retrievedOn">
+			<xsl:if test="/OSYL/CO/language='EN'">Retrieved on </xsl:if>
+			<xsl:if test="not(/OSYL/CO/language='EN')">Récupéré le </xsl:if>
 		</xsl:variable>
 
 		<xsl:choose>
@@ -74,7 +78,8 @@
 				<xsl:if test="asmResource/year"><xsl:text> (</xsl:text><xsl:value-of select="asmResource/year"/><xsl:text>)</xsl:text></xsl:if>
 				<xsl:text>. &lt;i></xsl:text><xsl:value-of select="asmResource/title"/><xsl:text>&lt;/i></xsl:text>
 				<xsl:if test="asmResource/journal"><xsl:text>, </xsl:text><xsl:value-of select="asmResource/journal"/></xsl:if>
-				<xsl:text>.</xsl:text>				
+				<xsl:if test="asmResource/dateRetrieved"><xsl:text>. </xsl:text><xsl:value-of select="$retrievedOn"/><xsl:value-of select="asmResource/dateRetrieved"/></xsl:if>
+				<xsl:text>.</xsl:text>
 			</xsl:when>
 		</xsl:choose>
 	</xsl:template>

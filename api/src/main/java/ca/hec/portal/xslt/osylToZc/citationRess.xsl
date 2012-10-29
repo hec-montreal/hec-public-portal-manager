@@ -81,6 +81,9 @@
 				<xsl:if test="asmResource/dateRetrieved"><xsl:text>. </xsl:text><xsl:value-of select="$retrievedOn"/><xsl:value-of select="asmResource/dateRetrieved"/></xsl:if>
 				<xsl:text>.</xsl:text>
 			</xsl:when>
+			<xsl:when test="asmResource/resourceType='unknown'">
+				<xsl:value-of select="asmResource/title"/>
+			</xsl:when>
 		</xsl:choose>
 	</xsl:template>
 

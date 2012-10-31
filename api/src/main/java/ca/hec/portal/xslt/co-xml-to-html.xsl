@@ -9,7 +9,11 @@
 <xsl:variable name="labels" select="java:util.ResourceBundle.getBundle('html/course_outline', $locale)"/>
 <xsl:template match="/">
 <html>
-
+	<meta charset="utf-8"></meta>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"></meta>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
+    <meta name="description" content=""></meta>
+    <meta name="author" content=""></meta>
 	<head>
 		<title><xsl:call-template name="sigle"/> - <xsl:value-of select="planCours/cours/libelle"/></title>
 	

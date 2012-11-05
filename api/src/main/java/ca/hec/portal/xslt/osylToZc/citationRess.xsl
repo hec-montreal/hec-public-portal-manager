@@ -13,7 +13,19 @@
 			<niveau><xsl:value-of select="level"/></niveau>
 			<type><xsl:value-of select="asmResource/asmResourceType"/></type>
 			<biblio_url><xsl:value-of select="asmResource/identifier[@type='library']"/></biblio_url>
-			<coop_url><xsl:if test="asmResource/identifier[@type='bookstore']!='inactif'"><xsl:value-of select="asmResource/identifier[@type='bookstore']"/></xsl:if></coop_url>
+			<coop_url>
+				<xsl:choose>
+					<xsl:when test="asmResource/identifier[@type='bookstore']">
+						<xsl:if test="asmResource/identifier[@type='bookstore']!='inactif'">
+							<xsl:value-of select="asmResource/identifier[@type='bookstore']"/>
+						</xsl:if>
+					</xsl:when>
+					<xsl:when test="asmResource/identifier[@type='isn'] and (asmResource/resourceType='book' or asmResource/resourceType='chapter' or asmResource/resourceType='report')">
+						<!-- hard-coded url, could be fixed. -->
+						http://www.coophec.com/product_livre.aspx?isbn=<xsl:value-of select="asmResource/identifier[@type='isn']"/>
+					</xsl:when>
+				</xsl:choose>
+			</coop_url>
 			<other_url>
 				<xsl:attribute name="libelle"><xsl:value-of select="asmResource/identifier/@label"/></xsl:attribute>
 				<xsl:value-of select="asmResource/identifier[@type='other_link']"/>
@@ -69,7 +81,9 @@
 				<xsl:apply-templates select="asmResource/author"/>
 				<xsl:if test="asmResource/year"><xsl:text> (</xsl:text><xsl:value-of select="asmResource/year"/><xsl:text>)</xsl:text></xsl:if>
 				<xsl:text>. &lt;i></xsl:text><xsl:value-of select="asmResource/title"/><xsl:text>&lt;/i></xsl:text>
+				<xsl:if test="asmResource/documentType"><xsl:text>, </xsl:text><xsl:value-of select="asmResource/documentType"/></xsl:if>
 				<xsl:if test="asmResource/publicationLocation"><xsl:text>, </xsl:text><xsl:value-of select="asmResource/publicationLocation"/></xsl:if>
+				<xsl:if test="asmResource/university"><xsl:text>, </xsl:text><xsl:value-of select="asmResource/university"/></xsl:if>
 				<xsl:if test="asmResource/pages"><xsl:text>, p. </xsl:text><xsl:value-of select="asmResource/pages"/></xsl:if>
 				<xsl:text>.</xsl:text>
 			</xsl:when>

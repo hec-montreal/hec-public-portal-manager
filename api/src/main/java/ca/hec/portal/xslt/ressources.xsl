@@ -151,6 +151,11 @@
 			<xsl:attribute name="class">ressource <xsl:if test="important">important_body</xsl:if></xsl:attribute>
 
 			<table class="ressource">
+				<colgroup>
+					<col/>
+					<col style="width: 45px;"/>
+					<col style="width: 100%;"/>
+				</colgroup>
 				<tr>
 					<td style="vertical-align:top;">
 						<xsl:call-template name="niveau"/>
@@ -161,12 +166,11 @@
 						<xsl:call-template name="type"/>
 						<div class="comment"><xsl:value-of disable-output-escaping="yes" select="description"/></div>
 					</td>
-
 				</tr>
 				<xsl:if test="biblio_url!=''">
 					<tr>
 						<td></td>
-						<td width="45px">
+						<td>
 							<img src="../../../portail/images/iconeBiblio.gif"/>
 						</td>
 						<td>
@@ -177,7 +181,7 @@
 				<xsl:if test="coop_url!=''">
 					<tr>
 						<td></td>
-						<td width="45px">
+						<td>
 							<img src="../../../portail/images/iconeCoop.gif"/>
 						</td>
 						<td>
@@ -188,7 +192,7 @@
 				<xsl:if test="other_url!=''">
 					<tr>
 						<td></td>
-						<td width="45px">
+						<td>
 							<img src="../../../portail/images/iconeAutre.gif"/>
 						</td>
 						<td>

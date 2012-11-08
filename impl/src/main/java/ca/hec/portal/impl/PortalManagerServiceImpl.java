@@ -124,9 +124,11 @@ public class PortalManagerServiceImpl implements PortalManagerService {
     public String getItemDescription(String itemType, String itemValue) {
 	ResourceBundle listItemsToDisplay = null;
 	String description = null;
+	String default_description = null;
 	
 	if ("career".equals(itemType)){
 	    listItemsToDisplay = listCareersToDisplay;
+	    default_description = msgs.getString("label_unknown_category");
 	}
 	else{
 	    listItemsToDisplay = listDepartmentsToDisplay;
@@ -136,7 +138,7 @@ public class PortalManagerServiceImpl implements PortalManagerService {
 	    description =  listItemsToDisplay.getString(itemValue);
 	}
 	catch(Exception e){
-	    description = msgs.getString("label_unknown_category");
+	    description = default_description;
 	}
    	    return description;
        }

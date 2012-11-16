@@ -9,5 +9,39 @@
 			init-method="init"
 			singleton="true">
 	</bean>
+	
+	<bean id="org.sakaiproject.springframework.orm.hibernate.impl.AdditionalHibernateMappingsImpl.portal"
+		class="org.sakaiproject.springframework.orm.hibernate.impl.AdditionalHibernateMappingsImpl">
+		<property name="mappingResources">
+			<list>
+				<value>ca/hec/portal/hbm/Correspondence.hbm.xml</value>
+			</list>
+		</property>
+	</bean>	
+	
+	<!--  create a target bean using the Dao implementation -->
+	<bean id="ca.hec.portal.dao.impl.CorrespondenceDaoTarget" class="ca.hec.portal.dao.impl.CorrespondenceDaoImpl" singleton="true">
+		<property name="sessionFactory" ref="org.sakaiproject.springframework.orm.hibernate.GlobalSessionFactory" />
+	</bean>
 
-	</beans>
+	<!-- give the dao access to the global transaction manager so we can get to the global session factory
+	 and the HBM defined data -->
+	<bean id="ca.hec.portal.api.CorrespondenceDao"
+		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean"
+		singleton="true">
+			<property name="transactionManager" ref="org.sakaiproject.springframework.orm.hibernate.GlobalTransactionManager" />
+			<property name="target" ref="ca.hec.portal.dao.impl.CorrespondenceDaoTarget"/>
+			<property name="transactionAttributes">
+				<props>
+					<prop key="*">PROPAGATION_REQUIRED</prop>
+				</props>
+			</property>
+	</bean>
+
+	<!--  create a CorrespondenceService bean, give it the dao from above -->
+	<bean id="ca.hec.portal.api.CorrespondenceService"
+			class="ca.hec.portal.impl.CorrespondenceServiceImpl"
+			init-method="init"
+			singleton="true">
+ 		<property name="correspondenceDao" ref="ca.hec.portal.api.CorrespondenceDao"/>
+	</bean></beans>

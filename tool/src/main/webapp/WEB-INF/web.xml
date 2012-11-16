@@ -3,11 +3,11 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
 	version="2.4">
 
-	<display-name>sakai.cdm</display-name>
+	<display-name>sakai.portalManager</display-name>
 
 	<!-- This application's servlet class -->
 	<servlet>
-		<servlet-name>sakai.cdm</servlet-name>
+		<servlet-name>sakai.portalManager</servlet-name>
 		<servlet-class>uk.ac.cam.caret.sakai.WebappToolServlet</servlet-class>
 		<init-param>
 			<param-name>main-page</param-name>
@@ -28,7 +28,7 @@
 	</filter>
 	<filter-mapping>
 		<filter-name>sakai.request</filter-name>
-		<servlet-name>sakai.cdm</servlet-name>
+		<servlet-name>sakai.portalManager</servlet-name>
 		<dispatcher>REQUEST</dispatcher>
 		<dispatcher>FORWARD</dispatcher>
 		<dispatcher>INCLUDE</dispatcher>
@@ -44,11 +44,26 @@
 	<listener>
 		<listener-class>org.sakaiproject.util.ContextLoaderListener</listener-class>
 	</listener>
+
 	<servlet>
-		<servlet-name>springapp</servlet-name>
-		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<servlet-name>portalManagerViewRendererServlet</servlet-name>
+		<servlet-class>org.springframework.web.servlet.ViewRendererServlet</servlet-class>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
+	<servlet>
+		<servlet-name>portalManagerSpringApp</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<load-on-startup>2</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>portalManagerSpringApp</servlet-name>
+		<url-pattern>*.htm</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>portalManagerSpringApp</servlet-name>
+		<url-pattern>*.json</url-pattern>
+	</servlet-mapping>
 
 
 </web-app>
+

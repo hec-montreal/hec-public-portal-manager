@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+      "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+          "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="ca.hec.portal.model.Correspondence" table="CATALOG_CORRESPONDENCE">
+		<id name="id" type="long" column="ID">
+	    	<generator class="native">
+                 <param name="sequence">CATALOG_CORRESPONDENCE_ID_SEQ</param>
+        	</generator>
+		</id>	
+		<timestamp name="lastModifiedDate" column="LAST_MODIFIED_DATE"/>	 
+		<property name="courseId" type="string" column="COURSE_ID" length="100" not-null="true" index="COURSE_ID"/>
+		<property name="courseOutlineSession" type="string" column="COURSE_SECTION" length="100" not-null="true" index="COURSE_SECTION"/>
+		
+     </class>
+</hibernate-mapping>

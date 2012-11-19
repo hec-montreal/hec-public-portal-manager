@@ -258,7 +258,7 @@ public class SakaiProxyImpl implements SakaiProxy {
 	    log.error("Exception while retrieving current user id: " + e);
 	}
 	
-	if (eid != null){
+	if (eid != null && eid.equalsIgnoreCase("admin")){
 	    return true;
 	}
 	else{

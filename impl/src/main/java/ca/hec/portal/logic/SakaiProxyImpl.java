@@ -19,6 +19,7 @@ import javax.xml.transform.URIResolver;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
+import lombok.Getter;
 import lombok.Setter;
 
 import org.apache.commons.logging.Log;
@@ -28,9 +29,12 @@ import org.sakaiproject.coursemanagement.api.CourseManagementService;
 import org.sakaiproject.exception.IdUnusedException;
 import org.sakaiproject.site.api.Site;
 import org.sakaiproject.site.api.SiteService;
-
+import org.sakaiproject.user.api.UserDirectoryService;
 import org.sakaiquebec.opensyllabus.common.api.OsylSiteService;
 import org.sakaiquebec.opensyllabus.shared.model.COSerialized;
+
+import ca.hec.portal.api.CorrespondenceService;
+import ca.hec.portal.model.Correspondence;
 
 /**
  * Implementation of {@link SakaiProxy}
@@ -41,6 +45,12 @@ public class SakaiProxyImpl implements SakaiProxy {
     @Setter private SiteService siteService;
     @Setter private OsylSiteService osylSiteService;
     @Setter private CourseManagementService cmService;
+    @Getter
+    @Setter
+    private UserDirectoryService userDirectoryService;
+    @Getter
+    @Setter
+    private CorrespondenceService correspondenceService;
     
     private static Transformer transformerOsylToXml = null;
     private static Transformer transformerXmlToHtml = null;
@@ -209,6 +219,51 @@ public class SakaiProxyImpl implements SakaiProxy {
 		return null;
 	    }
 	}
+    }
+
+    public List<Correspondence> getCorrespondences() throws Exception {
+	if (isUserAllowedToManageCorrespondences()){
+	    return correspondenceService.getCorrespondences();
+	}
+	else{
+	    throw new Exception("User doesn't have the right to use the listing service");
+	}
+    }
+
+    public void saveCorrespondence(String courseId, String courseSession)
+	    throws Exception {
+	if (isUserAllowedToManageCorrespondences()){
+	    correspondenceService.saveCorrespondence(courseId, courseSession);
+	}
+	else{
+	    throw new Exception("User doesn't have the right to use the saving service");
+	}
+    }
+
+    public void deleteCorrespondence(String courseId) throws Exception {
+	if (isUserAllowedToManageCorrespondences()){
+	    correspondenceService.deleteCorrespondence(courseId);
+	}
+	else{
+	    throw new Exception("User doesn't have the right to use the deleting service");
+	}
+    }
+
+    private boolean isUserAllowedToManageCorrespondences(){
+	String eid = null;
+	try{
+	    eid = userDirectoryService.getCurrentUser().getEid(); 
+	}
+	catch(Exception e){
+	    log.error("Exception while retrieving current user id: " + e);
+	}
+	
+	if (eid != null){
+	    return true;
+	}
+	else{
+	    return false; 
+	}	
     }
 
 }

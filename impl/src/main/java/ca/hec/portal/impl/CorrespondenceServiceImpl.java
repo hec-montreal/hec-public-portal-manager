@@ -33,10 +33,10 @@ public class CorrespondenceServiceImpl implements CorrespondenceService {
 	if (correspondence == null) {
 	    correspondence = new Correspondence();
 	    correspondence.setCourseId(courseId);
+	    correspondence.setLastModifiedDate(new Date());
 	}
 	
 	correspondence.setCourseOutlineSession(courseSession);
-	correspondence.setLastModifiedDate(new Date());
 
 	correspondenceDao.saveCorrespondence(correspondence);
     }

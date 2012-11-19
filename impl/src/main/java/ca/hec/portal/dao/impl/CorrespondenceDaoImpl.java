@@ -25,7 +25,7 @@ public class CorrespondenceDaoImpl extends HibernateDaoSupport implements
 	    throw new Exception(e);
 	}
     }
-
+    
     public void saveCorrespondence(Correspondence correspondence) throws Exception {
 	try {
 	    getHibernateTemplate().saveOrUpdate(correspondence);
@@ -34,7 +34,7 @@ public class CorrespondenceDaoImpl extends HibernateDaoSupport implements
 	    throw new Exception(e);
 	}
     }
-
+   
     public void deleteCorrespondence(Correspondence correspondence) throws Exception {
 	try {
 	    getHibernateTemplate().delete(correspondence);

@@ -4,7 +4,7 @@
           "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping>
-	<class name="ca.hec.portal.model.Correspondence" table="CATALOG_CORRESPONDENCE">
+	<class name="ca.hec.portal.model.Correspondence" table="HEC_PUBLIC_PORTAL_CO_OVERRIDE">
 		<id name="id" type="long" column="ID">
 	    	<generator class="native">
                  <param name="sequence">CATALOG_CORRESPONDENCE_ID_SEQ</param>

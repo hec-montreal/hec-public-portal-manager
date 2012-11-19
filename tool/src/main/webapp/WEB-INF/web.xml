@@ -3,11 +3,11 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd"
 	version="2.4">
 
-	<display-name>sakai.portalManager</display-name>
+	<display-name>sakai.hec-portal-manager</display-name>
 
 	<!-- This application's servlet class -->
 	<servlet>
-		<servlet-name>sakai.portalManager</servlet-name>
+		<servlet-name>sakai.hec-portal-manager</servlet-name>
 		<servlet-class>uk.ac.cam.caret.sakai.WebappToolServlet</servlet-class>
 		<init-param>
 			<param-name>main-page</param-name>

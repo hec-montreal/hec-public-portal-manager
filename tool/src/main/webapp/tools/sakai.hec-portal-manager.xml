@@ -1,17 +1,18 @@
 <?xml version="1.0"?>
 <registration>
-	<tool id="sakai.portal" 
+	<tool id="sakai.hec-portal-manager" 
 		title="Portal manager tool" 
 		description="Tools that manages public portal">
 
 		<category name="course" />
 		<category name="project" />
+		<!--
 		<category name="portfolio" />
 		<category name="myworkspace" />
 		<category name="GradToolsStudent" />
 		<category name="GradToolsDepartment" />
 		<category name="GradToolsRackham" />
-		
+		-->
     </tool>
 </registration>
 

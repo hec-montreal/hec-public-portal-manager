@@ -7,7 +7,6 @@
 		<groupId>ca.hec.portal</groupId>
 		<version>1.0-SNAPSHOT</version>
 	</parent>
-	<groupId>ca.hec.portal</groupId>
 	<artifactId>hec-public-portal-manager-api</artifactId>
 	<name>hec-public-portal-manager-api</name>
 

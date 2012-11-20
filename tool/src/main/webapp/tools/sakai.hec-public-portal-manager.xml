@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <registration>
-	<tool id="sakai.hec-portal-manager" 
+	<tool id="sakai.hec-public-portal-manager" 
 		title="Portal manager tool" 
 		description="Tools that manages public portal">
 

@@ -7,7 +7,7 @@
 
 	<!-- This application's servlet class -->
 	<servlet>
-		<servlet-name>sakai.hec-portal-manager</servlet-name>
+		<servlet-name>sakai.hec-public-portal-manager</servlet-name>
 		<servlet-class>uk.ac.cam.caret.sakai.WebappToolServlet</servlet-class>
 		<init-param>
 			<param-name>main-page</param-name>

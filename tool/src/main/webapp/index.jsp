@@ -4,10 +4,11 @@
 	<div id="ajaxMessage" class="return_message"></div>
 </div>
 <h3>
-	<c:out value="${msgs.message_home}" />
+	<c:out value="${msgs.message_header}" />
 </h3>
 
 <br />
+<!--
 <div id="cdm_editor">
 	<div id="accordeonWrap">
 		<h3>
@@ -60,22 +61,24 @@
 			class="button"><c:out value="${msgs.button_cancel}" /></span>
 	</div>
 </div>
+-->
 
-
-<table id="catalog_description_table">
+<table id="correspondence_table">
 	<thead>
 		<tr>
-			<th>Id</th>
-			<th width="150px"><span><c:out value="${msgs.header_course_id}" /></span></th>
-			<th width="130px"><c:out value="${msgs.header_is_description}" /></th>			
-			<th width="160px"><c:out value="${msgs.header_date_modification}" /></th>
+			<th><c:out value="${msgs.label_course_id}" /></th>
+			<th><c:out value="${msgs.label_course_section}" /></th>			
+			<th><c:out value="${msgs.label_date_modification}" /></th>
+			<th></th>
 		</tr>
 	</thead>
-	<tbody>
-	</tbody>
+	<tbody></tbody>
 </table>
+
+<!--
 <input type="hidden" id="course_id" />
 <input type="hidden" id="last_modified_date" />
+-->
 <input type="hidden" id="genericError"
 	value="<c:out value="${msgs.message_generic_error}" />" />
 

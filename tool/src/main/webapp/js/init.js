@@ -5,9 +5,8 @@ var dialogHeight = 450;
 var editorHeight = 180;
 
 $(window).resize(function(){
-dialogWidth = $(window).width() * 0.9;
-$("#cdm_editor").dialog("option","width", dialogWidth);
-        });
+	dialogWidth = $(window).width() * 0.9;
+});
 
 var frame = parent.document.getElementById(window.name);
 $(frame).css('height', iframeHeight);
@@ -46,13 +45,20 @@ $(document).ready(function() {
 		"sAjaxSource" : 'listCorrespondences.json',
 		"sPaginationType" : "full_numbers",
 		"aoColumns" : [
-			null,
-			null,
-			null,
-			{
+			null, // course id
+			null, // course section
+			null, // last modification date 
+			{	
+				// link button
 				"mDataProp": null,
-				"sClass": "control",
-				"sDefaultContent": 'X'//'<img src=>'
+				"sClass": "link",
+				"sDefaultContent": ''
+			}
+			{	
+				// delete button
+				"mDataProp": null,
+				"sClass": "delete",
+				"sDefaultContent": ''
 			}
 		]
 	});
@@ -60,7 +66,7 @@ $(document).ready(function() {
 
 $('#correspondence_table td.delete').live('click', function () {
 	var courseid = oTable.fnGetData(this.parentNode, 0);
-	if (window.confirm("you sure? " + courseid)) {
+	if (window.confirm($('#message_confirm_delete').val() + courseid + "?")) {
 		deleteCorrespondence(courseid);
 	}
 } );

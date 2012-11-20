@@ -116,6 +116,7 @@ function deleteCorrespondence(course_id) {
 		success : function(data) {
 			$('#ajaxMessage').html(data.message);
 			$('#ajaxReturn').show();
+			$('#ajaxReturn').fade('slow', function(){});
 
 			if (data.status == 'success') {
 				$('#ajaxReturn').addClass("info");
@@ -125,8 +126,8 @@ function deleteCorrespondence(course_id) {
 		},
 
 		error : function(xhr, ajaxOptions, thrownError) {
-			var genericError = $('#genericError').val();
-			$('#ajaxMessage').html(genericError);
+			var serverError = $('#message_server_error').val();
+			$('#ajaxMessage').html(serverError);
 			$('#ajaxReturn').addClass("error");
 		}
 	});

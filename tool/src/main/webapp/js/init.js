@@ -52,13 +52,15 @@ $(document).ready(function() {
 				// link button
 				"mDataProp": null,
 				"sClass": "link",
-				"sDefaultContent": ''
-			}
+				"sDefaultContent": '',
+				"bSortable": false
+			},
 			{	
 				// delete button
 				"mDataProp": null,
 				"sClass": "delete",
-				"sDefaultContent": ''
+				"sDefaultContent": '',
+				"bSortable": false
 			}
 		]
 	});
@@ -66,9 +68,14 @@ $(document).ready(function() {
 
 $('#correspondence_table td.delete').live('click', function () {
 	var courseid = oTable.fnGetData(this.parentNode, 0);
-	if (window.confirm($('#message_confirm_delete').val() + courseid + "?")) {
+	if (window.confirm($('#message_confirm_delete').val() + " " + courseid + "?")) {
 		deleteCorrespondence(courseid);
 	}
+} );
+
+$('#correspondence_table td.link').live('click', function () {
+	var courseid = oTable.fnGetData(this.parentNode, 0);
+	window.open('/portail/#cours='+courseid);
 } );
 
 /*****************************Initialisation of Editor dialog box  **********************************/

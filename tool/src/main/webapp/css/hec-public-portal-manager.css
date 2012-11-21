@@ -2215,7 +2215,7 @@ text-align: center;
 	background-image: url("/library/image/silk/delete.png");
 	background-repeat: no-repeat;
 	background-position:center;
-	cursor: hand;
+	cursor: pointer;
 }
 
 #correspondence_table td.link
@@ -2223,7 +2223,7 @@ text-align: center;
 	background-image: url("/library/image/silk/link.png");
 	background-repeat: no-repeat;
 	background-position:center;
-	cursor: hand;
+	cursor: pointer;
 }
 
 .dataTable {

@@ -207,6 +207,7 @@ private String formatCourseId(String courseId) {
 	</form>
 	
 	<br>
+    Quelques remarques:<br>
     <ul>
       <li>Les langues support&eacute;es pour l'instant sont fran&ccedil;ais (<i><b>FR</b></i>)
         et anglais (<i><b>EN</b></i>)</li>

@@ -12,7 +12,7 @@
 		</id>	
 		<timestamp name="lastModifiedDate" column="LAST_MODIFIED_DATE"/>	 
 		<property name="courseId" type="string" column="COURSE_ID" length="100" not-null="true" index="COURSE_ID"/>
-		<property name="courseOutlineSession" type="string" column="COURSE_SECTION" length="100" not-null="true" index="COURSE_SECTION"/>
+		<property name="courseOutlineSession" type="string" column="COURSE_SECTION" length="100" not-null="false" index="COURSE_SECTION"/>
 		
      </class>
 </hibernate-mapping>

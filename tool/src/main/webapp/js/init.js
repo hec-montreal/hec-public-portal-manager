@@ -11,32 +11,6 @@ $(window).resize(function(){
 var frame = parent.document.getElementById(window.name);
 $(frame).css('height', iframeHeight);
 
-/*****************************Initialisation of frame editor  **********************************/
-/*
-var myToolbar = [
-		{
-			name : 'document',
-			items : [ 'Source', '-','Print' ]
-		},
- { items : [ 'Bold','Italic','Underline','-','FontSize' ] },
-		{
-			name : 'paragraph',
-			items : [ 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent',
-					'-', 'Blockquote', '-', 'JustifyLeft',
-					'JustifyCenter', 'JustifyRight', 'JustifyBlock', '-',
-					'BidiLtr', 'BidiRtl' ]
-		}];
-
-var config = {
-	height: editorHeight,
-	position : [ 'center', 'center' ],
-	toolbar_mySimpleToolbar : myToolbar,
-	toolbar : 'mySimpleToolbar',
-	fontSize_defaultLabel : '12'
-};
-*/
-//$('#editor_area').ckeditor(config);	
-
 /*****************************Initialisation of Catalog Description datatable  **********************************/
 $(document).ready(function() {
 	oTable = $('#correspondence_table').dataTable({
@@ -68,7 +42,7 @@ $(document).ready(function() {
 
 $('#correspondence_table td.delete').live('click', function () {
 	var courseid = oTable.fnGetData(this.parentNode, 0);
-	if (window.confirm($('#message_confirm_delete').val() + " " + courseid + "?")) {
+	if (window.confirm(confirm_delete_message + " " + courseid + "?")) {
 		deleteCorrespondence(courseid);
 	}
 } );
@@ -78,23 +52,25 @@ $('#correspondence_table td.link').live('click', function () {
 	window.open('/portail/#cours='+courseid);
 } );
 
-/*****************************Initialisation of Editor dialog box  **********************************/
-/*
-$("#cdm_editor").dialog({
-	autoOpen : false,
-	modal : true,
-	resizable : true,
-	draggable : true,
-	width : dialogWidth,
-	height : dialogHeight,
-	autoResize:true
+$('#save_form').submit(function() {
+	var section = ($('input[name="no_section"]').is(':checked')) ? "" : $('input[name="courseSection"]').val();
+	saveCorrespondence($('input[name="courseId"]').val(), section);
+	
+	this.reset();
+	
+	return false;
 });
-$("#save_button").button();
-$("#cancel_button").button();
-$("#accordeonWrap").accordion({
-	autoHeight : false
+
+// bind disable to checkbox
+$('#save_form input[name="no_section"]').bind('click', function () {
+    var inputs = $(this).closest('li.form-item').find('div.element-container').children('input,select');
+
+    if ($(this).is(':checked')) {
+        $('#save_form input[name="courseSection"]').attr('disabled', true);
+    } else {
+        $('#save_form input[name="courseSection"]').removeAttr('disabled');
+    }
 });
-*/
 
 /***************************** Binding 'click' event on a table row (open dialog_box) **********************************/
 /*
@@ -103,17 +79,5 @@ $('#catalog_description_table').on("click", "tbody tr", function(event) {
 	var id_row = oTable.fnGetData(this)[0];
 	$('#course_id').val(id_row);
 	openDialogCatalogDescriptionCurrentRow(id_row);
-});
-*/
-
-/***************************** Binding 'click' event on table buttons (save and cancel) **********************************/
-/*
-$("#save_button").on("click", function(event) {
-	save(escape($('#editor_area').val()), $('#course_id').val(), $('#last_modified_date').val());
-	$("#cdm_editor").dialog('close');
-});
-
-$("#cancel_button").on("click", function(event) {
-	$("#cdm_editor").dialog('close');
 });
 */

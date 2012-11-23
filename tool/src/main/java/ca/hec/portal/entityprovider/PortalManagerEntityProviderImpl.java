@@ -70,7 +70,13 @@ public class PortalManagerEntityProviderImpl extends AbstractEntityProvider
 		    "CourseId must be set in order to get public course outline via the URL /portalManager/:ID:/public_syllabus");
 	}
 
-	String site_id = sakaiProxy.getAssociatedCourseSiteTitle(courseId);
+	String site_id = null;
+	try {
+	    site_id = sakaiProxy.getAssociatedCourseSiteTitle(courseId);
+	} catch (Exception e) {
+	    e.printStackTrace();
+	}
+	
 	if (site_id == null)
 	    throw new EntityNotFoundException("No public course outline available", courseId);
 

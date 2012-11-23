@@ -12,6 +12,8 @@ import ca.hec.portal.model.Correspondence;
 public interface CorrespondenceService { 
  
     public List<Correspondence> getCorrespondences() throws Exception;
+
+    public Correspondence getCorrespondence(String courseId) throws Exception;
     
     public void saveCorrespondence(String courseId, String courseSession) throws Exception;
     

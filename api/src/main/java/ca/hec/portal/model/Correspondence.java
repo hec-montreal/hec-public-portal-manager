@@ -32,7 +32,7 @@ import lombok.Data;
 public class Correspondence {
     private Long id;
     private String courseId;
-    private String courseOutlineSession;
+    private String courseSection;
     private Date lastModifiedDate;
 }
 

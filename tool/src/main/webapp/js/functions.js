@@ -16,7 +16,7 @@ function saveCorrespondence(course_id, course_section) {
 	$.ajax({
 		url : 'saveCorrespondence.json',
 		type : "POST",
-		data : 'courseId=' + course_id + '&courseSession=' + course_section,
+		data : 'courseId=' + course_id.toUpperCase() + '&courseSection=' + course_section.toUpperCase(),
 		datatype : 'json',
 		success : function(data) {
 			if (data.status == 'success') {

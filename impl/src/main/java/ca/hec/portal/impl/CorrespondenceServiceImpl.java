@@ -24,6 +24,10 @@ public class CorrespondenceServiceImpl implements CorrespondenceService {
 	return correspondenceDao.getCorrespondences();
     }
 
+    public Correspondence getCorrespondence(String courseId) throws Exception {
+	return correspondenceDao.getCorrespondence(courseId);
+    }
+
     public void saveCorrespondence(String courseId, String courseSession)
 	    throws Exception {
 	Correspondence correspondence =
@@ -36,7 +40,7 @@ public class CorrespondenceServiceImpl implements CorrespondenceService {
 	    correspondence.setLastModifiedDate(new Date());
 	}
 	
-	correspondence.setCourseOutlineSession(courseSession);
+	correspondence.setCourseSection(courseSession);
 
 	correspondenceDao.saveCorrespondence(correspondence);
     }

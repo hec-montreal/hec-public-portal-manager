@@ -69,44 +69,63 @@ public class SakaiProxyImpl implements SakaiProxy {
     
     /**
      * {@inheritDoc}
+     * @throws Exception 
      */
-    public String getAssociatedCourseSiteTitle(String courseId) {
-	Date today = new Date();
+    public String getAssociatedCourseSiteTitle(String courseId) throws Exception {
+	Correspondence c = correspondenceService.getCorrespondence(courseId);
 	
-	List<AcademicSession> sessions = cmService.getAcademicSessions();
-	Collections.sort(sessions, new ComparableAcademicSession());
+	if (c == null)
+	{	
+	    Date today = new Date();
 	
-	ArrayList<String> sessionNames = new ArrayList<String>();
+	    List<AcademicSession> sessions = cmService.getAcademicSessions();
+	    Collections.sort(sessions, new ComparableAcademicSession());
+	
+	    ArrayList<String> sessionNames = new ArrayList<String>();
 
-	// get all academic sessions, and add their formatted names to the list
-	for (AcademicSession session : sessions) {
-	    String sessionName = osylSiteService.getSessionName(session);
+	    // get all academic sessions, and add their formatted names to the list
+	    for (AcademicSession session : sessions) {
+		String sessionName = osylSiteService.getSessionName(session);
 	    
-	    // if the session is completed and not yet in the list, add it
-	    if (session.getEndDate().before(today) && !sessions.contains(sessionName)) {
-		sessionNames.add(sessionName);
+		// if the session is completed and not yet in the list, add it
+		if (session.getEndDate().before(today) && !sessions.contains(sessionName)) {
+		    sessionNames.add(sessionName);
+		}
+	    }
+	
+	    // Start searching the sessions for a course site with a published course outline to use
+	    for (String sessionName : sessionNames) {
+		// Get the sites with the given Id and Session in the title
+		List<Site> sites = siteService.getSites(SiteService.SelectionType.ANY, "course",
+			courseId + "." + sessionName, null, SiteService.SortType.TITLE_ASC, null);
+
+		for (Site s : sites) {
+		    try {
+			// provider group id indicates that the site has been associated 
+			// to course management in OpenSyllabus Manager
+			if (s.getProviderGroupId() != null &&
+				osylSiteService.hasBeenPublished(s.getId())) {
+			    return s.getTitle();
+			}
+		    }
+		    catch (Exception e) {}
+		}
+	    }
+	}
+	else {
+	    if (c.getCourseSection() == null)
+		return null;
+	    
+	    // get the site that is specified with the correspondence to make sure it exists, 
+	    // has been published and associated to course management
+	    Site s = siteService.getSite(courseId + "." + c.getCourseSection());
+	    
+	    if (s.getProviderGroupId() != null &&
+		    osylSiteService.hasBeenPublished(s.getId())) {
+		return s.getTitle();
 	    }
 	}
 	
-	// Start searching the sessions for a course site with a published course outline to use
-	for (String sessionName : sessionNames) {
-	    // Get the sites with the given Id and Session in the title
-	    List<Site> sites = siteService.getSites(SiteService.SelectionType.ANY, "course",
-		courseId + "." + sessionName, null, SiteService.SortType.TITLE_ASC, null);
-
-	    for (Site s : sites) {
-		try {
-		    // provider group id indicates that the site has been associated 
-		    // to course management in OpenSyllabus Manager
-		    if (s.getProviderGroupId() != null &&
-			    osylSiteService.hasBeenPublished(s.getId())) {
-			return s.getTitle();
-		    }
-		}
-		catch (Exception e) {}
-	    }
-	}
-		
 	return null;
     }
     
@@ -230,10 +249,10 @@ public class SakaiProxyImpl implements SakaiProxy {
 	}
     }
 
-    public void saveCorrespondence(String courseId, String courseSession)
+    public void saveCorrespondence(String courseId, String courseSection)
 	    throws Exception {
 	if (isUserAllowedToManageCorrespondences()){
-	    correspondenceService.saveCorrespondence(courseId, courseSession);
+	    correspondenceService.saveCorrespondence(courseId, courseSection);
 	}
 	else{
 	    throw new Exception("User doesn't have the right to use the saving service");

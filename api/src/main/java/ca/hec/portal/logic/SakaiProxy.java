@@ -20,8 +20,9 @@ public interface SakaiProxy {
      * @param catalogDescriptionId the id of the catalog description
      * @return the title of the most recently created course offering (that has
      *         been published)
+     * @throws Exception 
      */
-    public String getAssociatedCourseSiteTitle(String courseId);
+    public String getAssociatedCourseSiteTitle(String courseId) throws Exception;
 
     /**
      * Apply the xslt transformation to convert the OpenSyllabus XML into an XML
@@ -55,7 +56,7 @@ public interface SakaiProxy {
      * @param courseId/courseSession
      * @return 
      */
-    public void saveCorrespondence(String courseId, String courseSession)
+    public void saveCorrespondence(String courseId, String courseSection)
 	    throws Exception;
 
     /**

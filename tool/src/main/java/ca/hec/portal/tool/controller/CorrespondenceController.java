@@ -46,12 +46,12 @@ public class CorrespondenceController {
 	    HttpServletResponse response) throws Exception {
 
 	String courseId = request.getParameter("courseId");
-	String courseSession = request.getParameter("courseSession");
+	String courseSection = request.getParameter("courseSection");
 
 	String returnStatus = null;
 
 	try {
-	    sakaiProxy.saveCorrespondence(courseId, courseSession);
+	    sakaiProxy.saveCorrespondence(courseId, courseSection);
 	    returnStatus = "success";
 	} catch (Exception e) {
 	    log.error("Exception while saving correspondence: " + e);
@@ -82,7 +82,7 @@ public class CorrespondenceController {
 		List<String> array = new ArrayList<String>();
 
 		array.add(correspondence.getCourseId());
-		array.add(correspondence.getCourseOutlineSession());
+		array.add(correspondence.getCourseSection());
 		array.add(""
 			+ DateFormat.getInstance().format(
 				correspondence.getLastModifiedDate()));

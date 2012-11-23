@@ -6,6 +6,11 @@ var server_error_message = "Une erreur interne s'est produite durant la dernière
 var confirm_delete_message = "Voulez-vous vraiment supprimer la correspondence";
 var fade_out_delay = 2000;
 
+function resetForm() {
+	$('#save_form').get(0).reset();
+    $('#save_form input[name="courseSection"]').removeAttr('disabled');
+}
+
 /* Save a course correspondence */
 function saveCorrespondence(course_id, course_section) {
 	$.ajax({
@@ -26,6 +31,7 @@ function saveCorrespondence(course_id, course_section) {
 			$('#ajaxReturn').fadeOut(fade_out_delay);
 
 			oTable.fnReloadAjax();
+			resetForm();
 		},
 
 		error : function(xhr, ajaxOptions, thrownError) {
@@ -55,6 +61,7 @@ function deleteCorrespondence(course_id) {
 			$('#ajaxReturn').fadeOut(fade_out_delay);
 
 			oTable.fnReloadAjax();
+			resetForm();
 		},
 
 		error : function(xhr, ajaxOptions, thrownError) {

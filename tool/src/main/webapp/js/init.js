@@ -11,7 +11,7 @@ $(window).resize(function(){
 var frame = parent.document.getElementById(window.name);
 $(frame).css('height', iframeHeight);
 
-/*****************************Initialisation of Catalog Description datatable  **********************************/
+// Initialisation of Correspondence
 $(document).ready(function() {
 	oTable = $('#correspondence_table').dataTable({
 		"bJQueryUI" : true,
@@ -40,6 +40,12 @@ $(document).ready(function() {
 	});
 });
 
+// bind click listener for table row to populate form
+$('#correspondence_table tr').live("click", function() {
+	$('#save_form input[name=courseId]').val(oTable.fnGetData(this, 0));
+	$('#save_form input[name=courseSection]').val(oTable.fnGetData(this, 1));
+});
+
 $('#correspondence_table td.delete').live('click', function () {
 	var courseid = oTable.fnGetData(this.parentNode, 0);
 	if (window.confirm(confirm_delete_message + " " + courseid + "?")) {
@@ -56,8 +62,6 @@ $('#save_form').submit(function() {
 	var section = ($('input[name="no_section"]').is(':checked')) ? "" : $('input[name="courseSection"]').val();
 	saveCorrespondence($('input[name="courseId"]').val(), section);
 	
-	this.reset();
-	
 	return false;
 });
 
@@ -72,12 +76,3 @@ $('#save_form input[name="no_section"]').bind('click', function () {
     }
 });
 
-/***************************** Binding 'click' event on a table row (open dialog_box) **********************************/
-/*
-$('#catalog_description_table').on("click", "tbody tr", function(event) {
-
-	var id_row = oTable.fnGetData(this)[0];
-	$('#course_id').val(id_row);
-	openDialogCatalogDescriptionCurrentRow(id_row);
-});
-*/

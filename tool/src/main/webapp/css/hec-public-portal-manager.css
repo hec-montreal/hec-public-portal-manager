@@ -2052,7 +2052,7 @@ tr.even {
 }
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * Misc
+ * Misc datatables
  */
 .dataTables_scroll {
 	clear: both;
@@ -2130,102 +2130,6 @@ td.details {
 	background-color: #99B3FF;
 }
 
-}
-
-/*
- * Row highlighting example
- */
-.ex_highlight #catalog_description_table tbody tr.even:hover,#catalog_description_table tbody tr.even td.highlighted
-	{
-	background-color: #0A23C7;
-}
-
-.ex_highlight #catalog_description_table tbody tr.odd:hover,#catalog_description_table tbody tr.odd td.highlighted
-	{
-	background-color: #0A23C7;
-}
-
-.ex_highlight_row #catalog_description_table tr.even:hover {
-	background-color: #0A23C7;
-}
-
-.ex_highlight_row #catalog_description_table tr.even:hover td.sorting_1
-	{
-	background-color: #0A23C7;
-}
-
-.ex_highlight_row #catalog_description_table tr.even:hover td.sorting_2
-	{
-	background-color: #0A23C7;
-}
-
-.ex_highlight_row #catalog_description_table tr.even:hover td.sorting_3
-	{
-	background-color: #0A23C7;
-}
-
-.ex_highlight_row #catalog_description_table tr.odd:hover {
-	background-color: #0A23C7;
-}
-
-.ex_highlight_row #catalog_description_table tr.odd:hover td.sorting_1 {
-	background-color: #0A23C7;
-}
-
-.ex_highlight_row #catalog_description_table tr.odd:hover td.sorting_2 {
-	background-color: #0A23C7;
-}
-
-.ex_highlight_row #catalog_description_table tr.odd:hover td.sorting_3 {
-	background-color: #0A23C7;
-}
-
-.ex_highlight #catalog_description_table tbody tr.even:hover,#catalog_description_table tbody tr.even td.highlighted
-	{
-	background-color: #ECFFB3;
-}
-
-.ex_highlight #catalog_description_table tbody tr.odd:hover,#catalog_description_table tbody tr.odd td.highlighted
-	{
-	background-color: #E6FF99;
-}
-
-#correspondence_table tr:hover {
-	background-color: #ABB1DB;
-	cursor: pointer;
-}
-
-#catalog_description_table tr td:first-child {
-	text-align: right;
-	padding-right:5px;
-}
-
-#catalog_description_table tr td:first-child + td {
-	text-align: left;
-	padding-left:5px;
-}
-
-#correspondence_table
-{ 
-text-align: center;
-}
-
-#correspondence_table td.delete
-{ 
-	background-image: url("/library/image/silk/delete.png");
-	background-repeat: no-repeat;
-	background-position:center;
-	cursor: pointer;
-}
-
-#correspondence_table td.link
-{ 
-	background-image: url("/library/image/silk/link.png");
-	background-repeat: no-repeat;
-	background-position:center;
-	cursor: pointer;
-}
-
 .dataTable {
 	border-spacing: 0px;
 	width: 100%;
@@ -2270,6 +2174,35 @@ text-align: center;
 
 .DataTables_sort_icon{
 	float:right;
+}
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ * our correspondence table
+ */
+
+#correspondence_table tr:hover {
+	background-color: #ABB1DB;
+	cursor: pointer;
+}
+
+#correspondence_table
+{ 
+text-align: center;
+}
+
+#correspondence_table td.delete
+{ 
+	background-image: url("/library/image/silk/delete.png");
+	background-repeat: no-repeat;
+	background-position:center;
+	cursor: pointer;
+}
+
+#correspondence_table td.link
+{ 
+	background-image: url("/library/image/silk/link.png");
+	background-repeat: no-repeat;
+	background-position:center;
+	cursor: pointer;
 }
 
 /* form */

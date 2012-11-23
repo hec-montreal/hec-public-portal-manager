@@ -41,11 +41,13 @@
 
 			<form id="save_form">
 				<fieldset>
-					<label for="courseId">No. de répertoire:</label><input type="text" name="courseId"/><br/>
+					<div><label for="courseId">No. de répertoire:</label><input type="text" name="courseId"/></div>
+					<div>
 					<label for="courseSection">Section du cours:</label><input type="text" name="courseSection"/>
-					<input type="checkbox" name="no_section"/><label for="no_section">Aucun plan de cours sélectionné</label><br>
-					<button type="submit">Sauvegarder</button>
+					<input type="checkbox" name="no_section"/><label for="no_section">Aucun plan de cours sélectionné</label>
+					</div>
 				</fieldset>
+				<button type="submit">Sauvegarder</button>
 			</form>
 
 		</div>

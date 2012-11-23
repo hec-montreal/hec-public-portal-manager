@@ -2190,7 +2190,7 @@ td.details {
 	background-color: #E6FF99;
 }
 
-#catalog_description_table tr:hover {
+#correspondence_table tr:hover {
 	background-color: #ABB1DB;
 	cursor: pointer;
 }
@@ -2235,10 +2235,6 @@ text-align: center;
 	text-align: center;
 }
 
-.button {
-	width: 150px;
-}
-
 .row_space {
 	height: 15px;
 }
@@ -2276,6 +2272,26 @@ text-align: center;
 	float:right;
 }
 
-.course_info{
-	font-size:12px;
+/* form */
+#save_form {
+	border: 1px solid;
+}
+#save_form label {
+	text-align: left;
+	width: 150px;
+	float: left;
+}
+#save_form label[for=no_section] {
+	width: auto;
+}
+#save_form fieldset input {
+	float: left;
+	margin-right: 5px;
+}
+#save_form fieldset div {
+	clear: both;
+	padding: 5px;
+}
+#save_form button {
+	margin: 1em;
 }

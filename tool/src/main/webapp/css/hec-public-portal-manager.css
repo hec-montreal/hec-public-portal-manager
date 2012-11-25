@@ -2189,22 +2189,6 @@ td.details {
 text-align: center;
 }
 
-#correspondence_table td.delete
-{ 
-	background-image: url("/library/image/silk/delete.png");
-	background-repeat: no-repeat;
-	background-position:center;
-	cursor: pointer;
-}
-
-#correspondence_table td.link
-{ 
-	background-image: url("/library/image/silk/link.png");
-	background-repeat: no-repeat;
-	background-position:center;
-	cursor: pointer;
-}
-
 /* form */
 #save_form {
 	border: 1px solid;

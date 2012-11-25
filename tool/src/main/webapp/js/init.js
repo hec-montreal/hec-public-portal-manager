@@ -26,14 +26,14 @@ $(document).ready(function() {
 				// link button
 				"mDataProp": null,
 				"sClass": "link",
-				"sDefaultContent": '',
+				"sDefaultContent": '<img src="/library/image/silk/link.png"/>',
 				"bSortable": false
 			},
 			{	
 				// delete button
 				"mDataProp": null,
 				"sClass": "delete",
-				"sDefaultContent": '',
+				"sDefaultContent": '<img src="/library/image/silk/delete.png"/>',
 				"bSortable": false
 			}
 		]
@@ -51,11 +51,15 @@ $('#correspondence_table td.delete').live('click', function () {
 	if (window.confirm(confirm_delete_message + " " + courseid + "?")) {
 		deleteCorrespondence(courseid);
 	}
+	// prevent the click from also acting on the row (and populating the form)
+	return false;
 } );
 
 $('#correspondence_table td.link').live('click', function () {
 	var courseid = oTable.fnGetData(this.parentNode, 0);
 	window.open('/portail/#cours='+courseid);
+	// prevent the click from also acting on the row (and populating the form)
+	return false;
 } );
 
 $('#save_form').submit(function() {

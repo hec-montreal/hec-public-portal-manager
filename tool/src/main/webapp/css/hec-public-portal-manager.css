@@ -2186,7 +2186,14 @@ td.details {
 
 #correspondence_table
 { 
-text-align: center;
+	text-align: center;
+}
+
+#correspondence_table td.link img,
+#correspondence_table td.delete img
+{ 
+	margin-left: 3px;
+	margin-right: 3px;
 }
 
 /* form */

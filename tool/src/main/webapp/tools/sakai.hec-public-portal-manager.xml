@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <registration>
 	<tool id="sakai.hec-public-portal-manager" 
-		title="Portal manager tool" 
-		description="Tools that manages public portal">
+		title="Console d'Administration Portail"
+		description="Outils pour gérer les correspondences des cours au plan de cours pour le portail">
 
 		<category name="course" />
 		<category name="project" />

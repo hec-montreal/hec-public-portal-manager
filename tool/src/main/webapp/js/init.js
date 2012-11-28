@@ -75,6 +75,7 @@ $('#save_form input[name="no_section"]').bind('click', function () {
 
     if ($(this).is(':checked')) {
         $('#save_form input[name="courseSection"]').attr('disabled', true);
+		$('#save_form input[name="courseSection"]').val('');
     } else {
         $('#save_form input[name="courseSection"]').removeAttr('disabled');
     }

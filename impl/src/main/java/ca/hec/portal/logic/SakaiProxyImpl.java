@@ -87,8 +87,10 @@ public class SakaiProxyImpl implements SakaiProxy {
 	    for (AcademicSession session : sessions) {
 		String sessionName = osylSiteService.getSessionName(session);
 	    
-		// if the session is completed and not yet in the list, add it
-		if (session.getEndDate().before(today) && !sessions.contains(sessionName)) {
+		// if the session is not MBA (contains P), is completed, and not yet in the list, add it
+		if (!session.getEid().contains("P") && 
+			session.getEndDate().before(today) && 
+			!sessions.contains(sessionName)) {
 		    sessionNames.add(sessionName);
 		}
 	    }

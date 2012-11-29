@@ -2,7 +2,7 @@
 <registration>
 	<tool id="sakai.hec-public-portal-manager" 
 		title="Console d'Administration Portail"
-		description="Outils pour gérer les correspondences des cours au plan de cours pour le portail">
+		description="Outil pour les correspondences des cours au plan de cours pour le portail">
 
 		<category name="course" />
 		<category name="project" />

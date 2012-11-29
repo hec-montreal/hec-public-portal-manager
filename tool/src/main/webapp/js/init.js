@@ -43,7 +43,17 @@ $(document).ready(function() {
 // bind click listener for table row to populate form
 $('#correspondence_table tr').live("click", function() {
 	$('#save_form input[name=courseId]').val(oTable.fnGetData(this, 0));
-	$('#save_form input[name=courseSection]').val(oTable.fnGetData(this, 1));
+	if (oTable.fnGetData(this, 1) == null) {
+		$('#save_form input[name="no_section"]').attr('checked', true);
+		$('#save_form input[name=courseSection]').attr('disabled', true);
+		$('#save_form input[name=courseSection]').val('');
+	} 
+	else {
+		$('#save_form input[name="no_section"]').attr('checked', false);
+		$('#save_form input[name=courseSection]').removeAttr('disabled');
+		$('#save_form input[name=courseSection]').val(oTable.fnGetData(this, 1));
+	}
+	
 });
 
 $('#correspondence_table td.delete').live('click', function () {
@@ -71,8 +81,6 @@ $('#save_form').submit(function() {
 
 // bind disable to checkbox
 $('#save_form input[name="no_section"]').bind('click', function () {
-    var inputs = $(this).closest('li.form-item').find('div.element-container').children('input,select');
-
     if ($(this).is(':checked')) {
         $('#save_form input[name="courseSection"]').attr('disabled', true);
 		$('#save_form input[name="courseSection"]').val('');

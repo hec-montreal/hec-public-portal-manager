@@ -155,7 +155,9 @@ public class SakaiProxyImpl implements SakaiProxy {
 	    e.printStackTrace();
 	    return null;
 	}
-
+	
+	reader.close();
+	    
 	return writer.toString();
     }
 
@@ -181,6 +183,8 @@ public class SakaiProxyImpl implements SakaiProxy {
 	    return null;
 	}
 	
+	reader.close();
+
 	return writer.toString();
     }
     

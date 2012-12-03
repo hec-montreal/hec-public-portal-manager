@@ -55,10 +55,10 @@ public class SakaiProxyImpl implements SakaiProxy {
     private static Transformer transformerOsylToXml = null;
     private static Transformer transformerXmlToHtml = null;
 
-    StringWriter writer = null;
-    StringReader reader = null;
-    Result result = null;
-    Source source = null;	
+    private StringWriter writer = null;
+    private StringReader reader = null;
+    private Result result = null;
+    private Source source = null;	
 
     // Class for comparing the academic sessions by Id Descending.
     public class ComparableAcademicSession implements Comparator<AcademicSession> {	 
@@ -134,7 +134,7 @@ public class SakaiProxyImpl implements SakaiProxy {
     /**
      * {@inheritDoc}
      */
-    public String getCourseOutlineXML(String siteId) {
+    public synchronized String getCourseOutlineXML(String siteId) {
 	COSerialized coSerialized;
 
 	try {
@@ -164,7 +164,7 @@ public class SakaiProxyImpl implements SakaiProxy {
     /**
      * {@inheritDoc}
      */
-    public String getCourseOutlineHTML(String siteId) {
+    public synchronized String getCourseOutlineHTML(String siteId) {
 	String courseOutlineXml = getCourseOutlineXML(siteId);
 	
 	if (courseOutlineXml == null)

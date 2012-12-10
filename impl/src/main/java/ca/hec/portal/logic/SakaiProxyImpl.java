@@ -106,7 +106,8 @@ public class SakaiProxyImpl implements SakaiProxy {
 			// provider group id indicates that the site has been associated 
 			// to course management in OpenSyllabus Manager
 			if (s.getProviderGroupId() != null &&
-				osylSiteService.hasBeenPublished(s.getId())) {
+				osylSiteService.hasBeenPublished(s.getId()) &&
+				!s.getTitle().contains("DF")) {
 			    return s.getTitle();
 			}
 		    }

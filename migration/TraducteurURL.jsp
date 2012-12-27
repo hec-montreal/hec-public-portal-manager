@@ -262,7 +262,7 @@ private String formatCourseId(String courseId) {
               discipline &lt;DIS&gt; dans la langue &lt;LANG&gt;<br>
             </td>
             <td valign="top">/?&lt;LANG&gt;#discipline=&lt;DIS&gt;</td>
-            <td valign="top"><a class="moz-txt-link-freetext" href="http://zonecours2.hec.com/portail/?FR#discipline=FINANCE">http://zonecours2.hec.ca/portail/?FR#discipline=FINANCE</a></td>
+            <td valign="top"><a class="moz-txt-link-freetext" href="http://zonecours2.hec.ca/portail/?FR#discipline=FINANCE">http://zonecours2.hec.ca/portail/?FR#discipline=FINANCE</a></td>
           </tr>
           <tr>
             <td valign="top">Acc&egrave;s aux descriptions annuaires du

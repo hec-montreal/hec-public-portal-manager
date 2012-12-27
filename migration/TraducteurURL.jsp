@@ -9,7 +9,7 @@
 </head>
 
 <%!
-String zc2Server = "http://osyldev.hec.ca:12345/portail/";
+String zc2Server = "http://zonecours2.hec.ca/portail/";
 
 String annuaire1 = "http://zonecours.hec.ca/d";
 

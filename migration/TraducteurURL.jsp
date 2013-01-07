@@ -9,7 +9,7 @@
 </head>
 
 <%!
-String zc2Server = "http://zonecours2.hec.ca/portail/";
+String zc2Server = "https://zonecours2.hec.ca/portail/";
 
 String annuaire1 = "http://zonecours.hec.ca/d";
 
@@ -266,20 +266,20 @@ private String formatCourseId(String courseId) {
               discipline &lt;DIS&gt; dans la langue &lt;LANG&gt;<br>
             </td>
             <td valign="top">/?&lt;LANG&gt;#discipline=&lt;DIS&gt;</td>
-            <td valign="top"><a class="moz-txt-link-freetext" href="http://zonecours2.hec.ca/portail/?FR#discipline=FINANCE">http://zonecours2.hec.ca/portail/?FR#discipline=FINANCE</a></td>
+            <td valign="top"><a class="moz-txt-link-freetext" href="https://zonecours2.hec.ca/portail/?FR#discipline=FINANCE">https://zonecours2.hec.ca/portail/?FR#discipline=FINANCE</a></td>
           </tr>
           <tr>
             <td valign="top">Acc&egrave;s aux descriptions annuaires du
               programme &lt;PROG&gt; dans la langue &lt;LANG&gt;</td>
             <td valign="top">/?&lt;LANG&gt;#programme=&lt;PROG&gt;</td>
-            <td valign="top"><a class="moz-txt-link-freetext" href="http://zonecours2.hec.ca/portail/?FR#programme=MBA">http://zonecours2.hec.ca/portail/?FR#programme=MBA</a><br>
+            <td valign="top"><a class="moz-txt-link-freetext" href="https://zonecours2.hec.ca/portail/?FR#programme=MBA">https://zonecours2.hec.ca/portail/?FR#programme=MBA</a><br>
             </td>
           </tr>
           <tr>
             <td valign="top">Acc&egrave;s aux r&eacute;sultats de recherche du mot-cl&eacute;
               &lt;WORD&gt; dans la langue &lt;LANG&gt;</td>
             <td valign="top">/?&lt;LANG&gt;#recherche=&lt;WORD&gt;</td>
-            <td valign="top"><a class="moz-txt-link-freetext" href="http://zonecours2.hec.ca/portail/?EN#recherche=analyse">http://zonecours2.hec.ca/portail/?EN#recherche=analyse</a><br>
+            <td valign="top"><a class="moz-txt-link-freetext" href="https://zonecours2.hec.ca/portail/?EN#recherche=analyse">https://zonecours2.hec.ca/portail/?EN#recherche=analyse</a><br>
             </td>
           </tr>
           <tr>
@@ -287,7 +287,7 @@ private String formatCourseId(String courseId) {
               mots-cl&eacute; &lt;WORD1&gt; et &lt;WORD2&gt; dans la langue
               &lt;LANG&gt;</td>
             <td valign="top">/?&lt;LANG&gt;#recherche=&lt;WORD1&gt;+&lt;WORD2&gt;</td>
-            <td valign="top"><a class="moz-txt-link-freetext" href="http://zonecours2.hec.ca/portail/?EN#recherche=analyse+marketing">http://zonecours2.hec.ca/portail/?EN#recherche=analyse+marketing</a><br>
+            <td valign="top"><a class="moz-txt-link-freetext" href="https://zonecours2.hec.ca/portail/?EN#recherche=analyse+marketing">https://zonecours2.hec.ca/portail/?EN#recherche=analyse+marketing</a><br>
             </td>
           </tr>
         </tbody>

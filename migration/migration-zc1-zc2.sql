@@ -14,7 +14,7 @@ BEGIN
     FETCH course_cur INTO v_course_code, v_course_url;
     EXIT WHEN course_cur%NOTFOUND;
 
-    v_new_url := 'http://zonecours2.hec.ca/portail/';
+    v_new_url := 'http://zonecours2.hec.ca/portail/?FR';
 -- dans les donnees de dev, il y a plein de liens pour des cours anglophones qui n'ont pas le parametre de langue dans l'url (tout sauf un)
 -- vu que c'est juste pour l'interface du portail je ne pense pas que ce soit necessaire, mais voici le code.
 --    IF INSTR(v_course_url, 'lang=en') > 0 THEN

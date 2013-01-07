@@ -55,7 +55,7 @@ private String convertAnnuaire1(String urlZc1){
     
     courseId = courseId.substring(0, courseId.indexOf(".html"));
     
-    zc2 = zc2Server+"#cours="+formatCourseId(courseId);
+    zc2 = zc2Server+"?FR#cours="+formatCourseId(courseId);
     
     return zc2;
 }
@@ -82,7 +82,9 @@ private String convertAnnuaire2(String urlZc1){
     zc2 = zc2Server;
     if(lang.toLowerCase().equals("en")) {
         zc2 += "?EN";
-    }
+    } else {
+		zc2 += "?FR";
+	}
 
     zc2 += "#cours="+formatCourseId(courseId);
     
@@ -128,6 +130,8 @@ private String convertRepertoire(String urlZc1){
 	zc2 = zc2Server;
 	if(lang.toLowerCase().equals("en")) {
 		zc2 += "?EN";
+	} else {
+		zc2 += "?FR";
 	}
 	
     if(t.equals("programme")){

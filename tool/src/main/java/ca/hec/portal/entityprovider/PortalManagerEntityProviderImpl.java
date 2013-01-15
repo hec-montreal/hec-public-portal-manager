@@ -93,18 +93,10 @@ public class PortalManagerEntityProviderImpl extends AbstractEntityProvider
 	    String pdf_url = "";
 
 	    // if there is only one '.' it is a shareable course site OR
-	    // the string following the last '.' is P1, P2, P3, P4, P5, P6, P7, P8, P9 (it's a shareable from MBA)
+	    // the string following the last '.' is P1 - P9 (it's a shareable from MBA)
 	    Boolean shareable = 
 		    (site_id.indexOf('.') == site_id.lastIndexOf('.') ||
-		    site_id.substring(site_id.lastIndexOf('.')).equals(".P1") ||
-		    site_id.substring(site_id.lastIndexOf('.')).equals(".P2") ||
-		    site_id.substring(site_id.lastIndexOf('.')).equals(".P3") ||
-		    site_id.substring(site_id.lastIndexOf('.')).equals(".P4") ||
-		    site_id.substring(site_id.lastIndexOf('.')).equals(".P5") ||
-		    site_id.substring(site_id.lastIndexOf('.')).equals(".P6") ||
-		    site_id.substring(site_id.lastIndexOf('.')).equals(".P7") ||
-		    site_id.substring(site_id.lastIndexOf('.')).equals(".P8") ||
-		    site_id.substring(site_id.lastIndexOf('.')).equals(".P9"));
+		    site_id.substring(site_id.lastIndexOf('.')+1).matches("P[1-9]"));
 	    
 	    if (site_id != "") {
 		pdf_url = "/sdata/c/attachment/" + site_id + "/OpenSyllabus/" + 

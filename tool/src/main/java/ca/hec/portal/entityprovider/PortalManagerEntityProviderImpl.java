@@ -92,8 +92,14 @@ public class PortalManagerEntityProviderImpl extends AbstractEntityProvider
 	    Map<String, String> courseInfo = new HashMap<String, String>();
 	    String pdf_url = "";
 
-	    // if there is only one '.' it is a shareable course site
-	    Boolean shareable = (site_id.indexOf('.') == site_id.lastIndexOf('.'));
+	    // if there is only one '.' it is a shareable course site OR
+	    // the string following the last '.' is P1, P2 or P3 (it's a shareable from MBA)
+	    Boolean shareable = 
+		    (site_id.indexOf('.') == site_id.lastIndexOf('.') ||
+		    site_id.substring(site_id.lastIndexOf('.')).startsWith(".P1") ||
+		    site_id.substring(site_id.lastIndexOf('.')).startsWith(".P2") ||
+		    site_id.substring(site_id.lastIndexOf('.')).startsWith(".P3"));
+	    
 	    if (site_id != "") {
 		pdf_url = "/sdata/c/attachment/" + site_id + "/OpenSyllabus/" + 
 			site_id + (shareable ? ".00" : "") + "_public.pdf";

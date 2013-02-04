@@ -1,13 +1,12 @@
 package ca.hec.portal.api;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import ca.hec.portal.model.Item;
 
-//import org.sakaiproject.entity.api.EntityProducer;
-
-public interface PortalManagerService // extends EntityProducer
+public interface PortalManagerService
 {
     public void init();
 
@@ -15,9 +14,9 @@ public interface PortalManagerService // extends EntityProducer
 
     public List<Item> getCareers(String locale);
     
-    public String getDepartmentDescription(String department);
+    public String getDepartmentDescription(String department, Locale locale);
     
-    public String getCareerDescription(String career);
+    public String getCareerDescription(String career, Locale locale);
     
     public Map<String, String> getBundle(String locale);
 

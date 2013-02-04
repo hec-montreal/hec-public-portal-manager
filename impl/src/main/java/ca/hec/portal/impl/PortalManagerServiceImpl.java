@@ -117,38 +117,31 @@ public class PortalManagerServiceImpl implements PortalManagerService {
     
 
     /**
-     *  Return the group description associated with the passed item (career/department) 
-     * 	A career/department group can include several careers/departments
-     *  @param  itemsType: department/career, itemValue: id of the department/career
+     *  Return the group description associated with the department group
+     * 	A department group can include several departments
+     *  @param department - the group code whose description should be returned
+     *  @param locale - the language for the description
      */
-    public String getItemDescription(String itemType, String itemValue) {
-	ResourceBundle listItemsToDisplay = null;
-	String description = null;
-	String default_description = null;
-	
-	if ("career".equals(itemType)){
-	    listItemsToDisplay = listCareersToDisplay;
-	    default_description = msgs.getString("label_unknown_category");
-	}
-	else{
-	    listItemsToDisplay = listDepartmentsToDisplay;
-	}
-	
-	try{
-	    description =  listItemsToDisplay.getString(itemValue);
-	}
-	catch(Exception e){
-	    description = default_description;
-	}
-   	    return description;
-       }
-    
-    public String getDepartmentDescription(String department) {
-	return getItemDescription("department", department);
+    public String getDepartmentDescription(String department, Locale locale) {
+	ResourceBundle departmentDescriptions = ResourceBundle.getBundle("departments", locale);
+	return departmentDescriptions.getString(department);
     }
 
-    public String getCareerDescription(String career) {
-	return getItemDescription("career", career);
+    /**
+     *  Return the group description associated with the career group 
+     * 	A career group can include several careers
+     *  @param career - the group code whose description should be returned
+     *  @param locale - the language for the description
+     */
+    public String getCareerDescription(String career, Locale locale) {
+	ResourceBundle careerDescriptions = ResourceBundle.getBundle("careers", locale);
+
+	if (careerDescriptions.containsKey(career)) {
+	    return careerDescriptions.getString(career);
+	} 
+	else {
+	    return ResourceBundle.getBundle("portal", locale).getString("label_unknown_category");
+	}
     }
     
     

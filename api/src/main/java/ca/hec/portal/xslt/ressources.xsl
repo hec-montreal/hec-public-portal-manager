@@ -197,12 +197,12 @@
 						</td>
 						<td>
 							<a href="{other_url}" target="_blank">
-				<xsl:if test="other_url/@libelle=''"> 
-					<xsl:value-of select="java:getString($labels,'availableOtherLbl')"/>
-				</xsl:if>
-				<xsl:if test="not(other_url/@libelle='')"> 
-					<xsl:value-of select="other_url/@libelle"/>
-				</xsl:if>
+								<xsl:if test="other_url/@libelle=''"> 
+									<xsl:value-of select="java:getString($labels,'availableOtherLbl')"/>
+								</xsl:if>
+								<xsl:if test="not(other_url/@libelle='')"> 
+									<xsl:value-of select="other_url/@libelle"/>
+								</xsl:if>
 							</a><br/>
 						</td>
 					</tr>

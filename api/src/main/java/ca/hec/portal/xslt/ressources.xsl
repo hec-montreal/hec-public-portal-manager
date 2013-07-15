@@ -196,7 +196,14 @@
 							<img src="../../../portail/images/iconeAutre.gif"/>
 						</td>
 						<td>
-							<a href="{other_url}" target="_blank"><xsl:value-of select="other_url/@libelle"/></a><br/>
+							<a href="{other_url}" target="_blank">
+				<xsl:if test="other_url/@libelle=''"> 
+					<xsl:value-of select="java:getString($labels,'availableOtherLbl')"/>
+				</xsl:if>
+				<xsl:if test="not(other_url/@libelle='')"> 
+					<xsl:value-of select="other_url/@libelle"/>
+				</xsl:if>
+							</a><br/>
 						</td>
 					</tr>
 				</xsl:if>

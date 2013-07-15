@@ -69,7 +69,7 @@
 			<xsl:when test="asmResource/resourceType='chapter'">
 				<xsl:apply-templates select="asmResource/author"/>
 				<xsl:if test="asmResource/year"><xsl:text> (</xsl:text><xsl:value-of select="asmResource/year"/><xsl:text>)</xsl:text></xsl:if>
-				<xsl:text>. </xsl:text><xsl:value-of select="asmResource/title"/>
+				<xsl:text>. «</xsl:text><xsl:value-of select="asmResource/title"/><xsl:text>»</xsl:text>
 				<xsl:if test="asmResource/journal"><xsl:text>, &lt;i></xsl:text><xsl:value-of select="asmResource/journal"/><xsl:text>&lt;/i></xsl:text></xsl:if>
 				<xsl:if test="asmResource/edition"><xsl:text>, </xsl:text><xsl:value-of select="asmResource/edition"/><xsl:text> </xsl:text><xsl:value-of select="$edition"/></xsl:if>
 				<xsl:if test="asmResource/publicationLocation"><xsl:text>, </xsl:text><xsl:value-of select="asmResource/publicationLocation"/></xsl:if>

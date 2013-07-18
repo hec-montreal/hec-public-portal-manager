@@ -55,7 +55,7 @@
 				<xsl:if test="asmResource/journal"><xsl:text>, &lt;i></xsl:text><xsl:value-of select="asmResource/journal"/><xsl:text>&lt;/i></xsl:text></xsl:if>
 				<xsl:if test="asmResource/volume"><xsl:text>, vol. </xsl:text><xsl:value-of select="asmResource/volume"/></xsl:if>
 				<xsl:if test="asmResource/issue"><xsl:text>, </xsl:text><xsl:value-of select="$issue"/><xsl:text> </xsl:text><xsl:value-of select="asmResource/issue"/></xsl:if>
-				<xsl:if test="asmResource/pages"><xsl:text>, p. </xsl:text><xsl:value-of select="asmResource/pages"/></xsl:if>
+				<xsl:if test="asmResource/pages"><xsl:text>, </xsl:text><xsl:value-of select="asmResource/pages"/><xsl:text>p. </xsl:text></xsl:if>
 				<xsl:text>.</xsl:text>
 			</xsl:when>
 			<xsl:when test="asmResource/resourceType='book' or asmResource/resourceType='report'">
@@ -74,7 +74,7 @@
 				<xsl:if test="asmResource/edition"><xsl:text>, </xsl:text><xsl:value-of select="asmResource/edition"/><xsl:text> </xsl:text><xsl:value-of select="$edition"/></xsl:if>
 				<xsl:if test="asmResource/publicationLocation"><xsl:text>, </xsl:text><xsl:value-of select="asmResource/publicationLocation"/></xsl:if>
 				<xsl:if test="asmResource/publisher"><xsl:text>, </xsl:text><xsl:value-of select="asmResource/publisher"/></xsl:if>
-				<xsl:if test="asmResource/startPage and asmResource/endPage"><xsl:text>, p. </xsl:text><xsl:value-of select="asmResource/startPage"/><xsl:text>-</xsl:text><xsl:value-of select="asmResource/endPage"/></xsl:if>				
+				<xsl:if test="asmResource/startPage and asmResource/endPage"><xsl:text>, p. </xsl:text><xsl:value-of select="asmResource/startPage"/><xsl:text>-</xsl:text><xsl:value-of select="asmResource/endPage"/></xsl:if>
 				<xsl:text>.</xsl:text>
 			</xsl:when>
 			<xsl:when test="asmResource/resourceType='thesis'">
@@ -84,7 +84,7 @@
 				<xsl:if test="asmResource/documentType"><xsl:text>, </xsl:text><xsl:value-of select="asmResource/documentType"/></xsl:if>
 				<xsl:if test="asmResource/publicationLocation"><xsl:text>, </xsl:text><xsl:value-of select="asmResource/publicationLocation"/></xsl:if>
 				<xsl:if test="asmResource/university"><xsl:text>, </xsl:text><xsl:value-of select="asmResource/university"/></xsl:if>
-				<xsl:if test="asmResource/pages"><xsl:text>, p. </xsl:text><xsl:value-of select="asmResource/pages"/></xsl:if>
+				<xsl:if test="asmResource/pages"><xsl:text>, </xsl:text><xsl:value-of select="asmResource/pages"/><xsl:text>p. </xsl:text></xsl:if>
 				<xsl:text>.</xsl:text>
 			</xsl:when>
 			<xsl:when test="asmResource/resourceType='electronic'">

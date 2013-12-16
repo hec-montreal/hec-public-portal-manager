@@ -28,8 +28,8 @@
 			<table id="correspondence_table">
 				<thead>
 					<tr>
-						<th>No. de répertoire</th>
-						<th>Section du cours</th>			
+						<th>No. de r&eacute;pertoire</th>
+						<th>Section du cours</th>
 						<th>Date de modification</th>
 						<th></th>
 						<th></th>
@@ -41,17 +41,17 @@
 
 			<form id="save_form">
 				<fieldset>
-					<div><label for="courseId">No. de répertoire:</label><input type="text" name="courseId"/></div>
+					<div><label for="courseId">No. de r&eacute;pertoire:</label><input type="text" name="courseId"/></div>
 					<div>
 					<label for="courseSection">Section du cours:</label><input type="text" name="courseSection"/>
-					<input type="checkbox" name="no_section"/><label for="no_section">Aucun plan de cours sélectionné</label>
+					<input type="checkbox" name="no_section"/><label for="no_section">Aucun plan de cours s&eacute;lectionn&eacute;</label>
 					</div>
 				</fieldset>
 				<button type="submit">Sauvegarder</button>
 			</form>
 
 		</div>
-		
+
 		<script  type="text/javascript" src="js/functions.js"></script>
 		<script type="text/javascript" src="js/init.js"></script>
 	</body>

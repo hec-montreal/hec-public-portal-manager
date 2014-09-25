@@ -228,7 +228,7 @@ private String formatCourseId(String courseId) {
         </li>
         <li>Marketing (#discipline=<i><b>MARKETING</b></i>)&nbsp;&nbsp;&nbsp; <br>
         </li>
-        <li>Sciences de la d&eacute;cision (MQG) (#discipline=<i><b>MQG</b></i>)</li>
+        <li>Sciences de la d&eacute;cision (#discipline=<i><b>MQG</b></i>)</li>
         <li>Sciences comptables (#discipline=<i><b>SC.COMPT.</b></i>) <br>
         </li>
         <li>Technologies de l'information (TI) (#discipline=<i><b>TI</b></i>)</li>

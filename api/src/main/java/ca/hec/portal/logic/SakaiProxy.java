@@ -13,7 +13,7 @@ import ca.hec.portal.model.Correspondence;
 public interface SakaiProxy {
 
     /**
-     * Gets the title of the course site associated to the given catalog
+     * Gets the ID of the course site associated to the given catalog
      * description. (Same course id, from a session that has been completed, and
      * with a published OpenSyllabus course outline)
      * 
@@ -22,7 +22,7 @@ public interface SakaiProxy {
      *         been published)
      * @throws Exception 
      */
-    public String getAssociatedCourseSiteTitle(String courseId) throws Exception;
+    public String getAssociatedCourseSiteId(String courseId) throws Exception;
 
     /**
      * Apply the xslt transformation to convert the OpenSyllabus XML into an XML

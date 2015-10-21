@@ -72,7 +72,7 @@ public class PortalManagerEntityProviderImpl extends AbstractEntityProvider
 
 	String site_id = null;
 	try {
-	    site_id = sakaiProxy.getAssociatedCourseSiteTitle(courseId);
+	    site_id = sakaiProxy.getAssociatedCourseSiteId(courseId);
 	} catch (Exception e) {
 	    e.printStackTrace();
 	}

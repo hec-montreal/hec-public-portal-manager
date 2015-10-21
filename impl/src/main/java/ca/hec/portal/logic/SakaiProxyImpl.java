@@ -71,7 +71,7 @@ public class SakaiProxyImpl implements SakaiProxy {
      * {@inheritDoc}
      * @throws Exception
      */
-    public String getAssociatedCourseSiteTitle(String courseId) throws Exception {
+    public String getAssociatedCourseSiteId(String courseId) throws Exception {
 	Correspondence c = correspondenceService.getCorrespondence(courseId);
 
 	if (c == null)
@@ -110,7 +110,7 @@ public class SakaiProxyImpl implements SakaiProxy {
 				s.getProviderGroupId() != null &&
 				osylSiteService.hasBeenPublished(s.getId()) &&
 				!s.getTitle().contains("DF")) {
-			    return s.getTitle();
+			    return s.getId();
 			}
 		    }
 		    catch (Exception e) {}
@@ -127,7 +127,7 @@ public class SakaiProxyImpl implements SakaiProxy {
 
 	    if (s.getProviderGroupId() != null &&
 		    osylSiteService.hasBeenPublished(s.getId())) {
-		return s.getTitle();
+		return s.getId();
 	    }
 	}
 

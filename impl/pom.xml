@@ -43,13 +43,16 @@
 		</dependency>
 		
 		<!-- spring and hibernate -->
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-core</artifactId>
+     		<dependency>
+		        <groupId>org.springframework</groupId>
+		        <artifactId>spring-orm</artifactId>
+		        <version>${kernel.spring.version}</version>
+		        <scope>provided</scope>
 		</dependency>
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-core</artifactId>
+      		<dependency>
+			<groupId>${sakai.hibernate.groupId}</groupId>
+			<artifactId>${sakai.hibernate.artifactId}</artifactId>
+			<scope>provided</scope>
 		</dependency>
 
 		<dependency>

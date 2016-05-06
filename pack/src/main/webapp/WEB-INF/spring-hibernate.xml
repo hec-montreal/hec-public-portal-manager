@@ -7,7 +7,7 @@
 	<bean id="ca.hec.portal.api.PortalManagerService"
 			class="ca.hec.portal.impl.PortalManagerServiceImpl"
 			init-method="init"
-			singleton="true">
+			>
 	</bean>
 	
 	<bean id="org.sakaiproject.springframework.orm.hibernate.impl.AdditionalHibernateMappingsImpl.portal"
@@ -20,7 +20,7 @@
 	</bean>	
 	
 	<!--  create a target bean using the Dao implementation -->
-	<bean id="ca.hec.portal.dao.impl.CorrespondenceDaoTarget" class="ca.hec.portal.dao.impl.CorrespondenceDaoImpl" singleton="true">
+	<bean id="ca.hec.portal.dao.impl.CorrespondenceDaoTarget" class="ca.hec.portal.dao.impl.CorrespondenceDaoImpl" >
 		<property name="sessionFactory" ref="org.sakaiproject.springframework.orm.hibernate.GlobalSessionFactory" />
 	</bean>
 
@@ -28,7 +28,7 @@
 	 and the HBM defined data -->
 	<bean id="ca.hec.portal.api.CorrespondenceDao"
 		class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean"
-		singleton="true">
+		>
 			<property name="transactionManager" ref="org.sakaiproject.springframework.orm.hibernate.GlobalTransactionManager" />
 			<property name="target" ref="ca.hec.portal.dao.impl.CorrespondenceDaoTarget"/>
 			<property name="transactionAttributes">
@@ -42,6 +42,6 @@
 	<bean id="ca.hec.portal.api.CorrespondenceService"
 			class="ca.hec.portal.impl.CorrespondenceServiceImpl"
 			init-method="init"
-			singleton="true">
+			>
  		<property name="correspondenceDao" ref="ca.hec.portal.api.CorrespondenceDao"/>
 	</bean></beans>

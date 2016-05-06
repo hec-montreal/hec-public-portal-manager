@@ -10,24 +10,22 @@
 	<groupId>ca.hec.portal</groupId>
 	<artifactId>hec-public-portal-manager-tool</artifactId>
 	<name>hec-public-portal-manager-tool</name>
-	<version>1.0-SNAPSHOT</version>
+	<version>1.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 	<repositories>
 		<repository>
 			<id>spring-json</id>
 			<url>http://spring-json.sourceforge.net/repository</url>
 		</repository>
-		<repository>
-			<id>codehaus</id>
-			<url>http://repository.codehaus.org/org/codehaus</url>
-		</repository>
 	</repositories>
 	<dependencies>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-core</artifactId>
+	        <dependency>
+   			<groupId>org.springframework</groupId>
+			<artifactId>spring-orm</artifactId>
+			<version>${kernel.spring.version}</version>
+			<scope>provided</scope>
 		</dependency>
-		<dependency>
+  		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-web</artifactId>
 		</dependency>

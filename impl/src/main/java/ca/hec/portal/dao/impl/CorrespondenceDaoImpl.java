@@ -18,7 +18,7 @@ public class CorrespondenceDaoImpl extends HibernateDaoSupport implements
 
     public List<Correspondence> getCorrespondences() throws Exception {
 	try {
-	    List<Correspondence> listResults = (List<Correspondence>) getHibernateTemplate().find("from Correspondence");
+	    List<Correspondence> listResults = (List<Correspondence>)getHibernateTemplate().find("from Correspondence");
 	    return listResults;
 	}catch (Exception e) {
 	    log.error("Exception during listing proces: " + e);
@@ -52,7 +52,7 @@ public class CorrespondenceDaoImpl extends HibernateDaoSupport implements
 				.add(Restrictions.eq("courseId",
 					courseId));
 
-	List<Correspondence> correspondenceList = (List<Correspondence>) getHibernateTemplate().findByCriteria(dc);
+	List<Correspondence> correspondenceList = (List<Correspondence>)getHibernateTemplate().findByCriteria(dc);
 	
 	if (correspondenceList.size() == 0){
 	    return null; 

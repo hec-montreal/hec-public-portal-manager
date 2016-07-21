@@ -45,7 +45,7 @@ function deleteCorrespondence(course_id) {
 	$.ajax({
 		url : 'deleteCorrespondence.json?'+'courseId=' + course_id,
 		type : "POST",
-		datatype : 'json',
+	datatype : 'json',
 		success : function(data) {
 			if (data.status == 'success') {
 				$('#ajaxReturn').attr("class", "info");

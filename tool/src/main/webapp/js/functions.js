@@ -1,8 +1,8 @@
-var delete_success_message = "La suppression a été effectué";
-var delete_failure_message = "La suppression a échoué";
-var save_success_message = "La correspondence a bien été sauvegardée";
+var delete_success_message = "La suppression a ï¿½tï¿½ effectuï¿½";
+var delete_failure_message = "La suppression a ï¿½chouï¿½";
+var save_success_message = "La correspondence a bien ï¿½tï¿½ sauvegardï¿½e";
 var save_failure_message = "Une erreur s'est produite lors de la sauvegarde de la correspondence";
-var server_error_message = "Une erreur interne s'est produite durant la dernière opération";
+var server_error_message = "Une erreur interne s'est produite durant la derniï¿½re opï¿½ration";
 var confirm_delete_message = "Voulez-vous vraiment supprimer la correspondence";
 var fade_out_delay = 2000;
 
@@ -14,9 +14,8 @@ function resetForm() {
 /* Save a course correspondence */
 function saveCorrespondence(course_id, course_section) {
 	$.ajax({
-		url : 'saveCorrespondence.json',
+		url : 'saveCorrespondence.json?'+'courseId=' + course_id.toUpperCase() + '&courseSection=' + course_section.toUpperCase(),
 		type : "POST",
-		data : 'courseId=' + course_id.toUpperCase() + '&courseSection=' + course_section.toUpperCase(),
 		datatype : 'json',
 		success : function(data) {
 			if (data.status == 'success') {
@@ -44,9 +43,8 @@ function saveCorrespondence(course_id, course_section) {
 /* Delete a course correspondence */
 function deleteCorrespondence(course_id) {
 	$.ajax({
-		url : 'deleteCorrespondence.json',
+		url : 'deleteCorrespondence.json?'+'courseId=' + course_id,
 		type : "POST",
-		data : 'courseId=' + course_id,
 		datatype : 'json',
 		success : function(data) {
 			if (data.status == 'success') {

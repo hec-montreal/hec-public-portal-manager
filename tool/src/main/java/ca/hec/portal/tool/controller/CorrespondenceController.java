@@ -6,8 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+
+
 
 import lombok.Getter;
 import lombok.Setter;
@@ -18,7 +18,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import ca.hec.portal.logic.SakaiProxy;
 import ca.hec.portal.model.Correspondence;
@@ -42,11 +43,7 @@ public class CorrespondenceController {
      * Called whenever a user press the "Save" button of the form.
      */
     @RequestMapping(value = "/saveCorrespondence.json", method = RequestMethod.POST)
-    public ModelAndView saveCorrespondence(HttpServletRequest request,
-	    HttpServletResponse response) throws Exception {
-
-	String courseId = request.getParameter("courseId");
-	String courseSection = request.getParameter("courseSection");
+    public @ResponseBody Map<String, String> saveCorrespondence(@RequestParam("courseId") String courseId, @RequestParam("courseSection") String courseSection) throws Exception {
 
 	String returnStatus = null;
 
@@ -61,15 +58,14 @@ public class CorrespondenceController {
 	Map<String, String> model = new HashMap<String, String>();
 	model.put("status", returnStatus);
 
-	return new ModelAndView("jsonView", model);
+	return  model;
     }
 
     /*
      * Called at the initialisation of the Correspondence table.
      */
-    @RequestMapping(value = "/listCorrespondences.json")
-    public ModelAndView listCatalogDescription(HttpServletRequest request,
-	    HttpServletResponse response) throws Exception {
+    @RequestMapping(value = "/listCorrespondences.json", method= RequestMethod.GET)
+    public @ResponseBody Map<String, Object> listCatalogDescription() throws Exception {
 
 	List<Correspondence> listCorrespondence = null;
 	String returnStatus = null;
@@ -100,17 +96,14 @@ public class CorrespondenceController {
 
 	model.put("status", returnStatus);
 
-	return new ModelAndView("jsonView", model);
+	return model;
     }
 
     /*
      * Called whenever a user press the "Delete" button of a table row.
      */
-    @RequestMapping(value = "/deleteCorrespondence.json")
-    public ModelAndView getCatalogDescription(HttpServletRequest request,
-	    HttpServletResponse response) throws Exception {
-
-	String courseId = request.getParameter("courseId");
+    @RequestMapping(value = "/deleteCorrespondence.json", method = RequestMethod.POST)
+    public Map<String, String> getCatalogDescription(@RequestParam("courseId") String courseId ) throws Exception {
 
 	String returnStatus = null;
 
@@ -125,6 +118,6 @@ public class CorrespondenceController {
 	Map<String, String> model = new HashMap<String, String>();
 	model.put("status", returnStatus);
 
-	return new ModelAndView("jsonView", model);
+	return  model;
     }
 }

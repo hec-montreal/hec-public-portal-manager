@@ -1,8 +1,8 @@
-var delete_success_message = "La suppression a �t� effectu�";
-var delete_failure_message = "La suppression a �chou�";
-var save_success_message = "La correspondence a bien �t� sauvegard�e";
+var delete_success_message = "La suppression a &eacute;t&eacute; effectu&eacute;";
+var delete_failure_message = "La suppression a &eacute;chou&eacute;";
+var save_success_message = "La correspondence a bien &eacute;t&eacute; sauvegard&eacute;e";
 var save_failure_message = "Une erreur s'est produite lors de la sauvegarde de la correspondence";
-var server_error_message = "Une erreur interne s'est produite durant la derni�re op�ration";
+var server_error_message = "Une erreur interne s'est produite durant la derni&egrave;re op&eacute;ration";
 var confirm_delete_message = "Voulez-vous vraiment supprimer la correspondence";
 var fade_out_delay = 2000;
 

@@ -103,7 +103,7 @@ public class CorrespondenceController {
      * Called whenever a user press the "Delete" button of a table row.
      */
     @RequestMapping(value = "/deleteCorrespondence.json", method = RequestMethod.POST)
-    public Map<String, String> getCatalogDescription(@RequestParam("courseId") String courseId ) throws Exception {
+    public @ResponseBody Map<String, String> getCatalogDescription(@RequestParam("courseId") String courseId ) throws Exception {
 
 	String returnStatus = null;
 

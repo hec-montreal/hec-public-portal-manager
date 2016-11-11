@@ -14,7 +14,7 @@ function resetForm() {
 /* Save a course correspondence */
 function saveCorrespondence(course_id, course_section) {
 	$.ajax({
-		url : 'saveCorrespondence.json?'+'courseId=' + course_id.toUpperCase() + '&courseSection=' + course_section.toUpperCase(),
+		url : 'saveCorrespondence.json?'+'courseId=' + course_id.toUpperCase().trim() + '&courseSection=' + course_section.toUpperCase().trim(),
 		type : "POST",
 		datatype : 'json',
 		success : function(data) {

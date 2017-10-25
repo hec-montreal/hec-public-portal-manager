@@ -46,8 +46,8 @@ public class PortalManagerEntityProviderImpl extends AbstractEntityProvider
 
 	@EntityCustomAction(action = "getOfficialCourseDescription", viewKey = EntityView.VIEW_LIST)
 	public Object getOfficialCourseDescription(EntityView view, Map<String, Object> params) {
-		String courseId = view.getPathSegment(2);
-		return officialCourseDescriptionService.getOfficialCourseDescription(courseId);
+		String courseId = (String)params.get("courseId");
+		return simplifyOfficialCourseDescription(officialCourseDescriptionService.getOfficialCourseDescription(courseId));
 	}
 
 	@EntityCustomAction(action = "getOfficialCourseDescriptions", viewKey = EntityView.VIEW_LIST)

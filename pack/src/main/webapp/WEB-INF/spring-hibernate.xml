@@ -15,6 +15,7 @@
 		<property name="mappingResources">
 			<list>
 				<value>ca/hec/portal/hbm/Correspondence.hbm.xml</value>
+				<value>ca/hec/portal/hbm/OfficialCourseDescription.hbm.xml</value>
 			</list>
 		</property>
 	</bean>	
@@ -44,4 +45,34 @@
 			init-method="init"
 			>
  		<property name="correspondenceDao" ref="ca.hec.portal.api.CorrespondenceDao"/>
-	</bean></beans>
+	</bean>
+
+	<bean id="ca.hec.portal.api.OfficialCourseDescriptionDao"
+		  class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="transactionManager" ref="org.sakaiproject.springframework.orm.hibernate.GlobalTransactionManager" />
+		<property name="target">
+			<bean class="ca.hec.portal.dao.impl.OfficialCourseDescriptionDaoImpl">
+				<property name="sessionFactory">
+					<ref bean="org.sakaiproject.springframework.orm.hibernate.GlobalSessionFactory" />
+				</property>
+				<property name="stopWordList" ref="ca.hec.portal.util.Stopwords" />
+			</bean>
+		</property>
+		<property name="transactionAttributes">
+			<props>
+				<prop key="*">PROPAGATION_REQUIRED</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="ca.hec.portal.util.Stopwords"
+		  class="ca.hec.portal.util.Stopwords">
+	</bean>
+
+	<!--  create a CorrespondenceService bean, give it the dao from above -->
+	<bean id="ca.hec.portal.api.OfficialCourseDescriptionService"
+		  class="ca.hec.portal.impl.OfficialCourseDescriptionServiceImpl"
+		  init-method="init">
+		<property name="officialCourseDescriptionDao" ref="ca.hec.portal.api.OfficialCourseDescriptionDao"/>
+	</bean>
+</beans>

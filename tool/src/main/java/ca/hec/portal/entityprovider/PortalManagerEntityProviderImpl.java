@@ -47,6 +47,10 @@ public class PortalManagerEntityProviderImpl extends AbstractEntityProvider
 	@EntityCustomAction(action = "getOfficialCourseDescription", viewKey = EntityView.VIEW_LIST)
 	public Object getOfficialCourseDescription(EntityView view, Map<String, Object> params) {
 		String courseId = (String)params.get("courseId");
+		//remove -
+		if (courseId.contains("-"))
+			courseId = courseId.replace("-","");
+
 		return simplifyOfficialCourseDescription(officialCourseDescriptionService.getOfficialCourseDescription(courseId));
 	}
 

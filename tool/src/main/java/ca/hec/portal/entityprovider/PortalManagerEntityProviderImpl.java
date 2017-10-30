@@ -51,7 +51,12 @@ public class PortalManagerEntityProviderImpl extends AbstractEntityProvider
 		if (courseId.contains("-"))
 			courseId = courseId.replace("-","");
 
-		return simplifyOfficialCourseDescription(officialCourseDescriptionService.getOfficialCourseDescription(courseId));
+		OfficialCourseDescription ocd = officialCourseDescriptionService.getOfficialCourseDescription(courseId);
+
+		if (ocd == null)
+			return null;
+		else
+		return simplifyOfficialCourseDescription(ocd);
 	}
 
 	@EntityCustomAction(action = "getOfficialCourseDescriptions", viewKey = EntityView.VIEW_LIST)

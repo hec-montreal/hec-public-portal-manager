@@ -68,10 +68,5 @@
 	<build>
 		<!-- configure the build to use the standard maven structure -->
 		<sourceDirectory>src/main/java</sourceDirectory>
-		<resources>
-			<resource>
-				<directory>src/main/ressources</directory>
-			</resource>
-		</resources>
 	</build>
 </project>

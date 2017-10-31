@@ -1,9 +1,17 @@
 package ca.hec.portal.tool.controller;
 
-import ca.hec.portal.logic.SakaiProxy;
-import ca.hec.portal.model.Correspondence;
+import java.text.DateFormat;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+
+
+
 import lombok.Getter;
 import lombok.Setter;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,11 +21,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.text.DateFormat;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import ca.hec.portal.logic.SakaiProxy;
+import ca.hec.portal.model.Correspondence;
 
 /**
  * Controller that handle ajax calls made by the Portal Manager front end
@@ -60,7 +65,7 @@ public class CorrespondenceController {
      * Called at the initialisation of the Correspondence table.
      */
     @RequestMapping(value = "/listCorrespondences.json", method= RequestMethod.GET)
-    public @ResponseBody Map<String, Object> listOfficialCourseDescription() throws Exception {
+    public @ResponseBody Map<String, Object> listCatalogDescription() throws Exception {
 
 	List<Correspondence> listCorrespondence = null;
 	String returnStatus = null;
@@ -98,7 +103,7 @@ public class CorrespondenceController {
      * Called whenever a user press the "Delete" button of a table row.
      */
     @RequestMapping(value = "/deleteCorrespondence.json", method = RequestMethod.POST)
-    public @ResponseBody Map<String, String> getOfficialCourseDescription(@RequestParam("courseId") String courseId ) throws Exception {
+    public @ResponseBody Map<String, String> getCatalogDescription(@RequestParam("courseId") String courseId ) throws Exception {
 
 	String returnStatus = null;
 

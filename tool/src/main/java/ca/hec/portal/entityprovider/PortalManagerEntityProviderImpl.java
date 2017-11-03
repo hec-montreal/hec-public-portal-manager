@@ -131,7 +131,11 @@ public class PortalManagerEntityProviderImpl extends AbstractEntityProvider
 		scd.setCourseId(cd.getCourseId());
 		scd.setHyphenatedCourseId(FormatUtils.formatCourseId(cd.getCourseId()));
 		scd.setCredits("" + cd.getCredits());
-
+		scd.setShortDescription(cd.getShortDescription());
+		if (cd.getThemes() != null)
+			scd.setThemes(cd.getThemes().replace("\n", "</br>") );
+		else
+			scd.setThemes(cd.getThemes());
 		String lang = cd.getLanguage();
 		if (lang != null)
 			scd.setLang(lang.substring(0, 2));

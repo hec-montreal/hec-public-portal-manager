@@ -21,6 +21,8 @@ public class SimpleOfficialCourseDescription implements
     private String lang;
     private String departmentGroup;
     private String careerGroup;
+    private String shortDescription;
+    private String themes;
 
     // When we sort catalog descriptions we do it according to the session #,
     // course # and year (we get it from courseId parameter)

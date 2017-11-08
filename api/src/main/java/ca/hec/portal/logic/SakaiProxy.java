@@ -17,7 +17,7 @@ public interface SakaiProxy {
      * description. (Same course id, from a session that has been completed, and
      * with a published OpenSyllabus course outline)
      * 
-     * @param catalogDescriptionId the id of the catalog description
+     * @param officialCourseDescriptionId the id of the catalog description
      * @return the title of the most recently created course offering (that has
      *         been published)
      * @throws Exception 

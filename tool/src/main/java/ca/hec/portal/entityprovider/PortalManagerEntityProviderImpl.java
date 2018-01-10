@@ -124,14 +124,20 @@ public class PortalManagerEntityProviderImpl extends AbstractEntityProvider
 		SimpleOfficialCourseDescription scd = new SimpleOfficialCourseDescription();
 
 		scd.setTitle(cd.getTitle());
-		scd.setDescription(cd.getDescription());
+		if (cd.getDescription() != null)
+			scd.setDescription(cd.getDescription().replace("\n", "</br>") );
+		else
+			scd.setDescription(cd.getDescription());
 		scd.setDepartmentGroup(portalManagerService.getDepartmentGroup(cd.getDepartment()));
 		scd.setCareerGroup(portalManagerService.getCareerGroup(cd.getCareer()));
 		scd.setRequirements(cd.getRequirements());
 		scd.setCourseId(cd.getCourseId());
 		scd.setHyphenatedCourseId(FormatUtils.formatCourseId(cd.getCourseId()));
 		scd.setCredits("" + cd.getCredits());
-		scd.setShortDescription(cd.getShortDescription());
+		if (cd.getShortDescription() != null)
+			scd.setShortDescription(cd.getShortDescription().replace("\n", "</br>") );
+		else
+			scd.setShortDescription(cd.getShortDescription());
 		if (cd.getThemes() != null)
 			scd.setThemes(cd.getThemes().replace("\n", "</br>") );
 		else

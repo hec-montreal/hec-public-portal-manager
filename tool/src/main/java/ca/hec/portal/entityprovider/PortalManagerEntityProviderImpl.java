@@ -168,57 +168,6 @@ public class PortalManagerEntityProviderImpl extends AbstractEntityProvider
 	return portalManagerService.getBundle(locale);
     }
 
-    @EntityCustomAction(action = "public_syllabus", viewKey = EntityView.VIEW_SHOW)
-    public Object getPublicSyllabus(EntityView view) {
-	String courseId = view.getPathSegment(1);
-
-	// check that courseid is supplied
-	if (StringUtils.isBlank(courseId)) {
-	    throw new IllegalArgumentException(
-		    "CourseId must be set in order to get public course outline via the URL /portalManager/:ID:/public_syllabus");
-	}
-
-	String site_id = null;
-	try {
-	    site_id = sakaiProxy.getAssociatedCourseSiteId(courseId);
-	} catch (Exception e) {
-	    e.printStackTrace();
-	}
-	
-	if (site_id == null)
-	    throw new EntityNotFoundException("No public course outline available", courseId);
-
-	if (view.getFormat().equals(Formats.HTML)) {
-	    String html = sakaiProxy.getCourseOutlineHTML(site_id);
-	    
-	    if (html != null)
-		return html;
-	    else
-		throw new EntityNotFoundException("No public course outline available", courseId);
-	}
-	else if (view.getFormat().equals(Formats.JSON)){
-	    Map<String, String> courseInfo = new HashMap<String, String>();
-	    String pdf_url = "";
-
-	    // if there is only one '.' it is a shareable course site OR
-	    // the string following the last '.' is P1 - P9 (it's a shareable from MBA)
-	    Boolean shareable = 
-		    (site_id.indexOf('.') == site_id.lastIndexOf('.') ||
-		    site_id.substring(site_id.lastIndexOf('.')+1).matches("P[1-9]"));
-	    
-	    if (site_id != "") {
-		pdf_url = "/sdata/c/attachment/" + site_id + "/OpenSyllabus/" + 
-			site_id + (shareable ? ".00" : "") + "_public.pdf";
-	    }
-		
-	    courseInfo.put("site_id", site_id);	
-	    courseInfo.put("pdf_url", pdf_url);
-
-	    return courseInfo;
-	}
-	else throw new FormatUnsupportedException("", site_id, view.getFormat());
-    }
-
     public String getEntityPrefix() {
 	return ENTITY_PREFIX;
     }
